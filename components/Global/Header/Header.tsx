@@ -200,7 +200,7 @@ const Header = () => {
       </header>
 
       {/* Add padding to account for fixed header */}
-      <div className="pt-[60px] lg:pt-[70px]">{/* Main content goes here */}</div>
+      <div className="pt-[60px] lg:pt-[70px] ">{/* Main content goes here */}</div>
 
       {/* Search Bar UI with slide-down animation */}
       <div
@@ -210,7 +210,7 @@ const Header = () => {
         ref={searchRef}
       >
         <div className="relative w-full bg-white border-b border-gray-200 transform transition-transform duration-300 ease-out">
-          <div className="flex items-center h-[160px] px-6 md:px-10 border-y border-black border-solid">
+          <div className="flex items-center h-[160px] px-6 md:px-10 border-y border-black border-solid px-2 py-3 lg:px-5">
             <button
               className="mr-4 text-black hover:text-gray-900 transition-colors"
               aria-label="Close search"
@@ -224,7 +224,7 @@ const Header = () => {
               placeholder="WHAT ARE YOU LOOKING FOR?"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1 text-2xl md:text-3xl lg:text-4xl font-light text-black placeholder-gray-300 bg-transparent border-none outline-none"
+              className="flex-1 text-2xl md:text-3xl lg:text-4xl font-light text-black placeholder-gray-300 bg-transparent border-none outline-none uppercase"
               autoFocus={isSearchVisible}
             />
 

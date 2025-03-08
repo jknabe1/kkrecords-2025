@@ -184,7 +184,7 @@ export default function ArtistSection() {
                             <div className="bg-white text-black px-2 py-1 inline-block">
                                 <span className="text-[--vividGreen]">■</span> ARTIST
                             </div>
-                            <div className="bg-white text-black px-2 py-1 inline-block">
+                            <div className="bg-white text-black px-2 py-1 inline-block uppercase">
                                 {artist.name}
                             </div>
                         </div>
@@ -215,7 +215,7 @@ export default function ArtistSection() {
                             <div className="bg-white text-black px-2 py-1 inline-block">
                                 <span className="text-[--vividGreen]">■</span> ARTIST
                             </div>
-                            <div className="bg-white text-black px-2 py-1 inline-block">
+                            <div className="bg-white text-black px-2 py-1 inline-block uppercase">
                                 {artist.name}
                             </div>
                         </div>
