@@ -110,37 +110,6 @@ export default function DynamicSlider({ items, itemType }: SliderProps) {
               </Link>
             </div>
           </div>
-
-          {/* Navigation Arrows */}
-          {loaded && instanceRef.current && (
-            <>
-              {currentSlide > 0 && (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    instanceRef.current?.prev();
-                  }}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-[--vividGreen] w-12 h-12 flex items-center justify-center transition-transform hover:scale-110"
-                  aria-label="Previous slide"
-                >
-                  <span className="w-6 h-6 text-white">{"<"}</span>
-                </button>
-              )}
-
-              {currentSlide < (instanceRef.current.track.details.slides.length - instanceRef.current.options.slides?.perView || 1) && (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    instanceRef.current?.next();
-                  }}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-[--vividGreen] w-12 h-12 flex items-center justify-center transition-transform hover:scale-110"
-                  aria-label="Next slide"
-                >
-                  <span className="w-6 h-6 text-white">{">"}</span>
-                </button>
-              )}
-            </>
-          )}
         </div>
       </section>
     </div>

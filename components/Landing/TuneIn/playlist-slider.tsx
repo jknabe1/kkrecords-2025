@@ -68,10 +68,10 @@ export default function PlaylistSlider({
                       <div className="bg-white text-black text-xs px-2 py-1 inline-block">
                         <span className="text-[--vividGreen]">■</span> TUNE-IN
                       </div>
-                      <div className="bg-white text-black text-sm px-2 py-1 inline-block">
+                      <div className="bg-white text-black text-sm px-2 py-1 inline-block uppercase">
                         Skapad av: {playlist.creator}
                       </div>
-                      <div className="bg-white text-black text-xs px-2 py-1 inline-block">Namn: {playlist.name}</div>
+                      <div className="bg-white text-black text-xs px-2 py-1 inline-block uppercase">Namn: {playlist.name}</div>
                     </div>
                   </div>
                 </div>
@@ -95,43 +95,6 @@ export default function PlaylistSlider({
             </Link>
           </div>
         </div>
-
-        {/* Navigation Arrows */}
-        {loaded && instanceRef.current && (
-          <>
-            {/* Left Arrow */}
-            {currentSlide > 0 && (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation()
-                  instanceRef.current?.prev()
-                }}
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-[--vividGreen] w-12 h-12 flex items-center justify-center transition-transform hover:scale-110"
-                aria-label="Previous slide"
-              >
-                <span className="w-6 h-6 text-white" />
-              </button>
-            )}
-
-            {/* Right Arrow */}
-            {currentSlide <
-              instanceRef.current.track.details.slides.length -
-                (typeof instanceRef.current.options.slides === "object" && instanceRef.current.options.slides?.perView
-                  ? instanceRef.current.options.slides.perView
-                  : 1) && (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation()
-                  instanceRef.current?.next()
-                }}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-[--vividGreen] w-12 h-12 flex items-center justify-center transition-transform hover:scale-110"
-                aria-label="Next slide"
-              >
-                <span className="w-6 h-6 text-white" />
-              </button>
-            )}
-          </>
-        )}
       </div>
     </section>
     </div>

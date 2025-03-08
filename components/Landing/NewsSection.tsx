@@ -61,15 +61,14 @@ export default function NewsSection() {
                   width="1536" 
                   height="1920" 
                   className="h-full w-full object-cover" 
-                  sizes="100vw" 
                 />
                   <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-transparent to-gray-950/50 p-5">
                   <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
-                    <div className="bg-white text-black text-xs px-2 py-1 inline-block">
-                      <span className="text-[--vividGreen] capitalize">■</span> EDITS
+                    <div className="bg-white text-black text-xs px-2 py-1 inline-block uppercase">
+                      <span className="text-[--vividGreen] uppercase">■</span> EDITS
                     </div>
-                    <div className="bg-white text-black text-sm px-2 py-1 inline-block capitalize">{article.name}</div>
-                    <div className="bg-white text-black text-xs px-2 py-1 inline-block capitalize">{new Date(article.publishedAt).toLocaleDateString()}</div>
+                    <div className="bg-white text-black text-sm px-2 py-1 inline-block uppercase">{article.name}</div>
+                    <div className="bg-white text-black text-xs px-2 py-1 inline-block">{new Date(article.publishedAt).toLocaleDateString()}</div>
                   </div>
                     </div>
                   </div>
@@ -78,7 +77,7 @@ export default function NewsSection() {
         ))}
               {news.slice(1, 3).map((article) => (
               <div key={article._id} className="">
-                <Link href={`/news/${article.slug.current}`} className="group block">
+                <Link href={`edits${article.slug.current}`} className="group block">
                   <div className="noise relative aspect-[4/5] lg:aspect-[6/5]">
                   <Image 
                   alt={article.name}
@@ -93,8 +92,8 @@ export default function NewsSection() {
                     <div className="bg-white text-black text-xs px-2 py-1 inline-block">
                       <span className="text-[--vividGreen]">■</span> EDITS
                     </div>
-                    <div className="bg-white text-black text-sm px-2 py-1 inline-block capitalize">{article.name}</div>
-                    <div className="bg-white text-black text-xs px-2 py-1 inline-block capitalize">{new Date(article.publishedAt).toLocaleDateString()}</div>
+                    <div className="bg-white text-black text-sm px-2 py-1 inline-block uppercase">{article.name}</div>
+                    <div className="bg-white text-black text-xs px-2 py-1 inline-block">{new Date(article.publishedAt).toLocaleDateString()}</div>
                   </div>
                 </div>
               </div>

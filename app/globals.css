@@ -4824,7 +4824,7 @@ input.cursor-loading,input.cursor-loading *,input.cursor-wait,input.cursor-wait 
   min-height: 100%;
   overflow: hidden;
   position: relative;
-  width: 100%
+  width: 100%;
 }
 
 .keen-slider:not([data-keen-slider-disabled])[data-keen-slider-reverse] {
