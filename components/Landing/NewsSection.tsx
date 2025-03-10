@@ -52,7 +52,7 @@ export default function NewsSection() {
         <div className="grid gap-5 lg:grid-cols-3">
         {news.slice(0, 1).map((article) => (
           <div key={article._id} className="lg:col-span-3">
-            <a className="group block" href="">
+            <Link className="group block" href={`edits/${article.slug.current}`} >
               <div className="noise relative aspect-[4/5] lg:aspect-[12/5]">
                 <Image 
                   src={urlFor(article.image)}
@@ -72,12 +72,12 @@ export default function NewsSection() {
                   </div>
                     </div>
                   </div>
-                </a>
+                </Link>
               </div>
         ))}
               {news.slice(1, 3).map((article) => (
               <div key={article._id} className="">
-                <Link href={`edits${article.slug.current}`} className="group block">
+                <Link href={`edits/${article.slug.current}`} className="group block">
                   <div className="noise relative aspect-[4/5] lg:aspect-[6/5]">
                   <Image 
                   alt={article.name}
