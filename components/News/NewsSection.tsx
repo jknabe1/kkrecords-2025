@@ -41,7 +41,7 @@ export default function ArtistsList({ initialArtists }: ArtistsListProps) {
             <div className="col-span-12 lg:col-span-6 grid-col-border">
               <ul className="flex flex-col gap-px">
                 {initialArtists.map((artist) => (
-                  <Link key={artist._id} href={`/artists/${artist.slug.current}`}>
+                  <Link key={artist._id} href={`/edits/${artist.slug.current}`}>
                     <li 
                       className="grid-col-border p-2 lg:p-4"
                       onMouseEnter={() => setSelectedArtist(artist)}
@@ -49,6 +49,11 @@ export default function ArtistsList({ initialArtists }: ArtistsListProps) {
                       <h2 className="text-sans-35 lg:text-sans-60 font-600 mb-1 lg:mb-3 uppercase">
                         {artist.name}
                       </h2>
+                      <div className="rich-text text-sans-22 lg:text-sans-30 rich-text-light line-break">
+                            <p>
+                                {new Date(artist.publishedAt).toISOString().split('T')[0]}
+                            </p>
+                        </div>
                     </li>
                   </Link>
                 ))}
@@ -57,7 +62,7 @@ export default function ArtistsList({ initialArtists }: ArtistsListProps) {
                       className="grid-col-border p-2 lg:p-4"
                     >
                       <h2 className="italic text-sans-35 lg:text-sans-60 font-600 mb-1 lg:mb-3">
-                        Du eller ditt band?
+                        Ladda mer
                       </h2>
                     </li>
                   </Link>

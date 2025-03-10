@@ -24,7 +24,7 @@ export function urlFor(source: any) {
   return builder.image(source);
 }
 
-const ARTISTS_QUERY = `*[_type == "artist" && defined(slug.current)]{_id, name, slug, date, image}|order(date desc)`;
+const ARTISTS_QUERY = `*[_type == "artist" && defined(slug.current)]{_id, name, slug, date, image}|order(name asc)`;
 
 export default async function Page() {
   const sanityArtists = await client.fetch<SanityDocument[]>(ARTISTS_QUERY);
