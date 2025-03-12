@@ -35,13 +35,13 @@ export default async function BlogArticle(props: { params: { slug: string } }) {
   return (
     <div>
       <section className="relative">
-         <section className="relative h-[600px] md:h-[700px] overflow-hidden">
+         <section className="noise relative aspect-[4/5] lg:aspect-[12/5]">
           <Image
             alt={news.name}
             src={urlFor(news.image).url()}
             width={1920}
             height={700}
-            className="absolute inset-0 object-cover w-full h-full noise"
+            className="absolute inset-0 object-cover w-full h-full"
             priority
           />
           <div className="absolute top-4 z-5 flex flex-col items-start gap-1 px-2 py-3 lg:px-5">
@@ -53,10 +53,12 @@ export default async function BlogArticle(props: { params: { slug: string } }) {
             </div>
           </div>
          </section>
-         <section className="container px-2 py-3 lg:px-5 text-center">
+         <section className="max-w-3xl mx-auto p-6 text-black">
           <h1 className="text-sans-35 lg:text-sans-60 font-600">{news.name}</h1>
+          <div className='mt-6'>
           <PortableText value={news.details} />
-        </section>
+          </div>
+          </section>
       </section>
     </div>
   )

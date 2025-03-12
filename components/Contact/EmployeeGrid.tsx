@@ -1,78 +1,64 @@
-import Image from "next/image"
-import Link from "next/link"
+"use client"
 
-export default function EmployeeGrid() {
-  const products = [
-    {
-      category: "IN FOCUS",
-      brand: "ASICS SPORTSTYLE →",
-      subTitle: "KIKO CURATION",
-      image: "https://images.ctfassets.net/j4v3qb06e2ew/5hQycuTNeCwQh31zNhlirT/ecc8838eae2535b12945619f96609f2a/ASICS-SportStyle-Kiko-Curation-Sneakersnstuff-web.jpg?w=1920&fm=webp",
-      href: "/asics",
-    },
-    {
-      category: "NEW ARRIVALS",
-      brand: "SALOMON →",
-      subTitle: "GR10K X SALOMON QUEST LOW 2",
-      image: "https://images.ctfassets.net/j4v3qb06e2ew/1pusQ4cCPKDXAFcc18qeF5/4c27bde409302601f568dc747d9d502e/adidas-Originals-Taekwondo-Sneakersnstuff-website.jpg?w=1920&fm=webp",
-      href: "/salomon",
-    },
-    {
-      category: "IN FOCUS",
-      brand: "ADIDAS →",
-      subTitle: "WMNS TAEKWONDO",
-      image: "https://images.ctfassets.net/j4v3qb06e2ew/1pusQ4cCPKDXAFcc18qeF5/4c27bde409302601f568dc747d9d502e/adidas-Originals-Taekwondo-Sneakersnstuff-website.jpg?w=1920&fm=webp",
-      href: "/adidas",
-    },
-    {
-      category: "IN FOCUS",
-      brand: "ASICS SPORTSTYLE →",
-      subTitle: "KIKO CURATION",
-      image: "https://images.ctfassets.net/j4v3qb06e2ew/5hQycuTNeCwQh31zNhlirT/ecc8838eae2535b12945619f96609f2a/ASICS-SportStyle-Kiko-Curation-Sneakersnstuff-web.jpg?w=1920&fm=webp",
-      href: "/asics",
-    },
-    {
-      category: "NEW ARRIVALS",
-      brand: "SALOMON →",
-      subTitle: "GR10K X SALOMON QUEST LOW 2",
-      image: "https://images.ctfassets.net/j4v3qb06e2ew/1pusQ4cCPKDXAFcc18qeF5/4c27bde409302601f568dc747d9d502e/adidas-Originals-Taekwondo-Sneakersnstuff-website.jpg?w=1920&fm=webp",
-      href: "/salomon",
-    },
-    {
-      category: "IN FOCUS",
-      brand: "ADIDAS →",
-      subTitle: "WMNS TAEKWONDO",
-      image: "https://images.ctfassets.net/j4v3qb06e2ew/1pusQ4cCPKDXAFcc18qeF5/4c27bde409302601f568dc747d9d502e/adidas-Originals-Taekwondo-Sneakersnstuff-website.jpg?w=1920&fm=webp",
-      href: "/adidas",
-    },
-  ]
+import React, { useEffect, useState } from 'react'
+import imageUrlBuilder from '@sanity/image-url'
+import { client } from '@/sanity/client'
+import Link from 'next/link'
+import Image from 'next/image'
+
+
+const builder = imageUrlBuilder(client)
+
+function urlFor(source: any) {
+  return builder.image(source)
+}
+
+const EmployeeGrid = () => {
+
+
+  const [teams, setteams] = useState([])
+
+  useEffect(() => {
+    const fetchteams = async () => {
+      try {
+        const data = await client.fetch('*[_type == "team"]');
+        setteams(data);
+      } catch (error) {
+        console.error('Error fetching teams:', error);
+      }
+    };
+  
+    fetchteams();
+  }, []);
+
 
   return (
-    <main className="grid grid-cols-1 md:grid-cols-3 min-h-screen">
-      {products.map((product, index) => (
+    <main className="grid grid-cols-1 md:grid-cols-3 gap-5 px-2 py-3 lg:px-5">
+            {teams && teams.map((team: { _id: string, name: string, image: any, email: string, roll: string }) => (        
         <Link
-          key={index}
-          href={product.href}
+          key={team._id}
+          href={`mailto:${team.email}`}
           className="relative group overflow-hidden border-b md:border-b-0 md:border-r last:border-b-0 last:md:border-r-0 border-gray-200"
         >
           {/* Category Label */}
           <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
-            <div className="bg-white text-black text-xs px-2 py-1 inline-block">
-              <span className="text-green-500">■</span> {product.category}
+            <div className="bg-white text-black px-2 py-1 inline-block">
+              <span className="text-[--vividGreen]">■</span> {team.name}
             </div>
-            <div className="bg-white text-black text-sm px-2 py-1 inline-block">{product.brand}</div>
-            <div className="bg-white text-black text-xs px-2 py-1 inline-block">{product.subTitle}</div>
+            <div className="bg-white text-black px-2 py-1 inline-block">{team.roll || ""}</div>
+            <div className="bg-white text-black px-2 py-1 inline-block hover:text-[vividGreen] hover:underline">{team.email}</div>
           </div>
 
           {/* Image */}
-          <div className="h-[50vh] md:h-screen">
+          <div className="noise relative aspect-[4/5] lg:aspect-[6/5] border border-black border-solid">
             <Image
-              src={product.image || "/placeholder.svg"}
-              alt={product.brand}
-              width={800}
-              height={1200}
-              className="object-cover h-full w-full transition-transform duration-500 group-hover:scale-105"
-              priority={index === 0}
+              src={team.image && urlFor(team.image).url() || ""}
+              alt={team.name}
+              loading="lazy"
+              width="1536"
+              height="1920"
+              className="h-full w-full object-cover border-solid border-black transition-transform duration-500 group-hover:scale-105"
+              sizes="50vw"
             />
           </div>
         </Link>
@@ -81,3 +67,4 @@ export default function EmployeeGrid() {
   )
 }
 
+export default EmployeeGrid

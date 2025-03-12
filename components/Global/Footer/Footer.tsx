@@ -22,22 +22,16 @@ export default function Footer() {
                                                 <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="FAQ" aria-label="FAQ" href="/info/faq">FAQ</a>
                                             </li>
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="SHIPPING &amp; RETURNS" aria-label="SHIPPING &amp; RETURNS" href="/shipping-and-returns">SHIPPING &amp; RETURNS</a>
+                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="CONTACT" aria-label="CONTACT" href="/info/contact">CONTACT</a>
                                             </li>
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="CONTACT" aria-label="CONTACT" href="/contact">CONTACT</a>
+                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="integritet" aria-label="integritet" href="/info/integritet">integritet</a>
                                             </li>
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="POLICIES" aria-label="POLICIES" href="/policies">POLICIES</a>
+                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="ACCESSIBILITY" aria-label="ACCESSIBILITY" href="/info/accessibility">ACCESSIBILITY</a>
                                             </li>
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="ACCESSIBILITY" aria-label="ACCESSIBILITY" href="/accessibility">ACCESSIBILITY</a>
-                                            </li>
-                                            <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Corporate Gifting" aria-label="Corporate Gifting" href="/corporate-gifting">Corporate Gifting</a>
-                                            </li>
-                                            <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="My Account " aria-label="My Account " href="https://shop.dsanddurga.com/account">My Account </a>
+                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Backstage" aria-label="Backstage" href="/backstage">My Account </a>
                                             </li>
                                         </ul>
                                     </div>
@@ -58,22 +52,16 @@ export default function Footer() {
                                                 <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="FAQ" aria-label="FAQ" href="/info/faq">FAQ</a>
                                             </li>
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="SHIPPING &amp; RETURNS" aria-label="SHIPPING &amp; RETURNS" href="/shipping-and-returns">SHIPPING &amp; RETURNS</a>
+                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="CONTACT" aria-label="CONTACT" href="/info/contact">CONTACT</a>
                                             </li>
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="CONTACT" aria-label="CONTACT" href="/contact">CONTACT</a>
+                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="integritet" aria-label="integritet" href="/info/integritet">integritet</a>
                                             </li>
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="POLICIES" aria-label="POLICIES" href="/policies">POLICIES</a>
+                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="ACCESSIBILITY" aria-label="ACCESSIBILITY" href="/info/accessibility">ACCESSIBILITY</a>
                                             </li>
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="ACCESSIBILITY" aria-label="ACCESSIBILITY" href="/accessibility">ACCESSIBILITY</a>
-                                            </li>
-                                            <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Corporate Gifting" aria-label="Corporate Gifting" href="/corporate-gifting">Corporate Gifting</a>
-                                            </li>
-                                            <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="My Account " aria-label="My Account " href="https://shop.dsanddurga.com/account">My Account </a>
+                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left"  title="Backstage" aria-label="Backstage" href="/backstage">My Account </a>
                                             </li>
                                         </ul>
                                     </div>
@@ -165,22 +153,16 @@ export default function Footer() {
                                     <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="FAQ" aria-label="FAQ" href="/info/faq">FAQ</a>
                                 </li>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="SHIPPING &amp; RETURNS" aria-label="SHIPPING &amp; RETURNS" href="/shipping-and-returns">SHIPPING &amp; RETURNS</a>
+                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="CONTACT" aria-label="CONTACT" href="/info/kontakta-oss">Kontakta oss</a>
                                 </li>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="CONTACT" aria-label="CONTACT" href="/info/kontakta-oss">CONTACT</a>
+                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="integritet" aria-label="integritet" href="/info/integritet">integritet</a>
                                 </li>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="POLICIES" aria-label="POLICIES" href="/policies">POLICIES</a>
+                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="ACCESSIBILITY" aria-label="ACCESSIBILITY" href="/info/accessibility">ACCESSIBILITY</a>
                                 </li>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="ACCESSIBILITY" aria-label="ACCESSIBILITY" href="/accessibility">ACCESSIBILITY</a>
-                                </li>
-                                <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Corporate Gifting" aria-label="Corporate Gifting" href="/corporate-gifting">Corporate Gifting</a>
-                                </li>
-                                <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="My Account " aria-label="My Account " href="https://shop.dsanddurga.com/account">My Account </a>
+                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Backstage" aria-label="Backstage" href="/backstage">My Account </a>
                                 </li>
                             </ul>
                         </div>

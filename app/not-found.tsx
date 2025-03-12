@@ -9,7 +9,7 @@ export default function NotFound() {
                     <div className="col-span-12 lg:col-span-6 grid-col-border">
                         <ul className="flex flex-col gap-px">
                             <li className="grid-col-border p-2 lg:p-4">
-                                <h2 className="text-sans-30 lg:text-sans-60 xl:text-sans-120 tracking-tighter mb-1 lg:mb-3">404</h2>
+                                <h2 className="text-sans-35 lg:text-sans-60 font-600">404</h2>
                                 <div className="rich-text text-sans-22 lg:text-sans-30 rich-text-light line-break">
                                     <p>Antingen är sidan bortagen, eller så fanns det inget här från början.</p>
                                 </div>

@@ -12,6 +12,7 @@
     "@portabletext/react": "^3.2.1",
     "@sanity/client": "^6.28.2",
     "@sanity/image-url": "^1.1.0",
+    "axios": "^1.8.3",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.5.1",
     "keen-slider": "^6.8.6",

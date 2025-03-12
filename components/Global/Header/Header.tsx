@@ -155,7 +155,7 @@ const Header = () => {
                   </button>
                 </li>
                 <li>
-                  <a className="block px-[7px] lg:pr-0" href="/cart">
+                  <a className="block px-[7px] lg:pr-0" href="/backstage">
                     <div className="h-[70px] flex flex-col justify-center hidden lg:flex">
                       <div className="relative">
                         <div>

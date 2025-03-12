@@ -57,7 +57,7 @@ export default function CookieConsent() {
             <div className="flex flex-col gap-half">
               <h2 className="uppercase text-sans-14 font-800 tracking-wider">We Use Cookies</h2>
               <div className="rich-text text-sans-12">
-                <p>to deliver the best online experience. By using our website, you agree to our use of cookies in accordance with our <Link className="" href="/policies"> Privacy Policy</Link>.</p>
+                <p>to deliver the best online experience. By using our website, you agree to our use of cookies in accordance with our <Link className="" href="/integritet"> Privacy Policy</Link>.</p>
               </div>
             </div>
           </div>
