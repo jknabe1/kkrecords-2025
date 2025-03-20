@@ -55,17 +55,17 @@ export default function CookieConsent() {
         <div className="flex flex-col gap-px">
           <div className="grid-col-border-invert-dark flex flex-col justify-center p-2">
             <div className="flex flex-col gap-half">
-              <h2 className="uppercase text-sans-14 font-800 tracking-wider">We Use Cookies</h2>
+              <h2 className="uppercase text-sans-14 font-800 tracking-wider">Kakor...</h2>
               <div className="rich-text text-sans-12">
-                <p>to deliver the best online experience. By using our website, you agree to our use of cookies in accordance with our <Link className="" href="/integritet"> Privacy Policy</Link>.</p>
+                <p>Vi använder cookies för att förbättra din surfupplevelse, visa personligt anpassade annonser eller innehåll och analysera vår trafik. Genom att klicka på "Acceptera" samtycker du till vår användning av cookies. <Link className="" href="/info/integritet"> Läs mer här</Link>.</p>
               </div>
             </div>
           </div>
-          <div className="">
+          <div>
             <button className="block w-full">
               <div className="flex justify-between items-center p-2">
                 <div className="flex items-baseline gap-1">
-                  <div className="tracking-tighter text-sans-22">Accept</div>
+                  <div className="tracking-tighter text-sans-22">Acceptera</div>
                 </div>
               </div>
             </button>

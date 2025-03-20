@@ -57,7 +57,7 @@ export default function page() {
                                     Vem är ansvarig för de personuppgifter vi samlar in?
                                   </h2>
                                   <p className="text-lg leading-relaxed mt-2">
-                                    <strong>K&K Records</strong>, Org.nr: <em>802541-7935</em>, är
+                                    <strong>Kulturföreningen 019</strong>, Org.nr: <em>802541-7935</em>, är
                                     personuppgiftsansvarig för behandlingen av personuppgifterna.
                                   </p>
                                 </div>
@@ -155,7 +155,7 @@ export default function page() {
                                       www.kkrecords.se
                                     </Link>
                                   </p>
-                                  <p className="mt-4 text-sm text-gray-500">Senast uppdaterad: 2025-03-12</p>
+                                  <p className="mt-4 text-sm text-gray-500">Senast uppdaterad: 2025-03-17</p>
                                 </div>
                               </div>
                             </li>

@@ -5,7 +5,7 @@ export async function POST(req: Request) {
   try {
     const { email } = await req.json();
     if (!email) {
-      return NextResponse.json({ error: "Email is required" }, { status: 400 });
+      return NextResponse.json({ error: "E-post krävs" }, { status: 400 });
     }
 
     const API_KEY = process.env.NEXT_PUBLIC_BREVO_API_KEY;

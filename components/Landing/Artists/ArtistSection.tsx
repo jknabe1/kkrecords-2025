@@ -150,7 +150,7 @@ export default function ArtistSection() {
             {/* Static Slide with Link */}
             <div className="keen-slider__slide">
               <Link href="/artists" className="group block">
-                <div className="noise relative aspect-[4/5] lg:aspect-[6/5] bg-black flex items-center justify-center text-white border border-solid border-black">
+                <div className="relative aspect-[4/5] lg:aspect-[6/5] bg-black flex items-center justify-center text-white border border-solid border-black">
                   <div className="text-center">
                     <h2 className="text-3xl font-bold mb-4">Se fler artister</h2>
                     <p className="text-xl">Upptäck alla våra artister här</p>
@@ -228,7 +228,7 @@ export default function ArtistSection() {
               {/* Static Slide with Link (Visible on Desktop) */}
               <div>
                 <Link href="/artists" className="group block">
-                  <div className="noise relative aspect-[4/5] lg:aspect-[6/5] bg-black flex items-center justify-center text-white border border-solid border-black">
+                  <div className="relative aspect-[4/5] lg:aspect-[6/5] bg-black flex items-center justify-center text-white border border-solid border-black">
                     <div className="text-center">
                       <h2 className="text-3xl font-bold mb-4">Se fler artister</h2>
                       <p className="text-xl">Upptäck alla våra artister här</p>

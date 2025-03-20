@@ -50,17 +50,23 @@ const EmployeeGrid = () => {
           </div>
 
           {/* Image */}
-          <div className="noise relative aspect-[4/5] lg:aspect-[6/5] border border-black border-solid">
-            <Image
-              src={team.image && urlFor(team.image).url() || ""}
+            <div className="noise relative aspect-[4/5] lg:aspect-[6/5] border border-black border-solid">
+            {team.image ? (
+              <Image
+              src={urlFor(team.image).url()}
               alt={team.name}
               loading="lazy"
               width="1536"
               height="1920"
               className="h-full w-full object-cover border-solid border-black transition-transform duration-500 group-hover:scale-105"
               sizes="50vw"
-            />
-          </div>
+              />
+            ) : (
+              <div className="flex items-center justify-center h-full w-full bg-gray-200 text-black">
+              Bild saknas...
+              </div>
+            )}
+            </div>
         </Link>
       ))}
     </main>
