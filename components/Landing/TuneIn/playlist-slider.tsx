@@ -54,13 +54,13 @@ export default function PlaylistSlider({
             <div key={playlist._id} className="keen-slider__slide">
               <Link href={`${playlist.slug.current}`} className="group block h-full" target="_blank" rel="noopener">
                 <div className="noise relative aspect-[4/5] lg:aspect-[6/5]">
-                  <Image
-                    alt={playlist.name}
-                    loading="lazy"
-                    width="1536"
-                    height="1920"
-                    className="h-full w-full object-cover border border-solid border-black transition-transform duration-500 group-hover:scale-105"
-                    sizes="50vw"
+                                  <Image 
+                                  alt={playlist.name}
+                                  loading="lazy" 
+                                  width="1536"
+                                  height="1920"
+                                  className="h-full w-full object-cover border border-solid border-black transition-transform duration-500 group-hover:scale-105"
+                                  sizes="50vw"
                     src={playlist.imageUrl || "/placeholder.svg"}
                   />
                   <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-transparent to-gray-950/50 p-5">
