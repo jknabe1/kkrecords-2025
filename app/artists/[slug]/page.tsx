@@ -56,7 +56,6 @@ export async function generateMetadata(
 export default async function BlogArticle({ params }: { params: { slug: string; id: any } }) {
   const artist = await getData(params.slug, params.id);
 
-  // ✅ **Dynamic JSON-LD for Schema.org**
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "MusicGroup",
@@ -73,7 +72,6 @@ export default async function BlogArticle({ params }: { params: { slug: string; 
 
   return (
     <div>
-      {/* ✅ Inject JSON-LD separately */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -97,17 +95,17 @@ export default async function BlogArticle({ params }: { params: { slug: string; 
                     Följ {artist.name} på sociala medier:
                     <div className='flex gap-4 mt-2'>
                       {artist.Instagram && (
-                        <a href={artist.Instagram} target="_blank" rel="noopener noreferrer">
+                        <a href={artist.Instagram} target="_blank" className='hover:italic' rel="noopener noreferrer">
                           Instagram
                         </a>
                       )}
                       {artist.Facebook && (
-                        <a href={artist.Facebook} target="_blank" rel="noopener noreferrer">
+                        <a href={artist.Facebook} target="_blank" className='hover:italic' rel="noopener noreferrer">
                           Facebook
                         </a>
                       )}
                       {artist.spotify && (
-                        <a href={artist.spotify} target="_blank" rel="noopener noreferrer">
+                        <a href={artist.spotify} className='hover:italic' target="_blank" rel="noopener noreferrer">
                           Spotify
                         </a>
                       )}

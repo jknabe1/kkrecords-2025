@@ -1,0 +1,57 @@
+import React from 'react'
+import EventGrid from '@/components/Events/EventGrid'
+import { client } from '@/sanity/client'
+import type { Metadata, ResolvingMetadata } from 'next'
+import imageUrlBuilder from '@sanity/image-url'
+import Link from 'next/link'
+import Image from 'next/image'
+
+export const revalidate = 30;
+
+const builder = imageUrlBuilder(client);
+
+function urlFor(source: any) {
+  return builder.image(source);
+}
+
+// ✅ **Fetch Events from Sanity for Metadata**
+async function fetchEvents() {
+  const query = '*[_type == "event"] | order(date desc)[0..5]';
+  return await client.fetch<{ name: string; date: string; image: any; slug: { current: string } }[]>(query);
+}
+
+// ✅ **Generate Dynamic Metadata**
+export async function generateMetadata(): Promise<Metadata> {
+  const events = await fetchEvents();
+
+  return {
+    title: "Upcoming Events - K&K Records",
+    description: "Discover the latest concerts and events at K&K Records. Don't miss out!",
+    openGraph: {
+      title: "Upcoming Events - K&K Records",
+      description: "Check out the latest concerts and events at K&K Records.",
+      url: "https://yourwebsite.com/events",
+      siteName: "K&K Records",
+      images: events.length > 0 
+        ? events.map(event => ({ url: urlFor(event.image).url() })) 
+        : [{ url: "https://yourwebsite.com/assets/default-event.jpg" }],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Upcoming Events - K&K Records",
+      description: "Stay updated with the latest concerts and events at K&K Records.",
+      images: events.length > 0 
+        ? events.map(event => urlFor(event.image).url()) 
+        : ["https://yourwebsite.com/assets/default-event.jpg"],
+    },
+  };
+}
+
+export default function Page() {
+  return (
+    <div>
+      <EventGrid />
+    </div>
+  );
+}

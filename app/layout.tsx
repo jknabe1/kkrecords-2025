@@ -50,8 +50,8 @@ export default function RootLayout({ children,}: Readonly<{children: React.React
         <CookieNotice />
         <AlertBanner />
         <Header/>  
-        <LenisScrollProvider>
-          {children}
+          <LenisScrollProvider>
+            {children}
           </LenisScrollProvider>
         <Footer />
         <CustomCursor />

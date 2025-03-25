@@ -20,7 +20,7 @@ export function SplashScreen() {
         .map(() => characters.charAt(Math.floor(Math.random() * characters.length)))
         .join("")
       setMatrixText(randomText)
-    }, 50)
+    }, 50)    
 
     // Progress bar animation
     interval = setInterval(() => {
