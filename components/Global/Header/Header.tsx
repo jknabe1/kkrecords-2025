@@ -259,43 +259,43 @@ const Header = () => {
         }`}
         ref={navRef}
       >
-        <div className="grid grid-cols-2 h-[calc(100vh-60px)] lg:h-[calc(100vh-70px)] border border-black border-solid">
+        <div className="grid grid-cols-2 h-[calc(100vh-60px)] lg:h-[calc(100vh-70px)] border-y border-black border-solid">
           {/* Top row */}
           <Link
             href="/"
-            className="flex items-center justify-center text-7xl font-light border-r border-b border-black border-solid"
+            className="flex items-center justify-center text-sans-35 lg:text-sans-60 font-600 border-r border-b border-black border-solid hover:italic"
             onClick={handleLinkClick}
           >
             HOME
           </Link>
           <Link
             href="/about"
-            className="flex items-center justify-center text-7xl font-light border-b  border-black border-solid"
+            className="flex items-center justify-center text-sans-35 lg:text-sans-60 font-600 border-b  border-black border-solid hover:italic"
             onClick={handleLinkClick}
           >
-            ABOUT
+            OM OSS
           </Link>
 
           {/* Middle row */}
           <Link
             href="/artists"
-            className="flex items-center justify-center text-7xl font-light border-r border-b  border-black border-solid"
+            className="flex items-center justify-center text-sans-35 lg:text-sans-60 font-600 border-r border-b  border-black border-solid hover:italic" 
             onClick={handleLinkClick}
           >
             ARTISTS
           </Link>
           <Link
             href="/news"
-            className="flex items-center justify-center text-7xl font-light border-b  border-black border-solid"
+            className="flex items-center justify-center text-sans-35 lg:text-sans-60 font-600 border-b  border-black border-solid hover:italic"
             onClick={handleLinkClick}
           >
-            NEWS
+            EDITS
           </Link>
 
           {/* Bottom row with lucky button */}
-          <div className="relative flex items-center justify-center text-7xl font-light border-r  border-black border-solid">
+          <div className="relative flex items-center justify-center text-sans-35 lg:text-sans-60 font-600 border-r  border-black border-solid hover:italic">
             <Link href="/shop" className="w-full h-full flex items-center justify-center" onClick={handleLinkClick}>
-              SHOP
+              EVENTS
             </Link>
 
             {/* Lucky Button */}
@@ -316,26 +316,8 @@ const Header = () => {
           </div>
 
           {/* Footer area */}
-          <div className="flex items-center justify-center border-gray-800">
+          <div className="flex items-center border-gray-800 right-0">
             <div className="w-full h-full flex flex-col md:flex-row items-center justify-between p-8">
-              {/* Subscribe Form */}
-              <form onSubmit={handleSubmit} className="flex items-center space-x-2 w-full md:w-auto">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Your email"
-                  className="bg-transparent border-b border-gray-500 focus:border-white outline-none px-2 py-1 w-full md:w-64"
-                  required
-                />
-                <button
-                  type="submit"
-                  className="border border-white px-4 py-1 text-sm hover:bg-white hover:text-black transition-colors"
-                >
-                  SUBSCRIBE
-                </button>
-              </form>
-
               {/* Social Links */}
               <div className="flex items-center space-x-6 mt-6 md:mt-0">
                 <Link href="#" className="hover:text-gray-300 transition-colors">

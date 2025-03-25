@@ -38,7 +38,7 @@ export default function NewsletterSection() {
     <div className="px-2 py-3 lg:px-5 border-t border-solid border-black">
       <div>
         <div className="w-full flex flex-col md:flex-row justify-between gap-2">
-          <h3 className="text-sans-35 lg:text-sans-60 font-600 tracking-tighter">
+          <h3 className="text-sans-35 lg:text-sans-60 font-600">
             Prenumerera på nyhetsbrevet
           </h3>
           <div className="max-w-[360px] w-full">

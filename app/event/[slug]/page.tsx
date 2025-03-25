@@ -3,6 +3,7 @@ import imageUrlBuilder from '@sanity/image-url'
 import type { Metadata, ResolvingMetadata } from 'next'
 import Image from 'next/image'
 import { PortableText } from "@portabletext/react";
+import Link from 'next/link'
 
 const builder = imageUrlBuilder(client)
 
@@ -12,23 +13,18 @@ function urlFor(source: any) {
 
 // ✅ **Fetch Event Data from Sanity**
 async function getEvent(slug: string) {
-  const query = `*[_type == "event" && slug.current == $slug][0]{
-    name,
-    date,
-    headline,
-    image,
-    details,
-    eventType,
-    doorsOpen,
-    venue,
-    tickets,
-    "slug": slug.current
-  }`;
-
-  return await client.fetch(query, { slug });
+  const EVENT_QUERY = `*[
+    _type == "event" &&
+    slug.current == $slug
+  ][0]{
+  ...,
+  headline->,
+  venue->
+}`;
+  return await client.fetch(EVENT_QUERY, { slug });
 }
 
-// ✅ **Generate Dynamic Metadata**
+
 export async function generateMetadata(
   { params }: { params: { slug: string } }, 
   parent: ResolvingMetadata
@@ -43,19 +39,19 @@ export async function generateMetadata(
   }
 
   return {
-    title: `${event.name} - K&K Records`,
-    description: event.details || "Join us for an amazing event at K&K Records.",
+    title: `${event.name}`,
+    description: event.details || "",
     openGraph: {
       title: `${event.name} - K&K Records`,
-      description: event.details || "Join us for an amazing event at K&K Records.",
-      url: `https://yourwebsite.com/event/${event.slug}`, // ✅ FIXED: Access slug correctly
+      description: event.details || "",
+      url: `https://kkrecords.se/event/${event.slug}`, 
       siteName: "K&K Records",
       images: event.image ? [{ url: urlFor(event.image).url() }] : [],
     },
     twitter: {
       card: "summary_large_image",
       title: `${event.name} - K&K Records`,
-      description: event.details || "Join us for an amazing event at K&K Records.",
+      description: event.details || "",
       images: event.image ? [{ url: urlFor(event.image).url() }] : [],
     },
   };
@@ -80,7 +76,7 @@ export default async function EventPage({ params }: { params: { slug: string } }
       "name": event.venue || "K&K Records Venue",
     },
     "image": event.image ? urlFor(event.image).url() : undefined,
-    "url": `https://yourwebsite.com/event/${event.slug}`, // ✅ FIXED: Use correct slug
+    "url": `https://kkrecords.se/event/${event.slug}`, // ✅ FIXED: Use correct slug
     "description": event.details,
     "performer": {
       "@type": "PerformingGroup",
@@ -119,14 +115,18 @@ export default async function EventPage({ params }: { params: { slug: string } }
                   Information för {event.name}:
                   <div className='flex gap-4 mt-2'>
                     <span className='hover:italic'>
-                      {typeof event.venue === "string" ? event.venue : "Unknown Venue"} {/* ✅ Ensure it's a string */}
+                      {typeof event.venue === "string" ? event.venue : "Ingen lokal tillgänglig"} {/* ✅ Ensure it's a string */}
                     </span>
                     <span>
-                      {event.date ? new Date(event.date).toLocaleDateString() : "No Date Available"}
+                      {event.date ? new Date(event.date).toLocaleDateString() : "Inget datum angivet"} {/* ✅ Ensure it's a date */}
                     </span>
-                    <span>
-                      {typeof event.tickets === "string" ? event.tickets : "No Ticket Info"} {/* ✅ Ensure it's a string */}
-                    </span>
+                    <Link href={typeof event.tickets === "string" ? event.tickets : "#"}>
+                      <button type="submit" value="Sign Up" className="block button button-primary text-left">
+                        <div className="px-2 tracking-tighter text-sans-22 md:text-sans-30 md:px-3">
+                          Biljetter
+                        </div>
+                      </button>
+                    </Link>
                   </div>  
                 </div>
               </ul>

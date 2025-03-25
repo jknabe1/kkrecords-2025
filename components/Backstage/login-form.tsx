@@ -24,7 +24,7 @@ export default async function LoginForm() {
                   </div>
                 </li>
                 <li>
-                <div className="grid gap-px grid-cols-1 lg:grid-cols-2 flex-grow">
+                <div className="grid gap-px grid-cols-1 flex-grow">
                   <div className="grid-col-border">
                     <div className="p-2 lg:p-4">
                       <form method="post" action="/account/login">
