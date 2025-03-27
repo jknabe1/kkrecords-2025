@@ -18,12 +18,12 @@ const InfoGrid = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {items.map((item, index) => (
           <Link key={index} href={item.link} className="group">
-            <div className="hover:bg-black hover:text-white border border-black border-solid p-6 flex items-center justify-between transition-transform duration-200 hover:italic">
-              <span className="text-lg leading-relaxed">{item.title}</span>
-              <span className="text-lg leading-relaxed transition-transform duration-200 group-hover:translate-x-1">
-                →
-              </span>
-            </div>
+              <div className="hover:bg-black hover:text-white border border-black border-solid p-6 flex items-center justify-between transition-transform duration-200 hover:italic">
+                <span className="text-lg leading-relaxed">{item.title}</span>
+                <span className="text-lg leading-relaxed transition-transform duration-200 group-hover:translate-x-1">
+                  →
+                </span>
+              </div>
           </Link>
         ))}
       </div>

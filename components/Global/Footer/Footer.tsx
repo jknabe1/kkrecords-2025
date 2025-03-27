@@ -19,16 +19,16 @@ export default function Footer() {
                                     <div>
                                         <ul className="flex flex-col gap-px border-t border-solid">
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="FAQ" aria-label="FAQ" href="/info/faq">FAQ</a>
+                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="FAQ" aria-label="FAQ" href="/om-oss/faq">FAQ</a>
                                             </li>
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="CONTACT" aria-label="CONTACT" href="/info/contact">CONTACT</a>
+                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="CONTACT" aria-label="CONTACT" href="/om-oss/contact">CONTACT</a>
                                             </li>
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="integritet" aria-label="integritet" href="/info/integritet">integritet</a>
+                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="integritet" aria-label="integritet" href="/om-oss/integritet">integritet</a>
                                             </li>
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="ACCESSIBILITY" aria-label="ACCESSIBILITY" href="/info/accessibility">ACCESSIBILITY</a>
+                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="ACCESSIBILITY" aria-label="ACCESSIBILITY" href="/om-oss/accessibility">ACCESSIBILITY</a>
                                             </li>
                                             <li className="grid-col-border">
                                                 <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Backstage" aria-label="Backstage" href="/backstage">My Account </a>
@@ -49,16 +49,16 @@ export default function Footer() {
                                     <div>
                                         <ul className="flex flex-col gap-px border-t border-solid">
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="FAQ" aria-label="FAQ" href="/info/faq">FAQ</a>
+                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="FAQ" aria-label="FAQ" href="/om-oss/faq">FAQ</a>
                                             </li>
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="CONTACT" aria-label="CONTACT" href="/info/contact">CONTACT</a>
+                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="CONTACT" aria-label="CONTACT" href="/om-oss/contact">CONTACT</a>
                                             </li>
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="integritet" aria-label="integritet" href="/info/integritet">integritet</a>
+                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="integritet" aria-label="integritet" href="/om-oss/integritet">integritet</a>
                                             </li>
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="ACCESSIBILITY" aria-label="ACCESSIBILITY" href="/info/accessibility">ACCESSIBILITY</a>
+                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="ACCESSIBILITY" aria-label="ACCESSIBILITY" href="/om-oss/accessibility">ACCESSIBILITY</a>
                                             </li>
                                             <li className="grid-col-border">
                                                 <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left"  title="Backstage" aria-label="Backstage" href="/backstage">My Account </a>
@@ -150,16 +150,16 @@ export default function Footer() {
                             <h2 className="text-sans-60 font-600 mb-2 tracking-tighter ml-[-0.08em]">Info</h2>
                             <ul>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="FAQ" aria-label="FAQ" href="/info/faq">FAQ</a>
+                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="FAQ" aria-label="FAQ" href="/om-oss/faq">FAQ</a>
                                 </li>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="CONTACT" aria-label="CONTACT" href="/info/kontakta-oss">Kontakta oss</a>
+                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="CONTACT" aria-label="CONTACT" href="/om-oss/kontakta-oss">Kontakta oss</a>
                                 </li>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="integritet" aria-label="integritet" href="/info/integritet">integritet</a>
+                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="integritet" aria-label="integritet" href="/om-oss/integritet">integritet</a>
                                 </li>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="ACCESSIBILITY" aria-label="ACCESSIBILITY" href="/info/accessibility">ACCESSIBILITY</a>
+                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="ACCESSIBILITY" aria-label="ACCESSIBILITY" href="/om-oss/accessibility">ACCESSIBILITY</a>
                                 </li>
                                 <li>
                                     <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Backstage" aria-label="Backstage" href="/backstage">My Account </a>
@@ -241,9 +241,6 @@ export default function Footer() {
                                     </li>
                                 </ul>
                             </div>
-                            <a className="block absolute bottom-3 right-4" title="D.S. &amp; Durga partnership with Level Access" aria-label="D.S. &amp; Durga partnership with Level Access" target="_blank" rel="noopener noreferrer" href="https://www.essentialaccessibility.com/dsanddurga?utm_source=dsanddurgahomepage&amp;utm_medium=iconlarge&amp;utm_term=eachannelpage&amp;utm_content=header&amp;utm_campaign=dsanddurga">
-                                <img alt="" src="/images/icon-accessibility.png" className="block w-[57px] h-[17px]"/>
-                            </a>
                         </div>
                     </div>
                 </div>

@@ -102,7 +102,7 @@ export default async function EventPage({ params }: { params: { slug: string } }
           <div className="grid grid-cols-12 gap-px items-start">
             <div className="col-span-12 lg:col-span-6 grid-col-border">
               <ul className="flex flex-col gap-px">
-                <li className="p-2 lg:p-4">
+                <li className="px-2 py-3 lg:px-5">
                   {/* Heading */}
                   <h1 className="text-sans-35 lg:text-sans-60 font-600">
                     {event.name}
@@ -111,7 +111,7 @@ export default async function EventPage({ params }: { params: { slug: string } }
                     <PortableText value={event.details}/>
                   </div>
                 </li>
-                <div className='mt-4 text-lg leading-relaxed border-t pt-2 border-solid border-black p-2 lg:p-4'>
+                <div className='mt-4 text-lg leading-relaxed border-t pt-2 border-solid border-black px-2 py-3 lg:px-5'>
                   Information för {event.name}:
                   <div className='flex gap-4 mt-2'>
                     <span className='hover:italic'>

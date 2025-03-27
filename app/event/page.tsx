@@ -30,11 +30,11 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: "Upcoming Events - K&K Records",
       description: "Check out the latest concerts and events at K&K Records.",
-      url: "https://yourwebsite.com/events",
+      url: "https://kkrecords.se/events",
       siteName: "K&K Records",
       images: events.length > 0 
         ? events.map(event => ({ url: urlFor(event.image).url() })) 
-        : [{ url: "https://yourwebsite.com/assets/default-event.jpg" }],
+        : [{ url: "https://kkrecords.se/assets/default-event.jpg" }],
       type: "website",
     },
     twitter: {
@@ -43,7 +43,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description: "Stay updated with the latest concerts and events at K&K Records.",
       images: events.length > 0 
         ? events.map(event => urlFor(event.image).url()) 
-        : ["https://yourwebsite.com/assets/default-event.jpg"],
+        : ["https://kkrecords.se/assets/default-event.jpg"],
     },
   };
 }

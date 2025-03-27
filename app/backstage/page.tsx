@@ -35,16 +35,16 @@ export default async function page() {
     "@type": "WebPage",
     "name": "Login - K&K Records",
     "description": "Sign in to access your K&K Records account.",
-    "url": "https://yourwebsite.com/login",
+    "url": "https://kkrecords.se/login",
     "about": {
       "@type": "Organization",
       "name": "K&K Records",
-      "url": "https://yourwebsite.com",
-      "logo": "https://yourwebsite.com/assets/logo.png"
+      "url": "https://kkrecords.se",
+      "logo": "https://kkrecords.se/assets/logo.png"
     },
     "potentialAction": {
       "@type": "LoginAction",
-      "target": "https://yourwebsite.com/login",
+      "target": "https://kkrecords.se/login",
       "name": "Login to K&K Records"
     }
   };

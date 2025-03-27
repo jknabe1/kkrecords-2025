@@ -43,20 +43,20 @@ export default function ArtistsList({ initialArtists }: ArtistsListProps) {
                 {initialArtists.map((artist) => (
                   <Link key={artist._id} href={`/artists/${artist.slug.current}`}>
                     <li 
-                      className="grid-col-border p-2 lg:p-4"
+                      className="grid-col-border px-2 py-3 lg:px-5"
                       onMouseEnter={() => setSelectedArtist(artist)}
                     >
-                      <h2 className="text-sans-35 lg:text-sans-60 font-600 mb-1 lg:mb-3 uppercase hover:italic">
+                      <h2 className="text-sans-35 lg:text-sans-60 font-600 uppercase hover:italic">
                         {artist.name}
                       </h2>
                     </li>
                   </Link>
                 ))}
-                <Link href={"/info/kontakta-oss"}>
+                <Link href={"/om-oss/kontakta-oss"}>
                     <li 
-                      className="grid-col-border p-2 lg:p-4"
+                      className="grid-col-border px-2 py-3 lg:px-5 bg-black text-white"
                     >
-                      <h2 className="italic text-sans-35 lg:text-sans-60 font-600 mb-1 lg:mb-3">
+                      <h2 className="italic text-sans-35 font-600">
                         Du eller ditt band?
                       </h2>
                     </li>

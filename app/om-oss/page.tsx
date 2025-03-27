@@ -43,7 +43,7 @@ export default function Page() {
     "description":
       "K&K Records är en ledande aktör inom live- och underhållningsindustrin i Sverige och Europa. Vi representerar artister, producerar konserter, festivaler och musikaler.",
     "image": "https://cdn.sanity.io/images/1k2t1bm0/production/b34d044f641e16d3f97b0237d7fbda9b0a22b306-1439x1913.jpg",
-    "url": "https://yourwebsite.com/about",
+    "url": "https://kkrecords.se/about",
     "sameAs": [
       "https://www.facebook.com/kkmusicrecords",
       "https://www.instagram.com/kkrecords.se",
@@ -76,7 +76,7 @@ export default function Page() {
                 <div className="grid grid-cols-12 gap-px items-start">
                     <div className="col-span-12 lg:col-span-6 grid-col-border">
                         <ul className="flex flex-col gap-px">
-                            <li className="grid-col-border p-2 lg:p-4">
+                            <li className="grid-col-border px-2 py-3 lg:px-5">
                               {/* Heading */}
                               <h1 className="text-sans-35 lg:text-sans-60 font-600">
                                 Om K&K Records
@@ -104,13 +104,13 @@ export default function Page() {
                                 <img className="" src="https://cdn.sanity.io/images/1k2t1bm0/production/b34d044f641e16d3f97b0237d7fbda9b0a22b306-1439x1913.jpg?auto=format&q=75&url=https://cdn.sanity.io/images/1k2t1bm0/production/b34d044f641e16d3f97b0237d7fbda9b0a22b306-1439x1913.jpg&w=1000" alt="A coiled black power cord with a two-prong plug against a light background."/>
                         </div>
                     </div>
-                    <div className="col-span-12 bg-[lightPink] py-8">
+                    <div className="col-span-12 bg-[lightPink] py-8 border-black border-solid border-b">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <h2 className="text-sans-35 lg:text-sans-60 font-600 text-black text-center">
                                 Mer än ett skivbolag
                             </h2>
                             <p className="mt-4 text-lg text-gray-700 text-center leading-relaxed">
-                                Vi verkar 
+                                Vi verkar för att ge ungdomar en meningsful fritid, med 
                             </p>
                         </div>
                     </div>

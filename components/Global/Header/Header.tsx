@@ -61,14 +61,7 @@ const Header = () => {
     setIsNavVisible(false)
   }
 
-  const [email, setEmail] = useState("")
   const [isButtonHovered, setIsButtonHovered] = useState(false)
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log("Subscribing email:", email)
-    setEmail("")
-  }
 
   return (
     <>
@@ -211,9 +204,6 @@ const Header = () => {
         </div>
       </header>
 
-      {/* Add padding to account for fixed header */}
-      <div className="pt-[60px] lg:pt-[70px] ">{/* Main content goes here */}</div>
-
       {/* Search Bar UI with slide-down animation */}
       <div
         className={`fixed top-[60px] lg:top-[70px] left-0 right-0 bottom-0 z-50 backdrop-blur-sm transform transition-all duration-300 ease-in-out ${
@@ -222,7 +212,7 @@ const Header = () => {
         ref={searchRef}
       >
         <div className="relative w-full bg-white border-b border-gray-200 transform transition-transform duration-300 ease-out">
-          <div className="flex items-center h-[160px] md:px-10 border-y border-black border-solid px-2 py-3 lg:px-5">
+          <div className="flex items-center h-[160px] md:px-10 border-b border-black border-solid px-2 py-3 lg:px-5">
             <button
               className="mr-4 text-black hover:text-gray-900 transition-colors"
               aria-label="Close search"
@@ -259,7 +249,7 @@ const Header = () => {
         }`}
         ref={navRef}
       >
-        <div className="grid grid-cols-2 h-[calc(100vh-60px)] lg:h-[calc(100vh-70px)] border-y border-black border-solid">
+        <div className="grid grid-cols-2 h-[calc(100vh-60px)] lg:h-[calc(100vh-70px)] border-b border-black border-solid">
           {/* Top row */}
           <Link
             href="/"
@@ -269,7 +259,7 @@ const Header = () => {
             HOME
           </Link>
           <Link
-            href="/about"
+            href="/om-oss"
             className="flex items-center justify-center text-sans-35 lg:text-sans-60 font-600 border-b  border-black border-solid hover:italic"
             onClick={handleLinkClick}
           >
@@ -285,7 +275,7 @@ const Header = () => {
             ARTISTS
           </Link>
           <Link
-            href="/news"
+            href="/edits"
             className="flex items-center justify-center text-sans-35 lg:text-sans-60 font-600 border-b  border-black border-solid hover:italic"
             onClick={handleLinkClick}
           >
@@ -305,7 +295,7 @@ const Header = () => {
               onMouseLeave={() => setIsButtonHovered(false)}
             >
               <button
-                className="bg-lime-300 text-black px-6 py-2 rounded-full rotate-6 text-lg font-medium transition-transform"
+                className="bg-[--vividGreen] text-black px-6 py-2 rounded-full rotate-6 text-lg font-medium transition-transform"
                 style={{
                   transform: isButtonHovered ? "rotate(10deg) scale(1.05)" : "rotate(6deg)",
                 }}

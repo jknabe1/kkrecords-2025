@@ -12,7 +12,7 @@ export default async function LoginForm() {
           <div className="grid grid-cols-12 gap-px items-start">
             <div className="col-span-12 lg:col-span-6 grid-col-border">
               <ul className="flex flex-col gap-px">
-                <li className="p-2 lg:p-4">
+                <li className="px-2 py-3 lg:px-5">
                   {/* Heading */}
                   <h1 className="text-sans-35 lg:text-sans-60 font-600">
                     Logga in
@@ -26,7 +26,7 @@ export default async function LoginForm() {
                 <li>
                 <div className="grid gap-px grid-cols-1 flex-grow">
                   <div className="grid-col-border">
-                    <div className="p-2 lg:p-4">
+                    <div className="px-2 py-3 lg:px-5">
                       <form method="post" action="/account/login">
                       <input type="hidden" name="form_type"/>
                       <input type="hidden" name="utf8"/>

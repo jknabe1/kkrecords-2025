@@ -11,7 +11,7 @@ const staticPages = [
   "events",
   "edits",
 ].map((path) => ({
-  url: `https://yourwebsite.com/${path}`,
+  url: `https://kkrecords.se/${path}`,
   lastModified: new Date().toISOString(),
 }));
 

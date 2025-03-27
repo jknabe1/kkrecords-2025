@@ -47,7 +47,7 @@ const EventGrid = () => {
       "startDate": event.date,
       "eventStatus": "https://schema.org/EventScheduled",
       "image": event.image ? urlFor(event.image).url() : undefined,
-      "url": `https://yourwebsite.com/event/${event.slug.current}`
+      "url": `https://kkrecords.se/event/${event.slug.current}`
     }))
   };
 

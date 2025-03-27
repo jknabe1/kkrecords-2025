@@ -4,6 +4,7 @@ import imageUrlBuilder from '@sanity/image-url';
 import { client } from '@/sanity/client';
 import ArtistsList from '@/components/Artists/ArtistsSection';
 
+
 interface Artist {
   _id: string;
   _rev: string;

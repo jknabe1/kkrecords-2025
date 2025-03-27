@@ -8,7 +8,7 @@ export default function page() {
                 <div className="grid grid-cols-12 gap-px items-start">
                     <div className="col-span-12 lg:col-span-6 grid-col-border">
                         <ul className="flex flex-col gap-px">
-                            <li className="grid-col-border p-2 lg:p-4">
+                            <li className="grid-col-border px-2 py-3 lg:px-5">
                               {/* Heading */}
                               <h1 className="text-sans-35 lg:text-sans-60 font-600">
                                 Integritetspolicy – K&K Records

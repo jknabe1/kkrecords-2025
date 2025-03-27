@@ -37,7 +37,7 @@ export async function generateMetadata(
   const artist = await getData(params.slug, params.id);
 
   return {
-    title: `${artist.name} - K&K Records`,
+    title: `${artist.name} | K&K RECORDS`,
     description: artist.Biography || "Explore the artist's biography and works.",
     openGraph: {
       title: artist.name,
@@ -62,7 +62,7 @@ export default async function BlogArticle({ params }: { params: { slug: string; 
     "name": artist.name,
     "description": artist.Biography,
     "image": artist.image ? urlFor(artist.image).url() : undefined,
-    "url": `https://yourwebsite.com/artist/${artist.currentSlug}`,
+    "url": `https://kkrecords.se/artist/${artist.currentSlug}`,
     "sameAs": [
       artist.Instagram || "",
       artist.Facebook || "",
@@ -82,7 +82,7 @@ export default async function BlogArticle({ params }: { params: { slug: string; 
           <div className="grid grid-cols-12 gap-px items-start">
             <div className="col-span-12 lg:col-span-6 grid-col-border">
               <ul className="flex flex-col gap-px">
-                <li className="p-2 lg:p-4">
+                <li className="px-2 py-3 lg:px-5">
                   {/* Heading */}
                   <h1 className="text-sans-35 lg:text-sans-60 font-600">
                     {artist.name}
@@ -91,8 +91,8 @@ export default async function BlogArticle({ params }: { params: { slug: string; 
                     <PortableText value={artist.Biography} />
                   </div>
                 </li>
-                <div className='mt-4 text-lg leading-relaxed border-t pt-2 border-solid border-black p-2 lg:p-4'>
-                    Följ {artist.name} på sociala medier:
+                <div className='text-lg leading-relaxed bg-black text-white px-2 py-3 lg:px-5'>
+                    <h1 className='text-sans-35 font-600'>Följ {artist.name} på sociala medier:</h1>
                     <div className='flex gap-4 mt-2'>
                       {artist.Instagram && (
                         <a href={artist.Instagram} target="_blank" className='hover:italic' rel="noopener noreferrer">
