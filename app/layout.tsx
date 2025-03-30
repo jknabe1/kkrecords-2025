@@ -4,7 +4,6 @@ import Header from "@/components/Global/Header/Header";
 import Footer from "@/components/Global/Footer/Footer";
 import CookieNotice from "@/components/Global/CookieNotice/CookieNotice";
 import { SplashScreen } from "@/components/Global/SplashScreen/SplashScreen";
-import  CustomCursor  from "@/components/Global/Cursor/CustomCursor";
 import LenisScrollProvider from "@/providers/lenis-providers";
 import AlertBanner from "@/components/Global/VMA/Banner";
 
@@ -54,7 +53,6 @@ export default function RootLayout({ children,}: Readonly<{children: React.React
             {children}
           </LenisScrollProvider>
         <Footer />
-        <CustomCursor />
       </body>
     </html>
   );

@@ -92,7 +92,7 @@ export default function ArtistSection() {
             {/* First Two Artists (Dynamic) */}
             {filteredArtists.slice(0, 2).map((artist) => (
               <div key={artist._id} className="keen-slider__slide">
-                <Link href={`/artist/${artist.slug.current}`} className="group block">
+                <Link href={`/artists/${artist.slug.current}`} className="group block">
                   <div className="noise relative aspect-[4/5] lg:aspect-[6/5]">
                     <Image
                       src={urlFor(artist.image)}
@@ -121,7 +121,7 @@ export default function ArtistSection() {
             {/* Next Two Artists (Dynamic) */}
             {filteredArtists.slice(2, 4).map((artist) => (
               <div key={artist._id} className="keen-slider__slide">
-                <Link href={`/artist/${artist.slug.current}`} className="group block">
+                <Link href={`/artists/${artist.slug.current}`} className="group block">
                   <div className="noise relative aspect-[4/5] lg:aspect-[6/5]">
                     <Image
                       src={urlFor(artist.image)}
@@ -168,7 +168,7 @@ export default function ArtistSection() {
             <div className="grid gap-5 lg:grid-cols-2">
               {filteredArtists.slice(0, 2).map((artist) => (
                 <div key={artist._id} className="col-span-1">
-                  <a className="group block" href={`/artist/${artist.slug.current}`}>
+                  <a className="group block" href={`/artists/${artist.slug.current}`}>
                     <div className="noise relative aspect-[4/5] lg:aspect-[6/5]">
                       <Image
                         src={urlFor(artist.image)}
@@ -199,7 +199,7 @@ export default function ArtistSection() {
             <div className="grid gap-5 lg:grid-cols-3 mt-10">
               {filteredArtists.slice(2, 5).map((artist) => (
                 <div key={artist._id}>
-                  <Link href={`/artist/${artist.slug.current}`} className="group block">
+                  <Link href={`/artists/${artist.slug.current}`} className="group block">
                     <div className="noise relative aspect-[4/5] lg:aspect-[6/5]">
                       <Image
                         src={urlFor(artist.image)}

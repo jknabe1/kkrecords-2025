@@ -117,11 +117,7 @@ export default function MerchSlider() {
                     </div>
                 </li>
             </ul>
-                    <div className="absolute right-[-1px] top-[50%] translate-y-[-50%] hidden lg:block">
-                        <button aria-label="Next" className="button button-carousel">
-                            <img alt="" src="https://www.dsanddurga.com/images/icon-arrow-carousel.svg" className="block mx-auto relative left-[1px]"/>
-                        </button>
-                    </div>
+                    
                 </div>
     </div>
   )

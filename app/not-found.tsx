@@ -1,5 +1,15 @@
-import Link from 'next/link'
- 
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "404",
+  description: "404 – Sidan du letar efter finns inte. Gå tillbaka till startsidan eller kontakta oss.",
+  robots: {
+    index: false, // Prevents indexing
+    follow: false,
+  },
+};
+
+
 export default function NotFound() {
   return (
     <div>
@@ -18,7 +28,7 @@ export default function NotFound() {
                     </div>
                     <div className="hidden lg:block col-span-6 grid-col-border sticky top-7 min-h-hero-minus-header overflow-hidden">
                         <div className="image overflow-hidden absolute inset-0">
-                                <img className="" src="https://cdn.sanity.io/images/1k2t1bm0/production/6d522608a1ffb4d5f2a6e4876670c22fc3ceb8de-1439x1913.jpg" alt="A coiled black power cord with a two-prong plug against a light background."/>
+                                <img className="" loading="lazy" src="https://images.unsplash.com/photo-1603520762497-4f020fe0f1b1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="A coiled black power cord with a two-prong plug against a light background."/>
                         </div>
                 </div>
             </div>

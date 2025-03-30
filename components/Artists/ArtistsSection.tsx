@@ -46,7 +46,7 @@ export default function ArtistsList({ initialArtists }: ArtistsListProps) {
                       className="grid-col-border px-2 py-3 lg:px-5"
                       onMouseEnter={() => setSelectedArtist(artist)}
                     >
-                      <h2 className="text-sans-35 lg:text-sans-60 font-600 uppercase hover:italic">
+                      <h2 className="text-sans-35 lg:text-sans-60 font-600 hover:italic">
                         {artist.name}
                       </h2>
                     </li>

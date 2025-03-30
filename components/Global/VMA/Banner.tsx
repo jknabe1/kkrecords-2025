@@ -36,7 +36,7 @@ const AlertBanner: React.FC = () => {
   if (alerts.length === 0) return null;
 
   return (
-    <div className="bg-yellow-300 p-4 border-b-2 border-yellow-500  pt-12 top-0 left-0 right-0 z-[999999]">
+    <div className="bg-[yellow] p-4 border-b-2 border-yellow-500  pt-12 top-0 left-0 right-0 z-[999999]">
       <h1 className="text-lg font-bold">Viktigt meddelande till allmänheten i Örebro</h1>
       {alerts.map((alert) => (
         <div key={alert.id} className="mb-2">

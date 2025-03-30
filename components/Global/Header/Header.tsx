@@ -3,6 +3,7 @@
 import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
+import { useRouter } from 'next/navigation';
 
 const Header = () => {
   const [isNavVisible, setIsNavVisible] = useState(false)
@@ -62,6 +63,15 @@ const Header = () => {
   }
 
   const [isButtonHovered, setIsButtonHovered] = useState(false)
+
+  const router = useRouter();
+
+  const handleSearchSubmit = () => {
+    if (searchQuery.trim().length > 0) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+      toggleSearch(); // Optionally close the overlay
+    }
+  };
 
   return (
     <>
@@ -228,11 +238,14 @@ const Header = () => {
               placeholder="VAD LETAR DU EFTER?"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") handleSearchSubmit();
+              }}
               className="flex-1 text-2xl md:text-3xl lg:text-4xl font-light text-black placeholder-gray-300 bg-transparent border-none outline-none uppercase"
               autoFocus={isSearchVisible}
             />
 
-            <button className="ml-4 text-black hover:text-gray-900 transition-colors" aria-label="Submit search">
+            <button className="ml-4 text-black hover:text-gray-900 transition-colors" aria-label="Submit search" onClick={handleSearchSubmit}>
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256">
                 <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path>
               </svg>

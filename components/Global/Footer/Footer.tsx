@@ -139,9 +139,7 @@ export default function Footer() {
                     </div>
                     <div className="col-span-12 grid-col-border p-2 py-3 lg:hidden">
                         <div className="flex gap-2 items-center">
-                            <a className="block" title="D.S. &amp; Durga partnership with Level Access" aria-label="D.S. &amp; Durga partnership with Level Access" target="_blank" rel="noopener noreferrer" href="https://www.essentialaccessibility.com/dsanddurga?utm_source=dsanddurgahomepage&amp;utm_medium=iconlarge&amp;utm_term=eachannelpage&amp;utm_content=header&amp;utm_campaign=dsanddurga">
-                                <img alt="" src="/images/icon-accessibility.png" className="block w-[57px] h-[17px]"/>
-                            </a>
+                            
                                 <button className="block text-sans-12 uppercase tracking-wider link-primary">Site Credits</button>
                                 <p className="text-sans-12 uppercase tracking-wider">© &amp; DURGA</p>
                             </div>
