@@ -1,5 +1,16 @@
 
 module.exports = {
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: '/news/:slug*',
+          destination: '/edits/:slug*',
+        },
+      ],
+    };
+  },
+  
     images: {
       remotePatterns: [
         {

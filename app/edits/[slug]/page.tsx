@@ -34,7 +34,7 @@ export async function generateMetadata(
   const news = await getData(params.slug);
 
   return {
-    title: `${news.name} - K&K Records`,
+    title: `${news.name} `,
     description: news.excerpt || "Read the latest news and updates.",
     openGraph: {
       title: `${news.name} - K&K Records`,
