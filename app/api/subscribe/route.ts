@@ -11,15 +11,28 @@ export async function POST(req: Request) {
     const API_KEY = process.env.NEXT_PUBLIC_BREVO_API_KEY;
     const LIST_ID = process.env.NEXT_PUBLIC_BREVO_LIST_ID;
 
+    if (!API_KEY || !LIST_ID) {
+      return NextResponse.json({ error: "Miljövariabler saknas" }, { status: 500 });
+    }
+
     const response = await axios.post(
       "https://api.brevo.com/v3/contacts",
-      { email, listIds: [parseInt(LIST_ID as string, 10)] },
-      { headers: { "Content-Type": "application/json", "api-key": API_KEY } }
+      {
+        email,
+        listIds: [parseInt(LIST_ID, 10)],
+        updateEnabled: true, // Uppdatera befintlig kontakt om den redan finns
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "api-key": API_KEY,
+        },
+      }
     );
 
-    return NextResponse.json({ message: "Subscription successful!" }, { status: 200 });
+    return NextResponse.json({ message: "Prenumeration lyckades!" }, { status: 200 });
   } catch (error: any) {
-    console.error("Error subscribing:", error.response?.data || error.message);
-    return NextResponse.json({ error: "Failed to subscribe" }, { status: 500 });
+    console.error("Fel vid prenumeration:", error.response?.data || error.message);
+    return NextResponse.json({ error: "Misslyckades med att prenumerera" }, { status: 500 });
   }
 }

@@ -111,6 +111,7 @@ export default async function BlogArticle(props: { params: { slug: string } }) {
           <div className='mt-6'>
             <PortableText value={news.details} />
           </div>
+          <p className="mt-4 text-sm text-gray-500">Senast uppdaterad:{new Date(news.publishedAt).toLocaleDateString()}</p>
         </section>
       </section>
     </div>

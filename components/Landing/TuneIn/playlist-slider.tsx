@@ -53,7 +53,7 @@ export default function PlaylistSlider({
     const renderedItems = playlists.map((playlist) => (
       <div key={playlist._id} className={isMobile ? "keen-slider__slide" : ""}>
         <Link
-          href={`/${playlist.slug.current}`}
+          href={`${playlist.slug.current}`}
           className="group block h-full"
           target="_blank"
           rel="noopener"
@@ -66,7 +66,7 @@ export default function PlaylistSlider({
               height="1920"
               className="h-full w-full object-cover border border-solid border-black transition-transform duration-500 group-hover:scale-105"
               sizes="50vw"
-              src={playlist.imageUrl || "/placeholder.svg"}
+              src={playlist.imageUrl || "Bild saknas..."}
             />
             <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-transparent to-gray-950/50 p-5">
               <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
@@ -88,7 +88,7 @@ export default function PlaylistSlider({
 
     // Add the static "Discover More" slide
     renderedItems.push(
-      <div key="discover-more" className={isMobile ? "keen-slider__slide" : ""}>
+      <div key="discover-more" className={isMobile ? "keen-slider__slide" : ""} hidden>
         <Link
           href="/playlists"
           className="relative group overflow-hidden h-full bg-black flex items-center justify-center"

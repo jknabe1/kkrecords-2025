@@ -19,16 +19,16 @@ export default function Footer() {
                                     <div>
                                         <ul className="flex flex-col gap-px border-t border-solid">
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="FAQ" aria-label="FAQ" href="/om-oss/faq">FAQ</a>
+                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Om oss" aria-label="Om oss" href="/om-oss/">Om oss</a>
                                             </li>
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="CONTACT" aria-label="CONTACT" href="/om-oss/contact">CONTACT</a>
+                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="CONTACT" aria-label="CONTACT" href="/om-oss/kontakta-oss">Kontakta oss</a>
                                             </li>
                                             <li className="grid-col-border">
                                                 <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="integritet" aria-label="integritet" href="/om-oss/integritet">integritet</a>
                                             </li>
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="ACCESSIBILITY" aria-label="ACCESSIBILITY" href="/om-oss/accessibility">ACCESSIBILITY</a>
+                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Tillgänglighet" aria-label="Tillgänglighet" href="/om-oss/tillganglighet">Tillgänglighet</a>
                                             </li>
                                             <li className="grid-col-border">
                                                 <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Backstage" aria-label="Backstage" href="/backstage">Backstage </a>
@@ -49,16 +49,16 @@ export default function Footer() {
                                     <div>
                                         <ul className="flex flex-col gap-px border-t border-solid">
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="FAQ" aria-label="FAQ" href="/om-oss/faq">FAQ</a>
+                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Om oss" aria-label="Om oss" href="/om-oss">Om oss</a>
                                             </li>
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="CONTACT" aria-label="CONTACT" href="/om-oss/contact">CONTACT</a>
+                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Kontakta oss" aria-label="Kontakta oss" href="/om-oss/kontakta-oss">Kontakta oss</a>
                                             </li>
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Integritet" aria-label="Integritet" href="/om-oss/integritet">integritet</a>
+                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Integritet" aria-label="Integritet" href="/om-oss/integritet">Integritet</a>
                                             </li>
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="ACCESSIBILITY" aria-label="ACCESSIBILITY" href="/om-oss/accessibility">ACCESSIBILITY</a>
+                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Tillgänglighet" aria-label="Tillgänglighet" href="/om-oss/tillganglighet">Tillgänglighet</a>
                                             </li>
                                             <li className="grid-col-border">
                                                 <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left"  title="Backstage" aria-label="Backstage" href="/backstage">Backstage </a>
@@ -78,9 +78,6 @@ export default function Footer() {
                             <div className="overflow-hidden">
                                 <div>
                                     <ul className="flex flex-col gap-px border-t border-solid">
-                                        <li className="grid-col-border">
-                                            <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Om oss" aria-label="Om oss" href="/om-oss">Om oss</a>
-                                        </li>
                                         <li className="grid-col-border">
                                             <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Artister" aria-label="Artister" href="/artister">Artister</a>
                                         </li>
@@ -148,16 +145,16 @@ export default function Footer() {
                             <h2 className="text-sans-60 font-600 mb-2 tracking-tighter ml-[-0.08em]">Om oss</h2>
                             <ul>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="FAQ" aria-label="FAQ" href="/om-oss/faq">FAQ</a>
+                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Om oss" aria-label="Om oss" href="/om-oss/">Om oss</a>
                                 </li>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="CONTACT" aria-label="CONTACT" href="/om-oss/kontakta-oss">Kontakta oss</a>
+                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Kontakta oss" aria-label="Kontakta oss" href="/om-oss/kontakta-oss">Kontakta oss</a>
                                 </li>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="integritet" aria-label="integritet" href="/om-oss/integritet">integritet</a>
+                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Integritet" aria-label="Integritet" href="/om-oss/integritet">Integritet</a>
                                 </li>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="ACCESSIBILITY" aria-label="ACCESSIBILITY" href="/om-oss/accessibility">ACCESSIBILITY</a>
+                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Tillgänglighet" aria-label="Tillgänglighet" href="/om-oss/tillganglighet">Tillgänglighet</a>
                                 </li>
                                 <li>
                                     <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Backstage" aria-label="Backstage" href="/backstage">Backstage</a>
@@ -168,25 +165,22 @@ export default function Footer() {
                             <h2 className="text-sans-60 font-600 mb-2 tracking-tighter ml-[-0.08em]">Genvägar</h2>
                             <ul>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Perfume" aria-label="Perfume" href="/collections/perfume-all">Perfume</a>
+                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Artister" aria-label="Artister" href="/artister">Artister</a>
                                 </li>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Candles" aria-label="Candles" href="/collections/candles">Candles</a>
+                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Edits" aria-label="Edits" href="/edits">Edits</a>
                                 </li>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Sample Set" aria-label="Sample Set" href="/products/custom-sample-set">Sample Set</a>
+                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Event" aria-label="Event" href="/event">Event</a>
                                 </li>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Discovery Sets" aria-label="Discovery Sets" href="/collections/discovery-sets">Discovery Sets</a>
+                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Instagram" aria-label="Instagram" href="https://www.instagram.com/kkrecords.se">Instagram</a>
                                 </li>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Auto Fragrance" aria-label="Auto Fragrance" href="/collections/auto-fragrance">Auto Fragrance</a>
+                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Facebook" aria-label="Facebook" href="https://www.facebook.com/kkrecords.se">Facebook</a>
                                 </li>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Skin" aria-label="Skin" href="/collections/skin">Skin</a>
-                                </li>
-                                <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Gifts" aria-label="Gifts" href="/collections/gifts">Gifts</a>
+                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="TikTok" aria-label="TikTok" href="https://www.tiktok.com/kkrecords.se">TikTok</a>
                                 </li>
                             </ul>
                         </div>
