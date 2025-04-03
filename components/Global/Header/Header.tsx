@@ -269,7 +269,7 @@ const Header = () => {
             className="flex items-center justify-center text-sans-35 lg:text-sans-60 font-600 border-r border-b border-black border-solid hover:italic"
             onClick={handleLinkClick}
           >
-            HOME
+            START
           </Link>
           <Link
             href="/om-oss"
@@ -285,7 +285,7 @@ const Header = () => {
             className="flex items-center justify-center text-sans-35 lg:text-sans-60 font-600 border-r border-b  border-black border-solid hover:italic" 
             onClick={handleLinkClick}
           >
-            ARTISTS
+            ARTISTER
           </Link>
           <Link
             href="/edits"
@@ -300,44 +300,31 @@ const Header = () => {
             <Link href="/shop" className="w-full h-full flex items-center justify-center" onClick={handleLinkClick}>
               EVENTS
             </Link>
-
-            {/* Lucky Button */}
-            <div
-              className="absolute z-10 top-1/2 right-0 transform translate-x-1/2 -translate-y-1/2"
-              onMouseEnter={() => setIsButtonHovered(true)}
-              onMouseLeave={() => setIsButtonHovered(false)}
-            >
-              <button
-                className="bg-[--vividGreen] text-black px-6 py-2 rounded-full rotate-6 text-lg font-medium transition-transform"
-                style={{
-                  transform: isButtonHovered ? "rotate(10deg) scale(1.05)" : "rotate(6deg)",
-                }}
-              >
-                I&apos;M FEELING LUCKY
-              </button>
-            </div>
           </div>
 
           {/* Footer area */}
-          <div className="flex items-center border-gray-800 right-0">
-            <div className="w-full h-full flex flex-col md:flex-row items-center justify-between p-8">
+            <div className="flex items-center justify-center border-gray-800 right-0">
+            <div className="w-full h-full flex flex-col items-center justify-center p-8">
               {/* Social Links */}
-              <div className="flex items-center space-x-6 mt-6 md:mt-0">
-                <Link href="#" className="hover:text-gray-300 transition-colors">
-                  YOUTUBE
-                </Link>
-                <Link href="#" className="hover:text-gray-300 transition-colors">
-                  TWITTER
-                </Link>
-                <Link href="#" className="hover:text-gray-300 transition-colors">
-                  INSTAGRAM
-                </Link>
-                <Link href="#" className="hover:text-gray-300 transition-colors">
-                  FACEBOOK
-                </Link>
-              </div>
+              <ul className="flex items-center space-x-6 list-none">
+              <li>
+                <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Instagram" aria-label="Instagram" href="https://www.instagram.com/kkrecords.se">Instagram</Link>
+              </li>
+              <li>
+                <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Facebook" aria-label="Facebook" href="https://www.facebook.com/kkmusicrecords">Facebook</Link>
+              </li>
+              <li>
+                <Link className='block w-full text-sans-14 uppercase tracking-wider p-2 text-left' title="TikTok" aria-label="TikTok" href="https://www.tiktok.com/kkrecords.se">TikTok</Link>
+              </li>
+              <li>
+                <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Spotify" aria-label="Spotify" href="https://open.spotify.com/user/rp0di7du2vijxmhev2mp6vugo">Spotify</Link>
+              </li>
+              <li>
+                <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Youtube" aria-label="Youtube" href="https://www.youtube.com/@kkrec">Youtube</Link>
+              </li>
+              </ul>
             </div>
-          </div>
+            </div>
         </div>
       </div>
     </>

@@ -25,10 +25,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const events = await fetchEvents();
 
   return {
-    title: "Upcoming Events - K&K Records",
-    description: "Discover the latest concerts and events at K&K Records. Don't miss out!",
+    title: "Events",
+    description: "Se våra kommande och tidigare konserter och evenemang.",
     openGraph: {
-      title: "Upcoming Events - K&K Records",
+      title: "Events - K&K Records",
       description: "Check out the latest concerts and events at K&K Records.",
       url: "https://kkrecords.se/events",
       siteName: "K&K Records",
@@ -39,7 +39,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: "Upcoming Events - K&K Records",
+      title: "Events - K&K Records",
       description: "Stay updated with the latest concerts and events at K&K Records.",
       images: events.length > 0 
         ? events.map(event => urlFor(event.image).url()) 

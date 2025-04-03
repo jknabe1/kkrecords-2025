@@ -27,7 +27,7 @@ export default async function LoginForm() {
                 <div className="grid gap-px grid-cols-1 flex-grow">
                   <div className="grid-col-border">
                     <div className="px-2 py-3 lg:px-5">
-                      <form method="post" action="/account/login">
+                      <form method="post" action="">
                       <input type="hidden" name="form_type"/>
                       <input type="hidden" name="utf8"/>
                         <div className="flex flex-col gap-2 lg:gap-4 max-w-[440px]">
@@ -40,11 +40,6 @@ export default async function LoginForm() {
                             <input type="password" className="block w-full input-primary"/>
                             <div className="flex justify-between mt-1">
                               <p className="uppercase text-sans-12 lg:text-sans-14 tracking-wider font-800">Password</p>
-                              <p className="uppercase text-sans-12 tracking-wider max-w-[90px]">
-                                <a href="#recover" className="link-primary">
-                                  Forgot your password?
-                                </a>
-                              </p>
                             </div>
 
                           </label>

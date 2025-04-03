@@ -50,6 +50,7 @@ export default function DynamicSlider({ items, itemType }: SliderProps) {
       },
     },
   });
+  
 
   const renderItems = () => {
     const renderedItems = items.map((item) => (
@@ -108,7 +109,7 @@ export default function DynamicSlider({ items, itemType }: SliderProps) {
     renderedItems.push(
       <div key="discover-more" className={isMobile ? "keen-slider__slide" : ""}>
         <Link
-          href={itemType === "playlist" ? "/playlists" : "/events"}
+          href={itemType === "playlist" ? "" : "/event"}
           className="relative group overflow-hidden h-full bg-black flex items-center justify-center"
         >
           <div className="text-white text-center p-5">
