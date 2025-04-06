@@ -1,109 +1,119 @@
-import type { Metadata, ResolvingMetadata } from "next";
-import { notFound } from "next/navigation";
-import Link from "next/link";
+import imageUrlBuilder from '@sanity/image-url'
+import { client } from '@/sanity/client'
+import Image from "next/image";
+import type { Metadata, ResolvingMetadata } from 'next'
+import { PortableText } from "next-sanity";
 
-// ✅ **Define Link Data**
-const links = [
-  { title: "Kontakta oss", slug: "contact", content: "Här kan du kontakta oss.", image: "/assets/contact.jpg" },
-  { title: "Skicka post", slug: "send-mail", content: "Information om hur du skickar post till oss.", image: "/assets/mail.jpg" },
-  { title: "Våra medarbetare", slug: "team", content: "Lär känna vårt team.", image: "/assets/team.jpg" },
-  { title: "Så arbetar vi", slug: "how-we-work", content: "Läs mer om hur vi arbetar.", image: "/assets/work.jpg" },
-  { title: "Vår myndighet", slug: "authority", content: "Information om vår myndighet.", image: "/assets/authority.jpg" },
-  { title: "Medierum", slug: "media-room", content: "Här hittar du pressmaterial.", image: "/assets/media.jpg" },
-  { title: "Logotyp", slug: "logo", content: "Ladda ner vår logotyp.", image: "/assets/logo.jpg" },
-  { title: "Publikationer", slug: "publications", content: "Våra publikationer och rapporter.", image: "/assets/publications.jpg" },
-  { title: "Jobba hos oss", slug: "careers", content: "Se våra lediga tjänster.", image: "/assets/careers.jpg" },
-];
 
-// ✅ **Fetch Data Based on Slug**
-async function getLinkData(slug: string) {
-  return links.find((item) => item.slug === slug) || null;
+export const revalidate = 30;
+
+const builder = imageUrlBuilder(client);
+function urlFor(source: any) {
+  return builder.image(source);
 }
 
-// ✅ **Generate Dynamic Metadata for SEO**
+async function getData(slug: string) {
+  const query = `
+    *[_type == "about" && slug.current == '${slug}'] {
+        "currentSlug": slug.current,
+          name,
+          details,
+          image,
+          excerpt,
+          publishedAt,
+            date,
+      }[0]`;
+
+  const about = await client.fetch(query);
+  return about;
+}
+
 export async function generateMetadata(
-  { params }: { params: { slug: string } },
+  { params }: { params: { slug: string } }, 
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const linkData = await getLinkData(params.slug);
-
-  if (!linkData) {
-    return {
-      title: "Sidan finns inte - K&K Records",
-      description: "Den begärda sidan kunde inte hittas.",
-    };
-  }
+  const about = await getData(params.slug);
 
   return {
-    title: `${linkData.title} - K&K Records`,
-    description: linkData.content,
+    title: `${about.name} `,
+    description: about.excerpt || "Read the latest about and updates.",
     openGraph: {
-      title: `${linkData.title} - K&K Records`,
-      description: linkData.content,
-      url: `https://kkrecords.se/links/${linkData.slug}`,
-      siteName: "K&K Records",
-      images: linkData.image ? [{ url: `https://kkrecords.se${linkData.image}` }] : [],
-      type: "website",
+      title: `${about.name} - K&K Records`,
+      description: about.excerpt || "Read the latest about and updates.",
+      images: about.image ? [{ url: urlFor(about.image).url() }] : [],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${linkData.title} - K&K Records`,
-      description: linkData.content,
-      images: linkData.image ? [`https://kkrecords.se${linkData.image}`] : [],
+      title: `${about.name} - K&K Records`,
+      description: about.excerpt || "Read the latest about and updates.",
+      images: about.image ? [{ url: urlFor(about.image).url() }] : [],
     },
   };
 }
 
-// ✅ **Dynamic Page Component**
-export default async function LinkPage({ params }: { params: { slug: string } }) {
-  const linkData = await getLinkData(params.slug);
+export default async function BlogArticle(props: { params: { slug: string } }) {
+  const { params } = props;
+  const about = await getData(params.slug);
 
-  if (!linkData) {
-    return notFound();
-  }
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "headline": about.name,
+    "description": about.excerpt || "",
+    "datePublished": about.publishedAt,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://kkrecords.se/om-oss/${about.currentSlug}`
+    },
+    "image": about.image ? urlFor(about.image).url() : undefined,
+    "author": {
+      "@type": "Organization",
+      "name": "K&K Records"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "K&K Records",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://kkrecords.se/api"
+      }
+    }
+  };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      {/* ✅ JSON-LD Structured Data */}
+    <div>
+      {/* ✅ Fixed: Inject JSON-LD separately */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            "name": linkData.title,
-            "description": linkData.content,
-            "url": `https://kkrecords.se/links/${linkData.slug}`,
-            "publisher": {
-              "@type": "Organization",
-              "name": "K&K Records",
-              "url": "https://kkrecords.se",
-            },
-          }),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-
-      {/* ✅ Page Content */}
-      <h1 className="text-4xl font-bold text-center mb-6">{linkData.title}</h1>
-      <p className="text-lg text-gray-700 text-center">{linkData.content}</p>
-
-      {/* ✅ Image if available */}
-      {linkData.image && (
-        <div className="mt-6 flex justify-center">
-          <img
-            src={linkData.image}
-            alt={linkData.title}
-            className="rounded-lg w-full max-w-md"
+      
+      <section className="relative">
+        <section className="noise relative aspect-[4/5] lg:aspect-[12/5]">
+          <Image
+            alt={about.name}
+            src={urlFor(about.image).width(1920).height(700).url()}
+            width={1920}
+            height={700}
+            className="absolute inset-0 object-cover w-full h-full"
+            priority
           />
-        </div>
-      )}
-
-      {/* ✅ Back to Links Page */}
-      <div className="mt-6 text-center">
-        <Link href="/links" className="text-blue-600 hover:underline">
-          ← Tillbaka till Snabblänkar
-        </Link>
-      </div>
+          <div className="absolute top-4 z-5 flex flex-col items-start gap-1 px-2 py-3 lg:px-5">
+            <div className="bg-white text-black px-2 py-1 inline-block">
+              <span className="text-[--vividGreen]">■</span> {about.name}
+            </div>
+            <div className="bg-white text-black text-sm px-2 py-1 inline-block">
+              <p>{new Date(about.publishedAt).toLocaleDateString()}</p>
+            </div>
+          </div>
+        </section>
+        <section className="max-w-3xl mx-auto p-6 text-black">
+          <h1 className="text-sans-35 lg:text-sans-60 font-600">{about.name}</h1>
+          <div className='mt-6 prose'>
+            <PortableText value={about.details} />
+          </div>
+          <p className="mt-4 text-sm text-gray-500">Senast uppdaterad:{new Date(about.publishedAt).toLocaleDateString()}</p>
+        </section>
+      </section>
     </div>
-  );
+  )
 }

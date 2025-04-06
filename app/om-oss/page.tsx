@@ -1,6 +1,6 @@
+
 import InfoGrid from "@/components/About/InfoGrid/InfoGrid";
 import type { Metadata } from "next";
-import React from "react";
 
 // ✅ **Static Metadata for SEO**
 export const metadata: Metadata = {
@@ -65,6 +65,7 @@ export default function Page() {
     },
   };
 
+
   return (
   <div>
       <script
@@ -84,17 +85,9 @@ export default function Page() {
 
                               {/* Introduction */}
                               <p className="mt-4 text-lg leading-relaxed">
-                                All Things Live Sweden representerar ett 150-tal av Sveriges mest framstående artister, band, komiker, skådespelare och profiler samt producerar konserter, festivaler, shower, musikaler, livepoddar, föreställningar och standup över hela Skandinavien.
-                                <br/>
-                                All Things Live är sedan december 2018 en av Sveriges och Europas största aktörer inom live-/underhållningsindustrin. Vi erbjuder ett brett utbud som sträcker sig från svenska musikproduktioner och standup-evenemang till arenakonserter med internationella artister.
-                                <br/>
-                                Musikagenturen representerar bland annat artister som Veronica Maggio, Miss Li, Weeping Willows, Thomas Stenström, AmenaA, Albin Lee Meldau, Helen Sjöholm, Greczula, Lena Philipsson, Lisa Nilsson, Tjuvjakt, Soppgirobygget och Nadja Evelina.
-                                <br/>
-                                Vi samarbetar även med världsstjärnor och arrangerar konserter med artister som Taylor Swift, Andrea Bocelli, Sabaton, Justin Bieber och Nick Cave and the Bad Seeds. Dessutom agerar vi agentur och bokningsbolag för flera komiker och profiler såsom Johan Glans, Kristina “Keyyo” Petrushina, Farah Abadi, Hampus Hedström och Özz Nûjen.
-                                <br/>   
-                                Utöver detta arrangerar vi årligen Melodifestivalen och flera festivaler, såsom A day at the park, Summer On och Amaze. Vi samproducerar även musikalerna & Juliet och We Will Rock You, föreställningen Kärleksbrev med Krister Henriksson och Ulla Skoog, samt evenemang i den mobila arenan Evenew.
-                                <br/>                                        
-                                Vår företagskultur kännetecknas av prestigelöshet och professionalism i alla led. Sedan 2011 driver vi ett aktivt jämställdhets- och mångfaldsarbete och detta är en viktig del av vår värdegrund. Våra värdeord är mod, tydlighet, engagemang och glädje.
+                              På K&K Records har vi sedan starten 2019 haft en tydlig ambition: att skapa bättre förutsättningar för unga kulturutövare i Örebro län. Vi tror på kraften i kreativitet och vill ge unga artister och kreatörer det stöd de behöver för att kunna växa – både konstnärligt och professionellt.
+                              Vi erbjuder finansiering till kulturella produktioner såsom studioinspelningar, musikvideos och turnéer. Utöver det fungerar vi som ett bollplank i frågor som rör utveckling, strategiskt tänkande och långsiktigt skapande. Målet är att varje person vi samarbetar med ska känna sig sedd, stärkt och fri att uttrycka sin vision.
+                              Vi vill vara en del av ett kulturliv som är levande, inkluderande och framåtblickande. Genom våra initiativ vill vi inte bara stödja individer, utan också bidra till en starkare musikexport från regionen.
                               </p>
                               </li>
                         </ul>
@@ -110,8 +103,7 @@ export default function Page() {
                                 Mer än ett skivbolag
                             </h2>
                             <p className="mt-4 text-lg text-gray-700 text-center leading-relaxed">
-                                Vi verkar för att ge ungdomar en meningsful fritid, med 
-                            </p>
+                            Vi vill ge ungdomar en meningsfull fritid där musik, skapande och gemenskap står i centrum. Hos oss får du stöd att utvecklas, testa idéer och göra din grej på riktigt.                            </p>
                         </div>
                     </div>
                   </div>

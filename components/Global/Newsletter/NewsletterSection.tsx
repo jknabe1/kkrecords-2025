@@ -44,13 +44,18 @@ export default function NewsletterSection() {
           <div className="max-w-[360px] w-full">
             <form onSubmit={handleSubmit}>
               <div className="relative">
+                <label htmlFor="email" className="sr-only">
+                  E-post
+                </label>
                 <input
                   type="email"
+                  id="email"
                   name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="block w-full input-newsletter border p-2"
                   required
+                  aria-label="Nyhetsbrev e-post"
                 />
                 <button
                   aria-label="Submit"

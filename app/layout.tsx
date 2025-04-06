@@ -3,9 +3,7 @@ import "./globals.css";
 import Header from "@/components/Global/Header/Header";
 import Footer from "@/components/Global/Footer/Footer";
 import CookieNotice from "@/components/Global/CookieNotice/CookieNotice";
-import { SplashScreen } from "@/components/Global/SplashScreen/SplashScreen";
 import LenisScrollProvider from "@/providers/lenis-providers";
-import AlertBanner from "@/components/Global/VMA/Banner";
 
 export const metadata: Metadata = {
   title: {
@@ -45,9 +43,7 @@ export default function RootLayout({ children,}: Readonly<{children: React.React
   return (
     <html lang="se_SV">
       <body className="antialiased">
-        <SplashScreen />
         <CookieNotice />
-        <AlertBanner />
         <Header/>  
           <LenisScrollProvider>
             {children}
