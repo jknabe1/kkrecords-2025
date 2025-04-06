@@ -2,7 +2,7 @@ import { client } from '@/sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import { PortableText } from '@portabletext/react';
+import { PortableText, PortableTextBlock } from '@portabletext/react'; // Updated import
 import Link from 'next/link';
 
 const builder = imageUrlBuilder(client);
@@ -22,7 +22,7 @@ function urlFor(source: SanityImageSource) {
 interface Event {
   name: string;
   slug: { current: string };
-  details: any; // Replace with PortableText type if available
+  details: PortableTextBlock[]; // Replaced 'any' with PortableTextBlock[]
   image?: SanityImageSource;
   date?: string;
   venue?: string;
@@ -58,18 +58,18 @@ export async function generateMetadata({
 
   return {
     title: `${event.name}`,
-    description: event.details || '',
+    description: event.details ? JSON.stringify(event.details) : '',
     openGraph: {
       title: `${event.name} - K&K Records`,
-      description: event.details || '',
-      url: `https://kkrecords.se/event/${event.slug.current}`, // Use slug.current
+      description: event.details ? JSON.stringify(event.details) : '',
+      url: `https://kkrecords.se/event/${event.slug.current}`,
       siteName: 'K&K Records',
       images: event.image ? [{ url: urlFor(event.image).url() }] : [],
     },
     twitter: {
       card: 'summary_large_image',
       title: `${event.name} - K&K Records`,
-      description: event.details || '',
+      description: event.details ? JSON.stringify(event.details) : '',
       images: event.image ? [{ url: urlFor(event.image).url() }] : [],
     },
   };
@@ -93,7 +93,7 @@ export default async function EventPage({ params }: { params: { slug: string } }
       name: event.venue || 'K&K Records Venue',
     },
     image: event.image ? urlFor(event.image).url() : undefined,
-    url: `https://kkrecords.se/event/${event.slug.current}`, // Use slug.current
+    url: `https://kkrecords.se/event/${event.slug.current}`,
     description: event.details,
     performer: {
       '@type': 'PerformingGroup',

@@ -8,8 +8,15 @@ import Image from "next/image";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 
+// Define the Sanity image source type
+interface SanityImageSource {
+  asset: {
+    _ref: string;
+  };
+}
+
 const builder = imageUrlBuilder(client);
-function urlFor(source: any) {
+function urlFor(source: SanityImageSource) {
   return builder.image(source).url();
 }
 
@@ -18,37 +25,24 @@ export default function NewsSection() {
     _id: string;
     name: string;
     slug: { current: string };
-    image: string;
+    image: SanityImageSource; // Updated from string to SanityImageSource
     publishedAt: string;
   }
 
   const [news, setNews] = useState<NewsArticle[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const data = await client.fetch(
+        const data = await client.fetch<NewsArticle[]>(
           `*[_type == "news" && defined(slug.current)]{_id, name, slug, image, publishedAt} | order(publishedAt desc)`
         );
         setNews(data);
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching news:", error);
-        setLoading(false);
       }
     };
     fetchNews();
-  }, []);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const [sliderRef] = useKeenSlider<HTMLDivElement>({
@@ -80,8 +74,8 @@ export default function NewsSection() {
                     src={urlFor(article.image)}
                     alt={article.name}
                     loading="lazy"
-                    width="1536"
-                    height="1920"
+                    width={1536}
+                    height={1920}
                     className="h-full w-full object-cover border border-solid border-black transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-transparent to-gray-950/50 p-5">
@@ -104,8 +98,8 @@ export default function NewsSection() {
                   <Image
                     alt={article.name}
                     loading="lazy"
-                    width="1536"
-                    height="1920"
+                    width={1536}
+                    height={1920}
                     className="h-full w-full object-cover border border-solid border-black transition-transform duration-500 group-hover:scale-105"
                     sizes="50vw"
                     src={urlFor(article.image)}
@@ -139,48 +133,49 @@ export default function NewsSection() {
           </div>
         </div>
 
+        {/* MOBILE layout */}
         <section className="lg:hidden md:hidden">
-        <div className="keen-slider" ref={sliderRef}>
-          {news.slice(0, 3).map((article) => (
-            <div key={article._id} className="keen-slider__slide">
-              <Link href={`/edits/${article.slug.current}`} className="group block">
-                <div className="noise relative aspect-[4/5]">
-                  <Image
-                    src={urlFor(article.image)}
-                    alt={article.name}
-                    loading="lazy"
-                    width="1536"
-                    height="1920"
-                    className="h-full w-full object-cover border border-solid border-black transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-transparent to-gray-950/50 p-5">
-                    <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
-                      <div className="bg-white text-black text-xs px-2 py-1 inline-block">
-                        <span className="text-[--vividGreen]">■</span> EDITS
+          <div className="keen-slider" ref={sliderRef}>
+            {news.slice(0, 3).map((article) => (
+              <div key={article._id} className="keen-slider__slide">
+                <Link href={`/edits/${article.slug.current}`} className="group block">
+                  <div className="noise relative aspect-[4/5]">
+                    <Image
+                      src={urlFor(article.image)}
+                      alt={article.name}
+                      loading="lazy"
+                      width={1536}
+                      height={1920}
+                      className="h-full w-full object-cover border border-solid border-black transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-transparent to-gray-950/50 p-5">
+                      <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
+                        <div className="bg-white text-black text-xs px-2 py-1 inline-block">
+                          <span className="text-[--vividGreen]">■</span> EDITS
+                        </div>
+                        <div className="bg-white text-black text-sm px-2 py-1 inline-block uppercase">{article.name}</div>
+                        <div className="bg-white text-black text-xs px-2 py-1 inline-block">{new Date(article.publishedAt).toLocaleDateString()}</div>
                       </div>
-                      <div className="bg-white text-black text-sm px-2 py-1 inline-block uppercase">{article.name}</div>
-                      <div className="bg-white text-black text-xs px-2 py-1 inline-block">{new Date(article.publishedAt).toLocaleDateString()}</div>
                     </div>
+                  </div>
+                </Link>
+              </div>
+            ))}
+            <div className="keen-slider__slide">
+              <Link
+                href="/edits/"
+                className="relative group overflow-hidden h-full bg-black flex items-center justify-center"
+              >
+                <div className="text-white text-center">
+                  <h2 className="text-3xl font-bold mb-4">Läs mer</h2>
+                  <p className="text-xl">Läs mer av våra edits...</p>
+                  <div className="mt-6 inline-block border border-white px-6 py-3 hover:bg-white hover:text-black transition-colors">
+                    Explore →
                   </div>
                 </div>
               </Link>
             </div>
-          ))}
-          <div className="keen-slider__slide">
-            <Link
-              href="/edits/"
-              className="relative group overflow-hidden h-full bg-black flex items-center justify-center"
-            >
-              <div className="text-white text-center">
-                <h2 className="text-3xl font-bold mb-4">Läs mer</h2>
-                <p className="text-xl">Läs mer av våra edits...</p>
-                <div className="mt-6 inline-block border border-white px-6 py-3 hover:bg-white hover:text-black transition-colors">
-                  Explore →
-                </div>
-              </div>
-            </Link>
           </div>
-        </div>
         </section>
       </section>
     </div>

@@ -26,7 +26,7 @@ export default function NewsletterSection() {
       } else {
         setMessage("❌ " + data.error);
       }
-    } catch (error) {
+    } catch {
       setMessage("❌ Något gick fel. Vi har blivit notifierade. Vänligen försök igen senare.");
     }
 

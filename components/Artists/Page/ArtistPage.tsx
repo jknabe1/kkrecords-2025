@@ -1,6 +1,6 @@
 import imageUrlBuilder from '@sanity/image-url';
 import { client } from '@/sanity/client';
-import { PortableText } from '@portabletext/react';
+import { PortableText, PortableTextBlock } from '@portabletext/react'; // Updated import
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -22,7 +22,7 @@ function urlFor(source: SanityImageSource) {
 interface Artist {
   currentSlug: string;
   name: string;
-  Biography: any; // Replace with PortableText type if available
+  Biography: PortableTextBlock[]; // Replaced 'any' with PortableTextBlock[]
   image: SanityImageSource;
   Instagram?: string;
   Facebook?: string;

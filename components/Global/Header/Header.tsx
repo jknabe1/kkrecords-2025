@@ -1,70 +1,59 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState, useEffect, useRef } from "react"
-import Link from "next/link"
+import type React from "react";
+import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { useRouter } from 'next/navigation';
 
 const Header = () => {
-  const [isNavVisible, setIsNavVisible] = useState(false)
-  const [isSearchVisible, setIsSearchVisible] = useState(false)
-  const [searchQuery, setSearchQuery] = useState("")
-  const searchRef = useRef<HTMLDivElement>(null)
+  const [isNavVisible, setIsNavVisible] = useState(false);
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const searchRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLDivElement>(null);
+
+  const router = useRouter();
 
   const toggleSearch = () => {
-    setIsSearchVisible(!isSearchVisible)
-  }
+    setIsSearchVisible(!isSearchVisible);
+  };
+
+  const closeNav = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsNavVisible(false);
+  };
+
+  const openNav = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsNavVisible(true);
+  };
 
   // Close search flyout when clicking outside
   const handleSearchClickOutside = (event: MouseEvent) => {
     if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
-      setIsSearchVisible(false)
+      setIsSearchVisible(false);
     }
-  }
+  };
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleSearchClickOutside)
-    return () => {
-      document.removeEventListener("mousedown", handleSearchClickOutside)
-    }
-  }, [])
-
-  const toggleNav = () => {
-    setIsNavVisible(!isNavVisible)
-  }
-
-  const closeNav = (e: React.MouseEvent) => {
-    e.stopPropagation() // Prevent event from bubbling up
-    setIsNavVisible(false)
-  }
-
-  const openNav = (e: React.MouseEvent) => {
-    e.stopPropagation() // Prevent event from bubbling up
-    setIsNavVisible(true)
-  }
-
-  const navRef = useRef<HTMLDivElement>(null)
-
+  // Close nav when clicking outside
   const handleClickOutside = (event: MouseEvent) => {
     if (navRef.current && !navRef.current.contains(event.target as Node)) {
-      setIsNavVisible(false)
+      setIsNavVisible(false);
     }
-  }
+  };
 
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside)
+    document.addEventListener("mousedown", handleSearchClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [])
+      document.removeEventListener("mousedown", handleSearchClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleLinkClick = () => {
-    setIsNavVisible(false)
-  }
-
-  const [isButtonHovered, setIsButtonHovered] = useState(false)
-
-  const router = useRouter();
+    setIsNavVisible(false);
+  };
 
   const handleSearchSubmit = () => {
     if (searchQuery.trim().length > 0) {
@@ -134,17 +123,15 @@ const Header = () => {
                   <button className="block px-[7px]" aria-label="Open Search" onClick={toggleSearch}>
                     <div className="h-[70px] flex flex-col justify-center hidden lg:flex">
                       <div className="relative">
-                        <div>
-                          <svg width="36" height="37" viewBox="0 0 36 37" className="icon-fill">
-                            <path d="M22.1659 23.1292L34.3457 35.9806" stroke="currentColor" strokeWidth="2"></path>
-                            <path
-                              d="M26.1024 13.4297C26.1024 20.233 20.6487 25.7298 13.9436 25.7298C7.23852 25.7298 1.78479 20.233 1.78479 13.4297C1.78479 6.62649 7.23852 1.12964 13.9436 1.12964C20.6487 1.12964 26.1024 6.62649 26.1024 13.4297Z"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              className="icon-fill-fill"
-                            ></path>
-                          </svg>
-                        </div>
+                        <svg width="36" height="37" viewBox="0 0 36 37" className="icon-fill">
+                          <path d="M22.1659 23.1292L34.3457 35.9806" stroke="currentColor" strokeWidth="2"></path>
+                          <path
+                            d="M26.1024 13.4297C26.1024 20.233 20.6487 25.7298 13.9436 25.7298C7.23852 25.7298 1.78479 20.233 1.78479 13.4297C1.78479 6.62649 7.23852 1.12964 13.9436 1.12964C20.6487 1.12964 26.1024 6.62649 26.1024 13.4297Z"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            className="icon-fill-fill"
+                          ></path>
+                        </svg>
                       </div>
                     </div>
                     <svg className="lg:hidden" width="27" height="29" viewBox="0 0 27 29">
@@ -161,14 +148,15 @@ const Header = () => {
                   <Link className="block px-[7px] lg:pr-0" href="/backstage">
                     <div className="h-[70px] flex flex-col justify-center hidden lg:flex">
                       <div className="relative">
-                        <div>
-                          <div className="text-center relative bottom-[2px] relative">
-                          <svg width="35" height="36" viewBox="0 0 35 36" className="icon-fill"><circle cx="17.6423" cy="10.1467" r="8.73657" stroke="currentColor" strokeWidth="2" fill="none" className="icon-fill-fill"></circle><path fillRule="evenodd" clipRule="evenodd" d="M32.6461 35.7288C32.6659 35.414 32.676 35.0965 32.676 34.7767C32.676 26.5491 26.0062 19.8794 17.7787 19.8794C9.55111 19.8794 2.88135 26.5491 2.88135 34.7767C2.88135 35.0965 2.89143 35.414 2.91128 35.7288H0.907722C0.890217 35.4137 0.881348 35.0962 0.881348 34.7767C0.881348 25.4446 8.44654 17.8794 17.7787 17.8794C27.1108 17.8794 34.676 25.4446 34.676 34.7767C34.676 35.0962 34.6671 35.4137 34.6496 35.7288H32.6461Z"></path><circle cx="17.5" cy="35" r="16" fill="none" className="icon-fill-fill"></circle><rect x="2" y="34" height="2" width="32" fill="currentColor"></rect></svg>
-                          </div>
-                        </div>
+                        <svg width="35" height="36" viewBox="0 0 35 36" className="icon-fill">
+                          <circle cx="17.6423" cy="10.1467" r="8.73657" stroke="currentColor" strokeWidth="2" fill="none" className="icon-fill-fill"></circle>
+                          <path fillRule="evenodd" clipRule="evenodd" d="M32.6461 35.7288C32.6659 35.414 32.676 35.0965 32.676 34.7767C32.676 26.5491 26.0062 19.8794 17.7787 19.8794C9.55111 19.8794 2.88135 26.5491 2.88135 34.7767C2.88135 35.0965 2.89143 35.414 2.91128 35.7288H0.907722C0.890217 35.4137 0.881348 35.0962 0.881348 34.7767C0.881348 25.4446 8.44654 17.8794 17.7787 17.8794C27.1108 17.8794 34.676 25.4446 34.676 34.7767C34.676 35.0962 34.6671 35.4137 34.6496 35.7288H32.6461Z"></path>
+                          <circle cx="17.5" cy="35" r="16" fill="none" className="icon-fill-fill"></circle>
+                          <rect x="2" y="34" height="2" width="32" fill="currentColor"></rect>
+                        </svg>
                       </div>
                     </div>
-                    <div className="text-center lg:hidden relative bottom-[2px] relative">
+                    <div className="text-center lg:hidden relative bottom-[2px]">
                       <svg width="23" height="29" viewBox="0 0 23 29" fill="none" className="icon-fill">
                         <rect
                           x="1.19751"
@@ -273,7 +261,7 @@ const Header = () => {
           </Link>
           <Link
             href="/om-oss"
-            className="flex items-center justify-center text-sans-35 lg:text-sans-60 font-600 border-b  border-black border-solid hover:italic"
+            className="flex items-center justify-center text-sans-35 lg:text-sans-60 font-600 border-b border-black border-solid hover:italic"
             onClick={handleLinkClick}
           >
             OM OSS
@@ -282,54 +270,53 @@ const Header = () => {
           {/* Middle row */}
           <Link
             href="/artists"
-            className="flex items-center justify-center text-sans-35 lg:text-sans-60 font-600 border-r border-b  border-black border-solid hover:italic" 
+            className="flex items-center justify-center text-sans-35 lg:text-sans-60 font-600 border-r border-b border-black border-solid hover:italic"
             onClick={handleLinkClick}
           >
             ARTISTER
           </Link>
           <Link
             href="/edits"
-            className="flex items-center justify-center text-sans-35 lg:text-sans-60 font-600 border-b  border-black border-solid hover:italic"
+            className="flex items-center justify-center text-sans-35 lg:text-sans-60 font-600 border-b border-black border-solid hover:italic"
             onClick={handleLinkClick}
           >
             EDITS
           </Link>
 
           {/* Bottom row with lucky button */}
-          <div className="relative flex items-center justify-center text-sans-35 lg:text-sans-60 font-600 border-r  border-black border-solid hover:italic">
+          <div className="relative flex items-center justify-center text-sans-35 lg:text-sans-60 font-600 border-r border-black border-solid hover:italic">
             <Link href="/event" className="w-full h-full flex items-center justify-center" onClick={handleLinkClick}>
               EVENTS
             </Link>
           </div>
 
           {/* Footer area */}
-            <div className="flex items-center justify-center border-gray-800 right-0">
+          <div className="flex items-center justify-center border-gray-800 right-0">
             <div className="w-full h-full flex flex-col items-center justify-center p-8">
               {/* Social Links */}
               <ul className="flex items-center space-x-6 list-none">
-              <li>
-                <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Instagram" aria-label="Instagram" href="https://www.instagram.com/kkrecords.se">Instagram</Link>
-              </li>
-              <li>
-                <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Facebook" aria-label="Facebook" href="https://www.facebook.com/kkmusicrecords">Facebook</Link>
-              </li>
-              <li>
-                <Link className='block w-full text-sans-14 uppercase tracking-wider p-2 text-left' title="TikTok" aria-label="TikTok" href="https://www.tiktok.com/kkrecords.se">TikTok</Link>
-              </li>
-              <li>
-                <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Spotify" aria-label="Spotify" href="https://open.spotify.com/user/rp0di7du2vijxmhev2mp6vugo">Spotify</Link>
-              </li>
-              <li>
-                <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Youtube" aria-label="Youtube" href="https://www.youtube.com/@kkrec">Youtube</Link>
-              </li>
+                <li>
+                  <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Instagram" aria-label="Instagram" href="https://www.instagram.com/kkrecords.se">Instagram</Link>
+                </li>
+                <li>
+                  <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Facebook" aria-label="Facebook" href="https://www.facebook.com/kkmusicrecords">Facebook</Link>
+                </li>
+                <li>
+                  <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="TikTok" aria-label="TikTok" href="https://www.tiktok.com/kkrecords.se">TikTok</Link>
+                </li>
+                <li>
+                  <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Spotify" aria-label="Spotify" href="https://open.spotify.com/user/rp0di7du2vijxmhev2mp6vugo">Spotify</Link>
+                </li>
+                <li>
+                  <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Youtube" aria-label="Youtube" href="https://www.youtube.com/@kkrec">Youtube</Link>
+                </li>
               </ul>
             </div>
-            </div>
+          </div>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Header
-
+export default Header;

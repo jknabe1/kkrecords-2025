@@ -18,7 +18,7 @@ export default function CookieConsent() {
               <div className="flex flex-col gap-half">
                 <h2 className="uppercase text-sans-14 font-800 tracking-wider">Kakor...</h2>
                 <div className="rich-text text-sans-12">
-                  <p>Vi använder cookies för att förbättra din surfupplevelse, visa personligt anpassade annonser eller innehåll och analysera vår trafik. Genom att klicka på "Acceptera" samtycker du till vår användning av cookies. <Link className="" href="/om-oss/integritet"> Läs mer här</Link>.</p>
+                  <p>Vi använder cookies för att förbättra din surfupplevelse, visa personligt anpassade annonser eller innehåll och analysera vår trafik. Genom att klicka på &quot;Acceptera&quot; samtycker du till vår användning av cookies. <Link className="" href="/om-oss/integritet"> Läs mer här</Link>.</p>
                 </div>
               </div>
             </div>

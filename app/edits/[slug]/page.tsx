@@ -1,6 +1,6 @@
 import imageUrlBuilder from '@sanity/image-url';
 import { client } from '@/sanity/client';
-import { PortableText } from '@portabletext/react';
+import { PortableText, PortableTextBlock } from '@portabletext/react'; // Updated import
 import Image from 'next/image';
 import type { Metadata } from 'next';
 
@@ -23,7 +23,7 @@ function urlFor(source: SanityImageSource) {
 interface News {
   currentSlug: string;
   name: string;
-  details: any; // Replace with proper PortableText type if available
+  details: PortableTextBlock[]; // Replaced 'any' with PortableTextBlock[]
   image: SanityImageSource;
   excerpt?: string;
   publishedAt: string;

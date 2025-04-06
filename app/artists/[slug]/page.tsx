@@ -1,9 +1,9 @@
 import imageUrlBuilder from '@sanity/image-url';
 import { client } from '@/sanity/client';
-import { PortableText } from '@portabletext/react';
+import { PortableText, PortableTextBlock } from '@portabletext/react'; // Updated import
 import Image from 'next/image';
 import type { Metadata } from 'next';
-import Link from 'next/link'; // Added missing import for Link component
+import Link from 'next/link';
 
 export const revalidate = 30;
 
@@ -24,7 +24,7 @@ function urlFor(source: SanityImageSource) {
 interface Artist {
   currentSlug: string;
   name: string;
-  Biography: any; // Replace with proper PortableText type if available
+  Biography: PortableTextBlock[]; // Replaced 'any' with PortableTextBlock[]
   image: SanityImageSource;
   Instagram?: string;
   Facebook?: string;
@@ -67,16 +67,16 @@ export async function generateMetadata({
 
   return {
     title: `${artist.name} | K&K RECORDS`,
-    description: artist.Biography || 'Explore the artist’s biography and works.',
+    description: artist.Biography?.map(block => block.children?.map(child => child.text).join(' ')).join(' ') || 'Explore the artist’s biography and works.',
     openGraph: {
       title: artist.name,
-      description: artist.Biography || 'Explore the artist’s biography and works.',
+      description: artist.Biography?.map(block => block.children?.map(child => child.text).join(' ')).join(' ') || 'Explore the artist’s biography and works.',
       images: artist.image ? [{ url: urlFor(artist.image).url() }] : [],
     },
     twitter: {
       card: 'summary_large_image',
       title: artist.name,
-      description: artist.Biography || 'Explore the artist’s biography and works.',
+      description: artist.Biography?.map(block => block.children?.map(child => child.text).join(' ')).join(' ') || 'Explore the artist’s biography and works.',
       images: artist.image ? [{ url: urlFor(artist.image).url() }] : [],
     },
   };

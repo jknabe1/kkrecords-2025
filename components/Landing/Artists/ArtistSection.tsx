@@ -8,22 +8,29 @@ import Image from "next/image";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 
+// Define the Sanity image source type
+interface SanityImageSource {
+  asset: {
+    _ref: string;
+  };
+}
+
 const builder = imageUrlBuilder(client);
-function urlFor(source: any) {
+function urlFor(source: SanityImageSource) {
   return builder.image(source).url();
 }
 
-export default function ArtistSection() {
-  interface Artists {
-    _id: string;
-    name: string;
-    slug: { current: string };
-    image: string;
-  }
+// Define the Artist data structure
+interface Artist {
+  _id: string;
+  name: string;
+  slug: { current: string };
+  image: SanityImageSource;
+}
 
-  const [artists, setArtists] = useState<Linkrtists[]>([]);
-  const [randomArtists, setRandomArtists] = useState<Linkrtists[]>([]);
-  const [loading, setLoading] = useState(true);
+export default function ArtistSection() {
+  const [artists, setArtists] = useState<Artist[]>([]);
+  const [randomArtists, setRandomArtists] = useState<Artist[]>([]);
   const [isMobile, setIsMobile] = useState(false);
 
   // Detect mobile screen
@@ -36,7 +43,7 @@ export default function ArtistSection() {
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
-  const [sliderRef, instanceRef] = useKeenSlider(
+  const [sliderRef] = useKeenSlider(
     isMobile
       ? {
           slides: {
@@ -51,16 +58,15 @@ export default function ArtistSection() {
     const fetchArtists = async () => {
       try {
         // Fetch all artists
-        const allArtists = await client.fetch(
+        const allArtists = await client.fetch<Artist[]>(
           `*[_type == "artist" && defined(slug.current)]{_id, name, slug, image}|order(name asc)`
         );
 
         setArtists(allArtists);
-        setLoading(false);
 
         // Pick two unique random artists
         if (allArtists.length > 2) {
-          let firstIndex = Math.floor(Math.random() * allArtists.length);
+          const firstIndex = Math.floor(Math.random() * allArtists.length);
           let secondIndex;
 
           do {
@@ -71,7 +77,6 @@ export default function ArtistSection() {
         }
       } catch (error) {
         console.error("Error fetching artists:", error);
-        setLoading(false);
       }
     };
 
@@ -98,20 +103,20 @@ export default function ArtistSection() {
                       src={urlFor(artist.image)}
                       alt={artist.name}
                       loading="lazy"
-                      width="1536"
-                      height="1920"
+                      width={1536}
+                      height={1920}
                       className="h-full w-full object-cover border border-solid border-black transition-transform duration-500 group-hover:scale-105"
                       sizes="50vw"
                     />
                     <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-transparent to-gray-950/50 p-5">
-                        <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
-                            <div className="bg-white text-black text-xs px-2 py-1 inline-block">
-                                <span className="text-[--vividGreen]">■</span> ARTIST
-                            </div>
-                            <div className="bg-white text-black text-sm px-2 py-1 inline-block">
-                                {artist.name}
-                            </div>
+                      <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
+                        <div className="bg-white text-black text-xs px-2 py-1 inline-block">
+                          <span className="text-[--vividGreen]">■</span> ARTIST
                         </div>
+                        <div className="bg-white text-black text-sm px-2 py-1 inline-block">
+                          {artist.name}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </Link>
@@ -127,20 +132,20 @@ export default function ArtistSection() {
                       src={urlFor(artist.image)}
                       alt={artist.name}
                       loading="lazy"
-                      width="1536"
-                      height="1920"
+                      width={1536}
+                      height={1920}
                       className="h-full w-full object-cover border border-solid border-black"
                       sizes="50vw"
                     />
                     <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-transparent to-gray-950/50 p-5">
-                        <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
-                            <div className="bg-white text-black text-xs px-2 py-1 inline-block">
-                                <span className="text-[--vividGreen]">■</span> ARTIST
-                            </div>
-                            <div className="bg-white text-black text-sm px-2 py-1 inline-block">
-                                {artist.name}
-                            </div>
+                      <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
+                        <div className="bg-white text-black text-xs px-2 py-1 inline-block">
+                          <span className="text-[--vividGreen]">■</span> ARTIST
                         </div>
+                        <div className="bg-white text-black text-sm px-2 py-1 inline-block">
+                          {artist.name}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </Link>
@@ -174,21 +179,21 @@ export default function ArtistSection() {
                         src={urlFor(artist.image)}
                         alt={artist.name}
                         loading="lazy"
-                        width="1536"
-                        height="1920"
+                        width={1536}
+                        height={1920}
                         className="h-full w-full object-cover border border-solid border-black"
                         sizes="50vw"
                       />
-                    <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-transparent to-gray-950/50 p-5">
+                      <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-transparent to-gray-950/50 p-5">
                         <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
-                            <div className="bg-white text-black px-2 py-1 inline-block">
-                                <span className="text-[--vividGreen]">■</span> ARTIST
-                            </div>
-                            <div className="bg-white text-black px-2 py-1 inline-block uppercase">
-                                {artist.name}
-                            </div>
+                          <div className="bg-white text-black px-2 py-1 inline-block">
+                            <span className="text-[--vividGreen]">■</span> ARTIST
+                          </div>
+                          <div className="bg-white text-black px-2 py-1 inline-block uppercase">
+                            {artist.name}
+                          </div>
                         </div>
-                    </div>
+                      </div>
                     </div>
                   </Link>
                 </div>
@@ -205,21 +210,21 @@ export default function ArtistSection() {
                         src={urlFor(artist.image)}
                         alt={artist.name}
                         loading="lazy"
-                        width="1536"
-                        height="1920"
+                        width={1536}
+                        height={1920}
                         className="h-full w-full object-cover border border-solid border-black"
                         sizes="50vw"
                       />
                       <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-transparent to-gray-950/50 p-5">
                         <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
-                            <div className="bg-white text-black px-2 py-1 inline-block">
-                                <span className="text-[--vividGreen]">■</span> ARTIST
-                            </div>
-                            <div className="bg-white text-black px-2 py-1 inline-block uppercase">
-                                {artist.name}
-                            </div>
+                          <div className="bg-white text-black px-2 py-1 inline-block">
+                            <span className="text-[--vividGreen]">■</span> ARTIST
+                          </div>
+                          <div className="bg-white text-black px-2 py-1 inline-block uppercase">
+                            {artist.name}
+                          </div>
                         </div>
-                    </div>
+                      </div>
                     </div>
                   </Link>
                 </div>

@@ -2,7 +2,7 @@ import imageUrlBuilder from '@sanity/image-url';
 import { client } from '@/sanity/client';
 import Image from 'next/image';
 import type { Metadata } from 'next';
-import { PortableText } from 'next-sanity';
+import { PortableText, PortableTextBlock } from 'next-sanity'; // Updated import
 
 // Define the Sanity image source type
 interface SanityImageSource {
@@ -22,7 +22,7 @@ function urlFor(source: SanityImageSource) {
 interface About {
   currentSlug: string;
   name: string;
-  details: any; // Replace with proper PortableText type if available
+  details: PortableTextBlock[]; // Replaced 'any' with PortableTextBlock[]
   image: SanityImageSource;
   excerpt?: string;
   publishedAt: string;

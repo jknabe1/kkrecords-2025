@@ -6,31 +6,47 @@ import { client } from '@/sanity/client';
 import Link from 'next/link';
 import Image from 'next/image';
 
+// Define the Sanity image source type
+interface SanityImageSource {
+  asset: {
+    _ref: string;
+  };
+}
+
 const builder = imageUrlBuilder(client);
-function urlFor(source: any) {
+function urlFor(source: SanityImageSource) {
   return builder.image(source);
 }
 
+// Define the Event data structure
+interface Event {
+  _id: string;
+  name: string;
+  slug: { current: string };
+  date: string;
+  image?: SanityImageSource;
+}
+
 const EventGrid = () => {
-  const [upcomingEvents, setUpcomingEvents] = useState<Linkny[]>([]);
-  const [pastEvents, setPastEvents] = useState<Linkny[]>([]);
+  const [upcomingEvents, setUpcomingEvents] = useState<Event[]>([]);
+  const [pastEvents, setPastEvents] = useState<Event[]>([]);
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const data = await client.fetch(
+        const data = await client.fetch<Event[]>(
           '*[_type == "event" && defined(slug.current) && defined(date)]'
         );
 
         const now = new Date();
 
         const upcoming = data
-          .filter((event: any) => new Date(event.date) >= now)
-          .sort((a: any, b: any) => new Date(a.date).getTime() - new Date(b.date).getTime());
+          .filter((event) => new Date(event.date) >= now)
+          .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
         const past = data
-          .filter((event: any) => new Date(event.date) < now)
-          .sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
+          .filter((event) => new Date(event.date) < now)
+          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
         setUpcomingEvents(upcoming);
         setPastEvents(past);
@@ -42,24 +58,24 @@ const EventGrid = () => {
     fetchEvents();
   }, []);
 
-  // ✅ Combine all for JSON-LD
+  // Combine all for JSON-LD
   const allEvents = [...upcomingEvents, ...pastEvents];
   const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "EventSeries",
-    "name": "K&K Records Events",
-    "description": "A list of concerts and events at K&K Records.",
-    "event": allEvents.map(event => ({
-      "@type": "MusicEvent",
-      "name": event.name,
-      "startDate": event.date,
-      "eventStatus": "https://schema.org/EventScheduled",
-      "image": event.image ? urlFor(event.image).url() : undefined,
-      "url": `https://kkrecords.se/event/${event.slug.current}`
-    }))
+    '@context': 'https://schema.org',
+    '@type': 'EventSeries',
+    'name': 'K&K Records Events',
+    'description': 'A list of concerts and events at K&K Records.',
+    'event': allEvents.map((event) => ({
+      '@type': 'MusicEvent',
+      'name': event.name,
+      'startDate': event.date,
+      'eventStatus': 'https://schema.org/EventScheduled',
+      'image': event.image ? urlFor(event.image).url() : undefined,
+      'url': `https://kkrecords.se/event/${event.slug.current}`,
+    })),
   };
 
-  const renderEventCard = (event: any) => (
+  const renderEventCard = (event: Event) => (
     <Link
       key={event._id}
       href={`/event/${event.slug.current}`}
@@ -80,8 +96,8 @@ const EventGrid = () => {
             src={urlFor(event.image).url()}
             alt={event.name}
             loading="lazy"
-            width="1536"
-            height="1920"
+            width={1536}
+            height={1920}
             className="h-full w-full object-cover border-solid border-black transition-transform duration-500 group-hover:scale-105"
             sizes="50vw"
           />
@@ -101,18 +117,18 @@ const EventGrid = () => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-{upcomingEvents.length > 0 ? (
-      <section className="px-2 py-3 lg:px-5 relative mt-10 lg:mt-16 mb-10 lg:mb-16 uppercase">
-        <h2 className="text-sans-35 lg:text-sans-60 font-600 mb-10">Kommande event</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        {upcomingEvents.map(renderEventCard)}
-        </div>
-      </section>
+      {upcomingEvents.length > 0 ? (
+        <section className="px-2 py-3 lg:px-5 relative mt-10 lg:mt-16 mb-10 lg:mb-16 uppercase">
+          <h2 className="text-sans-35 lg:text-sans-60 font-600 mb-10">Kommande event</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {upcomingEvents.map(renderEventCard)}
+          </div>
+        </section>
       ) : (
-      <section className="px-2 py-3 lg:px-5 relative mt-10 lg:mt-16 mb-10 lg:mb-16 uppercase">
-        <h2 className="text-sans-35 lg:text-sans-60 font-600 mb-10">Kommande event</h2>
-        <p className="text-gray-500">Inga kommande event för tillfället.</p>
-      </section>
+        <section className="px-2 py-3 lg:px-5 relative mt-10 lg:mt-16 mb-10 lg:mb-16 uppercase">
+          <h2 className="text-sans-35 lg:text-sans-60 font-600 mb-10">Kommande event</h2>
+          <p className="text-gray-500">Inga kommande event för tillfället.</p>
+        </section>
       )}
 
       {pastEvents.length > 0 && (

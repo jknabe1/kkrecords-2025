@@ -1,5 +1,4 @@
 import '@/app/globals.css';
-import { SanityDocument } from 'next-sanity';
 import imageUrlBuilder from '@sanity/image-url';
 import { client } from '@/sanity/client';
 import ArtistsList from '@/components/Artists/ArtistsSection';

@@ -1,5 +1,5 @@
 import { client } from '@/sanity/client';
-import { groq } from 'next-sanity';
+import { groq, PortableTextBlock } from 'next-sanity'; // Updated import
 import Image from 'next/image';
 import Link from 'next/link';
 import imageUrlBuilder from '@sanity/image-url';
@@ -25,8 +25,8 @@ interface SearchResult {
   _type: string;
   name: string;
   image?: SanityImageSource;
-  Biography?: any; // Replace with PortableText type if available
-  description?: any; // Replace with PortableText type if available
+  Biography?: PortableTextBlock[]; // Replaced 'any' with PortableTextBlock[]
+  description?: PortableTextBlock[]; // Replaced 'any' with PortableTextBlock[]
   slug?: { current: string };
   email?: string;
   roll?: string;
@@ -127,7 +127,7 @@ export default async function SearchPage({
       <div className="relative aspect-[4/5] lg:aspect-[6/5] bg-black flex items-center justify-center text-white border border-solid border-black">
         <div className="text-center">
           <h2 className="text-3xl font-bold mb-4">
-            {results.length} resultat för &quot;{query}&quot;
+            {results.length} resultat för "{query}"
           </h2>
           <p className="text-xl">Här är vad vi hittade för din sökning.</p>
         </div>
