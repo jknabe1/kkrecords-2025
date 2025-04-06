@@ -1,6 +1,7 @@
 
 import InfoGrid from "@/components/About/InfoGrid/InfoGrid";
 import type { Metadata } from "next";
+import Image from "next/image";
 
 // ✅ **Static Metadata for SEO**
 export const metadata: Metadata = {
@@ -94,7 +95,13 @@ export default function Page() {
                       </div>
                       <div className="hidden lg:block col-span-6 grid-col-border sticky h-full overflow-hidden">
                         <div className="image overflow-hidden absolute inset-0">
-                                <img className="" src="https://cdn.sanity.io/images/1k2t1bm0/production/b34d044f641e16d3f97b0237d7fbda9b0a22b306-1439x1913.jpg?auto=format&q=75&url=https://cdn.sanity.io/images/1k2t1bm0/production/b34d044f641e16d3f97b0237d7fbda9b0a22b306-1439x1913.jpg&w=1000" alt="A coiled black power cord with a two-prong plug against a light background."/>
+                                <Image
+                                width={1080}
+                                height={1080}
+                                loading="lazy" 
+                                className="noise object-cover object-center w-full h-full" 
+                                src="https://images.unsplash.com/photo-1675099349521-58098de867d3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                                alt="A coiled black power cord with a two-prong plug against a light background."/>
                         </div>
                     </div>
                     <div className="col-span-12 bg-[lightPink] py-8 border-black border-solid border-b">

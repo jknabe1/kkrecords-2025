@@ -23,7 +23,7 @@ module.exports = {
           hostname: 'images.ctfassets.net',
         },
         {
-          hostname: 'hebbkx1anhila5yf.public.blob.vercel-storage.com',
+          hostname: 'images.unsplash.com',
         }
       ],
     },

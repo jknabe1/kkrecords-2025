@@ -127,7 +127,7 @@ export default async function SearchPage({
       <div className="relative aspect-[4/5] lg:aspect-[6/5] bg-black flex items-center justify-center text-white border border-solid border-black">
         <div className="text-center">
           <h2 className="text-3xl font-bold mb-4">
-            {results.length} resultat för "{query}"
+            {results.length} resultat för &quot;{query}&quot;
           </h2>
           <p className="text-xl">Här är vad vi hittade för din sökning.</p>
         </div>

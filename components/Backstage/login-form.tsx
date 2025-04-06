@@ -1,5 +1,5 @@
+import Image from "next/image";
 export default async function LoginForm() {
-
   return (
     <div>
       <div className="grid grid-cols-12 gap-px">
@@ -54,7 +54,7 @@ export default async function LoginForm() {
             </div>
             <div className="hidden lg:block col-span-6 grid-col-border sticky top-7 min-h-hero-minus-header overflow-hidden">
               <div className="image overflow-hidden absolute inset-0">
-                <img
+                <Image
                   src="https://cdn.sanity.io/images/44gy0hz3/production/74c30b8ddf90c838485d1451717d07967cabe8f8-5168x2912.jpg"
                   alt="Login"
                   className="w-full h-full object-cover noise grayscale"

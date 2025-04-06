@@ -1,4 +1,6 @@
 import { Metadata } from "next"
+import Image from "next/image";
+
 
 export const metadata: Metadata = {
   title: "404",
@@ -28,7 +30,14 @@ export default function NotFound() {
                     </div>
                     <div className="hidden lg:block col-span-6 grid-col-border sticky top-7 min-h-hero-minus-header overflow-hidden">
                         <div className="image overflow-hidden absolute inset-0">
-                                <img className="" loading="lazy" src="https://images.unsplash.com/photo-1603520762497-4f020fe0f1b1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="A coiled black power cord with a two-prong plug against a light background."/>
+                                <Image 
+                                className="noise object-cover object-center w-full h-full grayscale" 
+                                loading="lazy"
+                                width={2574}
+                                height={1930}
+                                sizes="100vw" 
+                                quality={75}
+                                src="https://images.unsplash.com/photo-1676638281470-94102958b8e7?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="A coiled black power cord with a two-prong plug against a light background."/>
                         </div>
                 </div>
             </div>

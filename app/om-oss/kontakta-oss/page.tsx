@@ -1,6 +1,8 @@
 import EmployeeGrid from '@/components/Contact/EmployeeGrid'
 import React from 'react'
 import type { Metadata } from 'next'
+import Image from 'next/image';
+
 
 // ✅ Static Metadata
 export const metadata: Metadata = {
@@ -125,7 +127,14 @@ export default function page() {
                     </div>
                     <div className="hidden lg:block col-span-6 grid-col-border sticky top-7 min-h-hero-minus-header overflow-hidden">
                         <div className="image overflow-hidden absolute inset-0">
-                                <img className="" src="https://cdn.sanity.io/images/1k2t1bm0/production/6d522608a1ffb4d5f2a6e4876670c22fc3ceb8de-1439x1913.jpg" alt="A coiled black power cord with a two-prong plug against a light background."/>
+                                <Image 
+                                className="noise grayscale object-cover object-center w-full h-full"
+                                loading="lazy"
+                                width={1080}
+                                height={1080}
+                                sizes="100vw" 
+                                src="https://images.unsplash.com/photo-1659455741342-c623b151a62b?q=80&w=1936&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                                alt="Guitar collection"/>
                         </div>
                 </div>
             </div>

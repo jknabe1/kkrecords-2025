@@ -59,6 +59,17 @@ const InfoGrid = () => {
             </div>
           </Link>
         ))}
+        <Link
+            href={`/om-oss/kontakta-oss`}
+            className="group"
+          >
+            <div className="hover:bg-black hover:text-white border border-black border-solid p-6 flex items-center justify-between transition-transform duration-200 hover:italic">
+              <span className="text-lg leading-relaxed">Kontakta oss</span>
+              <span className="text-lg leading-relaxed transition-transform duration-200 group-hover:translate-x-1">
+                →
+              </span>
+            </div>
+          </Link>
       </div>
     </div>
   );
