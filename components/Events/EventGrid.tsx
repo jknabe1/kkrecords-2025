@@ -12,8 +12,8 @@ function urlFor(source: any) {
 }
 
 const EventGrid = () => {
-  const [upcomingEvents, setUpcomingEvents] = useState<any[]>([]);
-  const [pastEvents, setPastEvents] = useState<any[]>([]);
+  const [upcomingEvents, setUpcomingEvents] = useState<Linkny[]>([]);
+  const [pastEvents, setPastEvents] = useState<Linkny[]>([]);
 
   useEffect(() => {
     const fetchEvents = async () => {

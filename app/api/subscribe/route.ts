@@ -15,7 +15,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Miljövariabler saknas" }, { status: 500 });
     }
 
-    const response = await axios.post(
+    await axios.post(
       "https://api.brevo.com/v3/contacts",
       {
         email,
@@ -31,8 +31,10 @@ export async function POST(req: Request) {
     );
 
     return NextResponse.json({ message: "Prenumeration lyckades!" }, { status: 200 });
-  } catch (error: any) {
-    console.error("Fel vid prenumeration:", error.response?.data || error.message);
+  } catch (error) {
+    // Type the error as an AxiosError or unknown
+    const axiosError = error as import("axios").AxiosError;
+    console.error("Fel vid prenumeration:", axiosError.response?.data || axiosError.message);
     return NextResponse.json({ error: "Misslyckades med att prenumerera" }, { status: 500 });
   }
 }

@@ -22,7 +22,7 @@ const OpeningHeader = () => {
                             </div>
                         </div>
                         <div className="flex justify-start">
-                            <a className="block w-full md:w-auto button button-medium button-border button-secondary-white" title="EXPLORE ALL EIGHT ACTS" href="/collections/orpheu-collection">
+                            <Link className="block w-full md:w-auto button button-medium button-border button-secondary-white" title="EXPLORE ALL EIGHT ACTS" href="/collections/orpheu-collection">
                             <svg viewBox="0 0 100 44" fill="none" width="100%" height="100%" preserveAspectRatio="none" className="icon-border absolute inset-0">
                                 <g mask="url(#border-mask-4-44)">
                                     <rect x="0" y="0" width="100" height="44" stroke="currentColor" strokeWidth="2" vectorEffect="non-scaling-stroke"></rect>
@@ -36,7 +36,7 @@ const OpeningHeader = () => {
                                 </mask>
                             </svg>
                             EXPLORE ALL EIGHT ACTS
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>

@@ -25,7 +25,7 @@ interface ArtistsListProps {
 }
 
 export default function ArtistsList({ initialArtists }: ArtistsListProps) {
-  const [selectedArtist, setSelectedArtist] = useState<Artist | null>(
+  const [selectedArtist, setSelectedArtist] = useState<Linkrtist | null>(
     initialArtists[0] || null
   );
 

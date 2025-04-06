@@ -118,7 +118,7 @@ const Header = () => {
               </ul>
             </div>
             <div className="col-span-4 lg:col-span-4 lg:flex justify-center">
-              <a aria-label="K&K Records" className="block xl:ml-3" href="/">
+              <Link aria-label="K&K Records" className="block xl:ml-3" href="/">
                 <picture>
                   <img
                     src="https://kkrecords.se/media/kkrecords-embed.svg"
@@ -126,7 +126,7 @@ const Header = () => {
                     className="block w-full h-full"
                   />
                 </picture>
-              </a>
+              </Link>
             </div>
             <div className="col-span-8 lg:col-span-4">
               <ul className="flex justify-end items-center lg:items-end">
@@ -158,7 +158,7 @@ const Header = () => {
                   </button>
                 </li>
                 <li>
-                  <a className="block px-[7px] lg:pr-0" href="/backstage">
+                  <Link className="block px-[7px] lg:pr-0" href="/backstage">
                     <div className="h-[70px] flex flex-col justify-center hidden lg:flex">
                       <div className="relative">
                         <div>
@@ -186,7 +186,7 @@ const Header = () => {
                         ></path>
                       </svg>
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li className="lg:hidden">
                   <button
@@ -297,7 +297,7 @@ const Header = () => {
 
           {/* Bottom row with lucky button */}
           <div className="relative flex items-center justify-center text-sans-35 lg:text-sans-60 font-600 border-r  border-black border-solid hover:italic">
-            <Link href="/shop" className="w-full h-full flex items-center justify-center" onClick={handleLinkClick}>
+            <Link href="/event" className="w-full h-full flex items-center justify-center" onClick={handleLinkClick}>
               EVENTS
             </Link>
           </div>

@@ -23,16 +23,16 @@ export default function MerchSlider() {
                                 <div className="relative h-full gradient-primary overflow-hidden">
                                     <div className="gradient-dark absolute inset-0 hidden lg:block"></div>
                                     <div className="mx-[-20px] md:mx-0">
-                                        <a aria-label="I Don’t Know What" className="block w-full h-full" href="/products/i-dont-know-what">
+                                        <Link aria-label="I Don’t Know What" className="block w-full h-full" href="/products/i-dont-know-what">
                                         <div className="image overflow-hidden w-full aspect-w-product-tile-w aspect-h-product-tile-h">
                                             <img className="" src="https://cdn.sanity.io/images/1k2t1bm0/production/4d691fe08cb3fbec74b30a989b61f5b3a5cc6b21-1440x1920.png?auto=format&amp;q=75&amp;url=https://cdn.sanity.io/images/1k2t1bm0/production/4d691fe08cb3fbec74b30a989b61f5b3a5cc6b21-1440x1920.png&amp;w=600" alt="A sleek bottle of &quot;i don't know what fragrance enhancer ds &amp;amp; durga&quot; eau de parfum, 50 ml size, emphasizing minimalism and contemporary design."/>
                                         </div>
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className="border-t bg-cream border-solid absolute left-0 bottom-0 right-0">
                                     <div className="relative p-3">
                                         <p className="mb-1">
-                                            <a className="link-cover text-sans-16 uppercase tracking-wider font-800" href="/products/i-dont-know-what">I Don’t Know What</a>
+                                            <Link className="link-cover text-sans-16 uppercase tracking-wider font-800" href="/products/i-dont-know-what">I Don’t Know What</Link>
                                             <span className="text-sans-12 uppercase tracking-wider ml-1">Perfume</span>
                                         </p>
                                         <p className="max-w-[350px]">A fragrance enhancer with transparent radiance.</p>
@@ -81,15 +81,15 @@ export default function MerchSlider() {
                         <div className="relative h-full gradient-primary overflow-hidden">
                             <div className="gradient-dark absolute inset-0 hidden lg:block"></div>
                             <div className="mx-[-20px] md:mx-0">
-                                <a aria-label="Big Sur After Rain" className="block w-full h-full" href="/products/big-sur-after-rain-candle">
+                                <Link aria-label="Big Sur After Rain" className="block w-full h-full" href="/products/big-sur-after-rain-candle">
                                 <div className="image overflow-hidden w-full aspect-w-product-tile-w aspect-h-product-tile-h">
                                     <img className="" src="https://cdn.sanity.io/images/1k2t1bm0/production/6e3e88c267669004d417ee4c5a244eed84b1d760-1440x1920.png?auto=format&amp;q=75&amp;url=https://cdn.sanity.io/images/1k2t1bm0/production/6e3e88c267669004d417ee4c5a244eed84b1d760-1440x1920.png&amp;w=600" alt="A lit scented candle with a label that reads &quot;big sur after rain&quot; by d.s. &amp;amp; durga, captured against a dark background, exuding a serene ambiance."/>
                                 </div>
-                            </a>
+                            </Link>
                         </div>
                         <div className="border-t bg-cream border-solid absolute left-0 bottom-0 right-0">
                             <div className="relative p-3">
-                                <p className="mb-1"><a className="link-cover text-sans-16 uppercase tracking-wider font-800" href="/products/big-sur-after-rain-candle">Big Sur After Rain</a>
+                                <p className="mb-1"><Link className="link-cover text-sans-16 uppercase tracking-wider font-800" href="/products/big-sur-after-rain-candle">Big Sur After Rain</Link>
                                     <span className="text-sans-12 uppercase tracking-wider ml-1">7 oz Candle</span>
                                 </p>
                                 <p className="max-w-[350px]">Rain water in eucalyptus groves off Highway 1.</p>

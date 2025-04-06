@@ -1,17 +1,39 @@
-import imageUrlBuilder from '@sanity/image-url'
-import { client } from '@/sanity/client'
-import { PortableText } from "@portabletext/react";
-import Image from "next/image";
-import type { Metadata, ResolvingMetadata } from 'next'
+import imageUrlBuilder from '@sanity/image-url';
+import { client } from '@/sanity/client';
+import { PortableText } from '@portabletext/react';
+import Image from 'next/image';
+import type { Metadata } from 'next';
+import Link from 'next/link'; // Added missing import for Link component
 
 export const revalidate = 30;
 
 const builder = imageUrlBuilder(client);
-function urlFor(source: any) {
+
+// Define the type for Sanity image source
+interface SanityImageSource {
+  asset: {
+    _ref: string;
+  };
+}
+
+function urlFor(source: SanityImageSource) {
   return builder.image(source);
 }
 
-async function getData(slug: string, id: any) {
+// Define the artist data structure
+interface Artist {
+  currentSlug: string;
+  name: string;
+  Biography: any; // Replace with proper PortableText type if available
+  image: SanityImageSource;
+  Instagram?: string;
+  Facebook?: string;
+  spotify?: string;
+  excerpt?: string;
+  date?: string;
+}
+
+async function getData(slug: string): Promise<Artist | null> {
   const query = `
     *[_type == "artist" && slug.current == '${slug}'] {
         "currentSlug": slug.current,
@@ -25,49 +47,56 @@ async function getData(slug: string, id: any) {
           date,
       }[0]`;
 
-  const artist = await client.fetch(query);
+  const artist = await client.fetch<Artist>(query);
   return artist;
 }
 
-// ✅ **Fixed: Remove JSON-LD from generateMetadata**
-export async function generateMetadata(
-  { params }: { params: { slug: string; id: any } }, 
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  const artist = await getData(params.slug, params.id);
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const artist = await getData(params.slug);
+
+  if (!artist) {
+    return {
+      title: 'Artist Not Found | K&K RECORDS',
+      description: 'The requested artist could not be found.',
+    };
+  }
 
   return {
     title: `${artist.name} | K&K RECORDS`,
-    description: artist.Biography || "Explore the artist's biography and works.",
+    description: artist.Biography || 'Explore the artist’s biography and works.',
     openGraph: {
       title: artist.name,
-      description: artist.Biography || "Explore the artist's biography and works.",
+      description: artist.Biography || 'Explore the artist’s biography and works.',
       images: artist.image ? [{ url: urlFor(artist.image).url() }] : [],
     },
     twitter: {
-      card: "summary_large_image",
+      card: 'summary_large_image',
       title: artist.name,
-      description: artist.Biography || "Explore the artist's biography and works.",
+      description: artist.Biography || 'Explore the artist’s biography and works.',
       images: artist.image ? [{ url: urlFor(artist.image).url() }] : [],
     },
   };
 }
 
-export default async function BlogArticle({ params }: { params: { slug: string; id: any } }) {
-  const artist = await getData(params.slug, params.id);
+export default async function BlogArticle({ params }: { params: { slug: string } }) {
+  const artist = await getData(params.slug);
+
+  if (!artist) {
+    return <div>Artist not found</div>;
+  }
 
   const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "MusicGroup",
-    "name": artist.name,
-    "description": artist.Biography,
-    "image": artist.image ? urlFor(artist.image).url() : undefined,
-    "url": `https://kkrecords.se/artist/${artist.currentSlug}`,
-    "sameAs": [
-      artist.Instagram || "",
-      artist.Facebook || "",
-      artist.spotify || ""
-    ].filter(Boolean) // Removes empty values
+    '@context': 'https://schema.org',
+    '@type': 'MusicGroup',
+    name: artist.name,
+    description: artist.Biography,
+    image: artist.image ? urlFor(artist.image).url() : undefined,
+    url: `https://kkrecords.se/artist/${artist.currentSlug}`,
+    sameAs: [artist.Instagram || '', artist.Facebook || '', artist.spotify || ''].filter(Boolean),
   };
 
   return (
@@ -83,34 +112,46 @@ export default async function BlogArticle({ params }: { params: { slug: string; 
             <div className="col-span-12 lg:col-span-6 grid-col-border">
               <ul className="flex flex-col gap-px">
                 <li className="px-2 py-3 lg:px-5">
-                  {/* Heading */}
-                  <h1 className="text-sans-35 lg:text-sans-60 font-600">
-                    {artist.name}
-                  </h1>
-                  <div className='mt-4 text-lg leading-relaxed text-prose'>
+                  <h1 className="text-sans-35 lg:text-sans-60 font-600">{artist.name}</h1>
+                  <div className="mt-4 text-lg leading-relaxed text-prose">
                     <PortableText value={artist.Biography} />
                   </div>
                 </li>
-                <div className='text-lg leading-relaxed bg-black text-white px-2 py-3 lg:px-5'>
-                    <h1 className='text-sans-35 font-600'>Följ {artist.name} på sociala medier:</h1>
-                    <div className='flex gap-4 mt-2'>
-                      {artist.Instagram && (
-                        <a href={artist.Instagram} target="_blank" className='hover:italic' rel="noopener noreferrer">
-                          Instagram
-                        </a>
-                      )}
-                      {artist.Facebook && (
-                        <a href={artist.Facebook} target="_blank" className='hover:italic' rel="noopener noreferrer">
-                          Facebook
-                        </a>
-                      )}
-                      {artist.spotify && (
-                        <a href={artist.spotify} className='hover:italic' target="_blank" rel="noopener noreferrer">
-                          Spotify
-                        </a>
-                      )}
-                    </div>  
+                <div className="text-lg leading-relaxed bg-black text-white px-2 py-3 lg:px-5">
+                  <h1 className="text-sans-35 font-600">Följ {artist.name} på sociala medier:</h1>
+                  <div className="flex gap-4 mt-2">
+                    {artist.Instagram && (
+                      <Link
+                        href={artist.Instagram}
+                        target="_blank"
+                        className="hover:italic"
+                        rel="noopener noreferrer"
+                      >
+                        Instagram
+                      </Link>
+                    )}
+                    {artist.Facebook && (
+                      <Link
+                        href={artist.Facebook}
+                        target="_blank"
+                        className="hover:italic"
+                        rel="noopener noreferrer"
+                      >
+                        Facebook
+                      </Link>
+                    )}
+                    {artist.spotify && (
+                      <Link
+                        href={artist.spotify}
+                        className="hover:italic"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Spotify
+                      </Link>
+                    )}
                   </div>
+                </div>
               </ul>
             </div>
             <div className="hidden lg:block col-span-6 grid-col-border sticky top-7 min-h-hero-minus-header overflow-hidden">
@@ -121,7 +162,7 @@ export default async function BlogArticle({ params }: { params: { slug: string; 
                   className="w-full h-full object-cover noise"
                   width={1000}
                   height={1000}
-                  loading='lazy'
+                  loading="lazy"
                 />
               </div>
             </div>

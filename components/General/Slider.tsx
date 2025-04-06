@@ -117,7 +117,7 @@ export default function DynamicSlider({ items, itemType }: SliderProps) {
             <p className="text-xl">
               {itemType === "playlist"
                 ? "Detta var bara ett smakprov... det finns mer."
-                : "Kolla in alla våra kommande och tidigare events!"}
+                : "Se fler kommande och tidigare events."}
             </p>
             <div className="mt-6 inline-block border border-white px-6 py-3 hover:bg-white hover:text-black transition-colors">
               Utforska →
@@ -125,6 +125,7 @@ export default function DynamicSlider({ items, itemType }: SliderProps) {
           </div>
         </Link>
       </div>
+      
     );
 
     return renderedItems;

@@ -1,11 +1,19 @@
 import '@/app/globals.css';
-import { SanityDocument } from "next-sanity";
+import { SanityDocument } from 'next-sanity';
 import imageUrlBuilder from '@sanity/image-url';
 import { client } from '@/sanity/client';
-import ArtistsList from '@/components/News/NewsSection';
+import NewsList from '@/components/News/NewsSection';
 import { Metadata } from 'next';
 
-interface Artist {
+// Define the Sanity image source type
+interface SanityImageSource {
+  asset: {
+    _ref: string;
+  };
+}
+
+// Define the News interface with proper image typing
+interface News {
   _id: string;
   _rev: string;
   _type: string;
@@ -14,60 +22,59 @@ interface Artist {
   name: string;
   slug: { current: string };
   date: string;
-  image: any;
+  image: SanityImageSource;
   publishedAt: string;
 }
 
 export const revalidate = 30;
 
 export const metadata: Metadata = {
-  title: "Edits",
-  description: "Senaste nyheterna från K&K Records. Håll dig uppdaterad med pressmeddelanden, evenemang och nyheter.",
+  title: 'Edits',
+  description: 'Senaste nyheterna från K&K Records. Håll dig uppdaterad med pressmeddelanden, evenemang och nyheter.',
   openGraph: {
-    title: "Edits - K&K Records",
-    description: "Senaste nyheterna från K&K Records.",
-    url: "https://kkrecords.se/edits",
-    siteName: "K&K Records",
+    title: 'Edits - K&K Records',
+    description: 'Senaste nyheterna från K&K Records.',
+    url: 'https://kkrecords.se/edits',
+    siteName: 'K&K Records',
     images: [
       {
-        url: "https://kkrecords.se/api", // Replace with a valid image
+        url: 'https://kkrecords.se/api', // Replace with a valid image
         width: 1200,
         height: 630,
-        alt: "Nyheter - K&K Records",
+        alt: 'Nyheter - K&K Records',
       },
     ],
-    type: "website",
+    type: 'website',
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Edits - K&K Records",
-    description: "Håll dig uppdaterad med de senaste nyheterna från K&K Records.",
-    images: ["https://kkrecords.se/api"],
+    card: 'summary_large_image',
+    title: 'Edits - K&K Records',
+    description: 'Håll dig uppdaterad med de senaste nyheterna från K&K Records.',
+    images: ['https://kkrecords.se/api'],
   },
 };
 
-
 const builder = imageUrlBuilder(client);
-export function urlFor(source: any) {
+export function urlFor(source: SanityImageSource) {
   return builder.image(source);
 }
 
-const ARTISTS_QUERY = `*[_type == "news" && defined(slug.current)]{_id, name, slug, date, image,publishedAt} | order(publishedAt desc)`;
+const NEWS_QUERY = `*[_type == "news" && defined(slug.current)]{_id, name, slug, date, image, publishedAt} | order(publishedAt desc)`;
 
 export default async function Page() {
-  const sanityArtists = await client.fetch<SanityDocument[]>(ARTISTS_QUERY);
-  const artists: Artist[] = sanityArtists.map(artist => ({
-    _id: artist._id,
-    _rev: artist._rev,
-    _type: artist._type,
-    _createdAt: artist._createdAt,
-    _updatedAt: artist._updatedAt,
-    name: artist.name,
-    slug: artist.slug,
-    date: artist.date,
-    image: artist.image,
-    publishedAt: artist.publishedAt
+  const sanityNews = await client.fetch<News[]>(NEWS_QUERY); // Type directly as News[]
+  const newsItems: News[] = sanityNews.map((news) => ({
+    _id: news._id,
+    _rev: news._rev,
+    _type: news._type,
+    _createdAt: news._createdAt,
+    _updatedAt: news._updatedAt,
+    name: news.name,
+    slug: news.slug,
+    date: news.date,
+    image: news.image,
+    publishedAt: news.publishedAt,
   }));
-  
-  return <ArtistsList initialArtists={artists} />;
+
+  return <NewsList initialArtists={newsItems} />;
 }

@@ -1,9 +1,4 @@
-
-import Image from "next/image";
-
-
 export default async function LoginForm() {
-
 
   return (
     <div>
@@ -33,20 +28,20 @@ export default async function LoginForm() {
                         <div className="flex flex-col gap-2 lg:gap-4 max-w-[440px]">
                           <label className="mb-1">
                             <input type="email" className="block w-full input-primary"/>
-                            <p className="mt-1 uppercase text-sans-12 lg:text-sans-14 tracking-wider font-800">Email Address</p>
+                            <p className="mt-1 uppercase text-sans-12 lg:text-sans-14 tracking-wider font-800">E-post</p>
                           </label>
                     
                           <label className="mb-1">
                             <input type="password" className="block w-full input-primary"/>
                             <div className="flex justify-between mt-1">
-                              <p className="uppercase text-sans-12 lg:text-sans-14 tracking-wider font-800">Password</p>
+                              <p className="uppercase text-sans-12 lg:text-sans-14 tracking-wider font-800">Lösenord</p>
                             </div>
 
                           </label>
                     
                           <button type="submit" value="Sign Up" className="block w-full button button-primary h-atc text-left">
                             <div className="px-2 tracking-tighter text-sans-22 md:text-sans-30 md:px-3">
-                              Sign In
+                              Logga in
                             </div>
                           </button>
                         </div>
@@ -60,9 +55,9 @@ export default async function LoginForm() {
             <div className="hidden lg:block col-span-6 grid-col-border sticky top-7 min-h-hero-minus-header overflow-hidden">
               <div className="image overflow-hidden absolute inset-0">
                 <img
-                  src="https://assets.sk-static.com/images/nw/static-pages/jobs/sk-reception.jpg"
+                  src="https://cdn.sanity.io/images/44gy0hz3/production/74c30b8ddf90c838485d1451717d07967cabe8f8-5168x2912.jpg"
                   alt="Login"
-                  className="w-full h-full object-cover noise"
+                  className="w-full h-full object-cover noise grayscale"
                   width={1000}
                   height={1000}
                   loading='lazy'

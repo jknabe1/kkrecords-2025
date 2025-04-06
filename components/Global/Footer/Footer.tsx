@@ -20,16 +20,16 @@ export default function Footer() {
                                     <div>
                                         <ul className="flex flex-col gap-px border-t border-solid">
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Om oss" aria-label="Om oss" href="/om-oss/">Om oss</a>
+                                                <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Om oss" aria-label="Om oss" href="/om-oss/">Om oss</Link>
                                             </li>
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="CONTACT" aria-label="CONTACT" href="/om-oss/kontakta-oss">Kontakta oss</a>
+                                                <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="CONTACT" aria-label="CONTACT" href="/om-oss/kontakta-oss">Kontakta oss</Link>
                                             </li>
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="integritet" aria-label="integritet" href="/om-oss/integritet">integritet</a>
+                                                <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="integritet" aria-label="integritet" href="/om-oss/integritet">integritet</Link>
                                             </li>
                                             <li className="grid-col-border">
-                                                <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Tillgänglighet" aria-label="Tillgänglighet" href="/om-oss/tillganglighet">Tillgänglighet</a>
+                                                <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Tillgänglighet" aria-label="Tillgänglighet" href="/om-oss/tillganglighet">Tillgänglighet</Link>
                                             </li>
                                         </ul>
                                     </div>
@@ -47,16 +47,16 @@ export default function Footer() {
                                 <div>
                                     <ul className="flex flex-col gap-px border-t border-solid">
                                         <li className="grid-col-border">
-                                            <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Artister" aria-label="Artister" href="/artister">Artister</a>
+                                            <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Artister" aria-label="Artister" href="/artists">Artister</Link>
                                         </li>
                                         <li className="grid-col-border">
-                                            <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Edits" aria-label="Edits" href="/edits">Edits</a>
+                                            <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Edits" aria-label="Edits" href="/edits">Edits</Link>
                                         </li>
                                         <li className="grid-col-border">
-                                            <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Event" aria-label="Event" href="/event">Event</a>
+                                            <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Event" aria-label="Event" href="/event">Event</Link>
                                         </li>
                                         <li>
-                                            <a className='block w-full text-sans-14 uppercase tracking-wider p-2 text-left' title="Backstage" aria-label="Backstage" href="/backstage">Backstage</a>
+                                            <Link className='block w-full text-sans-14 uppercase tracking-wider p-2 text-left' title="Backstage" aria-label="Backstage" href="/backstage">Backstage</Link>
                                         </li>
                                     </ul>
                                 </div>
@@ -74,19 +74,19 @@ export default function Footer() {
                                 <div>
                                     <ul className="flex flex-col gap-px border-t border-solid">
                                         <li className="grid-col-border">
-                                            <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Instagram" aria-label="Instagram" href="https://www.instagram.com/kkrecords.se">Instagram</a>
+                                            <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Instagram" aria-label="Instagram" href="https://www.instagram.com/kkrecords.se">Instagram</Link>
                                         </li>
                                         <li className="grid-col-border">
-                                            <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Facebook" aria-label="Facebook" href="https://www.facebook.com/kkmusicrecords">Facebook</a>
+                                            <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Facebook" aria-label="Facebook" href="https://www.facebook.com/kkmusicrecords">Facebook</Link>
                                         </li>
                                         <li className="grid-col-border">
-                                            <a className='block w-full text-sans-14 uppercase tracking-wider p-2 text-left' title="TikTok" aria-label="TikTok" href="https://www.tiktok.com/kkrecords.se">TikTok</a>
+                                            <Link className='block w-full text-sans-14 uppercase tracking-wider p-2 text-left' title="TikTok" aria-label="TikTok" href="https://www.tiktok.com/kkrecords.se">TikTok</Link>
                                         </li>
                                         <li className="grid-col-border">
-                                            <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Spotify" aria-label="Spotify" href="https://open.spotify.com/user/rp0di7du2vijxmhev2mp6vugo">Spotify</a>
+                                            <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Spotify" aria-label="Spotify" href="https://open.spotify.com/user/rp0di7du2vijxmhev2mp6vugo">Spotify</Link>
                                         </li>
                                         <li className="grid-col-border">
-                                            <a className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Youtube" aria-label="Youtube" href="https://www.youtube.com/@kkrec">Youtube</a>
+                                            <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Youtube" aria-label="Youtube" href="https://www.youtube.com/@kkrec">Youtube</Link>
                                         </li>
                                     </ul>
                                 </div>
@@ -104,16 +104,16 @@ export default function Footer() {
                             <h2 className="text-sans-60 font-600 mb-2 tracking-tighter ml-[-0.08em]">Om oss</h2>
                             <ul>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Om oss" aria-label="Om oss" href="/om-oss/">Om oss</a>
+                                    <Link className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Om oss" aria-label="Om oss" href="/om-oss/">Om oss</Link>
                                 </li>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Kontakta oss" aria-label="Kontakta oss" href="/om-oss/kontakta-oss">Kontakta oss</a>
+                                    <Link className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Kontakta oss" aria-label="Kontakta oss" href="/om-oss/kontakta-oss">Kontakta oss</Link>
                                 </li>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Integritet" aria-label="Integritet" href="/om-oss/integritet">Integritet</a>
+                                    <Link className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Integritet" aria-label="Integritet" href="/om-oss/integritet">Integritet</Link>
                                 </li>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Tillgänglighet" aria-label="Tillgänglighet" href="/om-oss/tillganglighet">Tillgänglighet</a>
+                                    <Link className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Tillgänglighet" aria-label="Tillgänglighet" href="/om-oss/tillganglighet">Tillgänglighet</Link>
                                 </li>
                             </ul>
                         </div>
@@ -121,16 +121,16 @@ export default function Footer() {
                             <h2 className="text-sans-60 font-600 mb-2 tracking-tighter ml-[-0.08em]">Genvägar</h2>
                             <ul>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Artister" aria-label="Artister" href="/artister">Artister</a>
+                                    <Link className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Artister" aria-label="Artister" href="/artister">Artister</Link>
                                 </li>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Edits" aria-label="Edits" href="/edits">Edits</a>
+                                    <Link className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Edits" aria-label="Edits" href="/edits">Edits</Link>
                                 </li>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Event" aria-label="Event" href="/event">Event</a>
+                                    <Link className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Event" aria-label="Event" href="/event">Event</Link>
                                 </li>
                                 <li>
-                                    <a className='inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1' title="Backstage" aria-label="Backstage" href="/backstage">Backstage</a>
+                                    <Link className='inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1' title="Backstage" aria-label="Backstage" href="/backstage">Backstage</Link>
                                 </li>
                             </ul>
                         </div>
@@ -138,19 +138,19 @@ export default function Footer() {
                             <h2 className="text-sans-60 font-600 mb-2 tracking-tighter ml-[-0.08em]">Socials</h2>
                             <ul>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Instagram" aria-label="Instagram" href="https://www.instagram.com/kkrecords.se">Instagram</a>
+                                    <Link className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Instagram" aria-label="Instagram" href="https://www.instagram.com/kkrecords.se">Instagram</Link>
                                 </li>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Facebook" aria-label="Facebook" href="https://www.facebook.com/kkmusicrecords">Facebook</a>
+                                    <Link className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Facebook" aria-label="Facebook" href="https://www.facebook.com/kkmusicrecords">Facebook</Link>
                                 </li>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="TikTok" aria-label="TikTok" href="https://www.tiktok.com/kkrecords.se">TikTok</a>
+                                    <Link className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="TikTok" aria-label="TikTok" href="https://www.tiktok.com/kkrecords.se">TikTok</Link>
                                 </li>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Spotify" aria-label="Spotify" href="https://open.spotify.com/user/rp0di7du2vijxmhev2mp6vugo">Spotify</a>
+                                    <Link className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Spotify" aria-label="Spotify" href="https://open.spotify.com/user/rp0di7du2vijxmhev2mp6vugo">Spotify</Link>
                                 </li>
                                 <li>
-                                    <a className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Youtube" aria-label="Youtube" href="https://www.youtube.com/@kkrec">Youtube</a>
+                                    <Link className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Youtube" aria-label="Youtube" href="https://www.youtube.com/@kkrec">Youtube</Link>
                                 </li>
                             </ul>
                         </div>

@@ -1,18 +1,35 @@
-import imageUrlBuilder from '@sanity/image-url'
-import { client } from '@/sanity/client'
-import Image from "next/image";
-import type { Metadata, ResolvingMetadata } from 'next'
-import { PortableText } from "next-sanity";
+import imageUrlBuilder from '@sanity/image-url';
+import { client } from '@/sanity/client';
+import Image from 'next/image';
+import type { Metadata } from 'next';
+import { PortableText } from 'next-sanity';
 
+// Define the Sanity image source type
+interface SanityImageSource {
+  asset: {
+    _ref: string;
+  };
+}
 
 export const revalidate = 30;
 
 const builder = imageUrlBuilder(client);
-function urlFor(source: any) {
+function urlFor(source: SanityImageSource) {
   return builder.image(source);
 }
 
-async function getData(slug: string) {
+// Define the About data structure
+interface About {
+  currentSlug: string;
+  name: string;
+  details: any; // Replace with proper PortableText type if available
+  image: SanityImageSource;
+  excerpt?: string;
+  publishedAt: string;
+  date?: string;
+}
+
+async function getData(slug: string): Promise<About | null> {
   const query = `
     *[_type == "about" && slug.current == '${slug}'] {
         "currentSlug": slug.current,
@@ -21,72 +38,81 @@ async function getData(slug: string) {
           image,
           excerpt,
           publishedAt,
-            date,
+          date,
       }[0]`;
 
-  const about = await client.fetch(query);
+  const about = await client.fetch<About>(query);
   return about;
 }
 
-export async function generateMetadata(
-  { params }: { params: { slug: string } }, 
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
   const about = await getData(params.slug);
 
+  if (!about) {
+    return {
+      title: 'About Not Found - K&K Records',
+      description: 'The requested about page could not be found.',
+    };
+  }
+
   return {
-    title: `${about.name} `,
-    description: about.excerpt || "Read the latest about and updates.",
+    title: `${about.name}`,
+    description: about.excerpt || 'Read the latest about and updates.',
     openGraph: {
       title: `${about.name} - K&K Records`,
-      description: about.excerpt || "Read the latest about and updates.",
+      description: about.excerpt || 'Read the latest about and updates.',
       images: about.image ? [{ url: urlFor(about.image).url() }] : [],
     },
     twitter: {
-      card: "summary_large_image",
+      card: 'summary_large_image',
       title: `${about.name} - K&K Records`,
-      description: about.excerpt || "Read the latest about and updates.",
+      description: about.excerpt || 'Read the latest about and updates.',
       images: about.image ? [{ url: urlFor(about.image).url() }] : [],
     },
   };
 }
 
-export default async function BlogArticle(props: { params: { slug: string } }) {
-  const { params } = props;
+export default async function BlogArticle({ params }: { params: { slug: string } }) {
   const about = await getData(params.slug);
 
+  if (!about) {
+    return <div>About page not found</div>;
+  }
+
   const jsonLd = {
-    "@context": "https://schema.org",
-    "headline": about.name,
-    "description": about.excerpt || "",
-    "datePublished": about.publishedAt,
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": `https://kkrecords.se/om-oss/${about.currentSlug}`
+    '@context': 'https://schema.org',
+    headline: about.name,
+    description: about.excerpt || '',
+    datePublished: about.publishedAt,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://kkrecords.se/om-oss/${about.currentSlug}`,
     },
-    "image": about.image ? urlFor(about.image).url() : undefined,
-    "author": {
-      "@type": "Organization",
-      "name": "K&K Records"
+    image: about.image ? urlFor(about.image).url() : undefined,
+    author: {
+      '@type': 'Organization',
+      name: 'K&K Records',
     },
-    "publisher": {
-      "@type": "Organization",
-      "name": "K&K Records",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://kkrecords.se/api"
-      }
-    }
+    publisher: {
+      '@type': 'Organization',
+      name: 'K&K Records',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://kkrecords.se/api',
+      },
+    },
   };
 
   return (
     <div>
-      {/* ✅ Fixed: Inject JSON-LD separately */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      
       <section className="relative">
         <section className="noise relative aspect-[4/5] lg:aspect-[12/5]">
           <Image
@@ -108,12 +134,14 @@ export default async function BlogArticle(props: { params: { slug: string } }) {
         </section>
         <section className="max-w-3xl mx-auto p-6 text-black">
           <h1 className="text-sans-35 lg:text-sans-60 font-600">{about.name}</h1>
-          <div className='mt-6 prose'>
+          <div className="mt-6 prose">
             <PortableText value={about.details} />
           </div>
-          <p className="mt-4 text-sm text-gray-500">Senast uppdaterad:{new Date(about.publishedAt).toLocaleDateString()}</p>
+          <p className="mt-4 text-sm text-gray-500">
+            Senast uppdaterad: {new Date(about.publishedAt).toLocaleDateString()}
+          </p>
         </section>
       </section>
     </div>
-  )
+  );
 }

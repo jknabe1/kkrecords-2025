@@ -21,8 +21,8 @@ export default function ArtistSection() {
     image: string;
   }
 
-  const [artists, setArtists] = useState<Artists[]>([]);
-  const [randomArtists, setRandomArtists] = useState<Artists[]>([]);
+  const [artists, setArtists] = useState<Linkrtists[]>([]);
+  const [randomArtists, setRandomArtists] = useState<Linkrtists[]>([]);
   const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -168,7 +168,7 @@ export default function ArtistSection() {
             <div className="grid gap-5 lg:grid-cols-2">
               {filteredArtists.slice(0, 2).map((artist) => (
                 <div key={artist._id} className="col-span-1">
-                  <a className="group block" href={`/artists/${artist.slug.current}`}>
+                  <Link className="group block" href={`/artists/${artist.slug.current}`}>
                     <div className="noise relative aspect-[4/5] lg:aspect-[6/5]">
                       <Image
                         src={urlFor(artist.image)}
@@ -190,7 +190,7 @@ export default function ArtistSection() {
                         </div>
                     </div>
                     </div>
-                  </a>
+                  </Link>
                 </div>
               ))}
             </div>
