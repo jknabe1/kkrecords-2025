@@ -47,7 +47,8 @@ async function getData(slug: string): Promise<Artist | null> {
   return artist;
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+// Explicitly use Metadata as the return type
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
   const artist = await getData(resolvedParams.slug);
 

@@ -1,9 +1,10 @@
-import { PortableText, PortableTextBlock } from '@portabletext/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { client } from '@/sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
 import { generateMetadata } from './metadata';
+import { PortableText, PortableTextBlock } from 'next-sanity'; // Updated import
+
 
 export const revalidate = 30;
 

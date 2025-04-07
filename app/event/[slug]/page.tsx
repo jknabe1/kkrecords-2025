@@ -2,7 +2,7 @@ import { client } from '@/sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import { PortableText, PortableTextBlock } from '@portabletext/react'; // Updated import
+import { PortableText, PortableTextBlock } from 'next-sanity'; // Updated import
 import Link from 'next/link';
 
 const builder = imageUrlBuilder(client);

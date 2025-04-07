@@ -1,6 +1,6 @@
 import imageUrlBuilder from '@sanity/image-url';
 import { client } from '@/sanity/client';
-import { PortableText, PortableTextBlock } from '@portabletext/react'; // Updated import
+import { PortableText, PortableTextBlock } from 'next-sanity'; // Updated import
 import Image from 'next/image';
 import type { Metadata } from 'next';
 
