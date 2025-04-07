@@ -1,16 +1,21 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+import imageUrlBuilder from "@sanity/image-url";
+import { client } from "@/sanity/client";
+
+// Define the Sanity image source type
+interface SanityImageSource {
+  asset: {
+    _ref: string;
+  };
+}
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
-import imageUrlBuilder from "@sanity/image-url"
-import { client } from "@/sanity/client"
+const builder = imageUrlBuilder(client);
 
-const builder = imageUrlBuilder(client)
-
-export function urlFor(source: any) {
-  return builder.image(source)
+export function urlFor(source: SanityImageSource) {
+  return builder.image(source);
 }
-

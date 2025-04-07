@@ -6,10 +6,10 @@ import Image from 'next/image';
 
 // ✅ Static Metadata
 export const metadata: Metadata = {
-  title: "Kontakt",
+  title: "Kontakta oss",
   description: "Kontakta oss på K&K Records. Här hittar du kontaktuppgifter till föreningen, press, ekonomi, och våra medarbetare.",
   openGraph: {
-    title: "Kontakt - K&K Records",
+    title: "Kontakta oss - K&K Records",
     description: "Behöver du nå oss? Här hittar du kontaktuppgifter till K&K Records.",
     url: "https://kkrecords.se/om-oss/kontakta-oss",
     siteName: "K&K Records",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kontakt - K&K Records",
+    title: "Kontakta oss - K&K Records",
     description: "Behöver du nå oss? Här hittar du kontaktuppgifter till K&K Records.",
     images: ["https://kkrecords.se/api"],
   },
@@ -36,8 +36,8 @@ export default function page() {
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "ContactPage",
-        "name": "Kontakt oss  - K&K Records",
-        "description": "Officiella kontaktuppgifter till K&K Records.",
+        "name": "Kontakta oss  - K&K Records",
+        "description": "Kontaktuppgifter till K&K Records.",
         "url": "https://kkrecords.se/om-oss/kontakta-oss",
         "image": "https://kkrecords.se/api",
         "publisher": {
