@@ -16,6 +16,13 @@ interface SanityImageSource {
   };
 }
 
+interface ArtistPageProps {
+  params: {
+    slug: string;
+  };
+}
+
+
 function urlFor(source: SanityImageSource) {
   return builder.image(source);
 }
@@ -53,9 +60,7 @@ async function getData(slug: string): Promise<Artist | null> {
 
 export async function generateMetadata({
   params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
+}: ArtistPageProps): Promise<Metadata> {
   const artist = await getData(params.slug);
 
   if (!artist) {
@@ -82,7 +87,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogArticle({ params }: { params: { slug: string } }) {
+export default async function Page({ params }: ArtistPageProps) {
   const artist = await getData(params.slug);
 
   if (!artist) {
