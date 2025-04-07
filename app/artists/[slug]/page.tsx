@@ -4,7 +4,6 @@ import { PortableText, PortableTextBlock } from '@portabletext/react';
 import Image from 'next/image';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { type NextPage } from 'next'; // Import NextPage for type safety
 
 export const revalidate = 30;
 
@@ -83,12 +82,7 @@ export async function generateMetadata({
   };
 }
 
-// Define the props type explicitly using NextPage
-type PageProps = {
-  params: { slug: string };
-};
-
-const BlogArticle: NextPage<PageProps> = async ({ params }) => {
+export default async function BlogArticle({ params }: { params: { slug: string } }) {
   const artist = await getData(params.slug);
 
   if (!artist) {
@@ -177,6 +171,4 @@ const BlogArticle: NextPage<PageProps> = async ({ params }) => {
       </div>
     </div>
   );
-};
-
-export default BlogArticle;
+}
