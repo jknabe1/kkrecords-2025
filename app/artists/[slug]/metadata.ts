@@ -47,8 +47,9 @@ async function getData(slug: string): Promise<Artist | null> {
   return artist;
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const artist = await getData(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params;
+  const artist = await getData(resolvedParams.slug);
 
   if (!artist) {
     return {
