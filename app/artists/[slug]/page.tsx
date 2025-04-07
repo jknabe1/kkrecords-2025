@@ -55,8 +55,7 @@ async function getData(slug: string): Promise<Artist | null> {
 export { generateMetadata };
 
 export default async function BlogArticle({ params }: { params: { slug: string } }) {
-  const { slug } = params;
-  const artist = await getData(slug);
+  const artist = await getData(params.slug);
 
   if (!artist) {
     return <div>Artist not found</div>;
