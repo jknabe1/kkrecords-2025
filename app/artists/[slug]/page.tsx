@@ -1,30 +1,17 @@
-import imageUrlBuilder from '@sanity/image-url';
-import { client } from '@/sanity/client';
 import { PortableText, PortableTextBlock } from '@portabletext/react';
 import Image from 'next/image';
-import type { Metadata } from 'next';
 import Link from 'next/link';
+import { client } from '@/sanity/client';
+import imageUrlBuilder from '@sanity/image-url';
+import { generateMetadata } from './metadata'; // Import the metadata function
 
 export const revalidate = 30;
-
-const builder = imageUrlBuilder(client);
 
 // Define the type for Sanity image source
 interface SanityImageSource {
   asset: {
     _ref: string;
   };
-}
-
-interface ArtistPageProps {
-  params: {
-    slug: string;
-  };
-}
-
-
-function urlFor(source: SanityImageSource) {
-  return builder.image(source);
 }
 
 // Define the artist data structure
@@ -38,6 +25,12 @@ interface Artist {
   spotify?: string;
   excerpt?: string;
   date?: string;
+}
+
+const builder = imageUrlBuilder(client);
+
+function urlFor(source: SanityImageSource) {
+  return builder.image(source);
 }
 
 async function getData(slug: string): Promise<Artist | null> {
@@ -58,36 +51,10 @@ async function getData(slug: string): Promise<Artist | null> {
   return artist;
 }
 
-export async function generateMetadata({
-  params,
-}: ArtistPageProps): Promise<Metadata> {
-  const artist = await getData(params.slug);
+// Export metadata directly from the imported function
+export { generateMetadata };
 
-  if (!artist) {
-    return {
-      title: 'Artist Not Found | K&K RECORDS',
-      description: 'The requested artist could not be found.',
-    };
-  }
-
-  return {
-    title: `${artist.name} | K&K RECORDS`,
-    description: artist.Biography?.map(block => block.children?.map(child => child.text).join(' ')).join(' ') || 'Explore the artist’s biography and works.',
-    openGraph: {
-      title: artist.name,
-      description: artist.Biography?.map(block => block.children?.map(child => child.text).join(' ')).join(' ') || 'Explore the artist’s biography and works.',
-      images: artist.image ? [{ url: urlFor(artist.image).url() }] : [],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: artist.name,
-      description: artist.Biography?.map(block => block.children?.map(child => child.text).join(' ')).join(' ') || 'Explore the artist’s biography and works.',
-      images: artist.image ? [{ url: urlFor(artist.image).url() }] : [],
-    },
-  };
-}
-
-export default async function Page({ params }: ArtistPageProps) {
+export default async function BlogArticle({ params }: { params: { slug: string } }) {
   const artist = await getData(params.slug);
 
   if (!artist) {
