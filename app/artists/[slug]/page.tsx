@@ -54,8 +54,8 @@ async function getData(slug: string): Promise<Artist | null> {
 // Export metadata directly from the imported function
 export { generateMetadata };
 
-export default async function BlogArticle({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+export default async function BlogArticle({ params }: { params: { slug: string } }) {
+  const { slug } = params;
   const artist = await getData(slug);
 
   if (!artist) {
@@ -68,7 +68,7 @@ export default async function BlogArticle({ params }: { params: Promise<{ slug: 
     name: artist.name,
     description: artist.Biography,
     image: artist.image ? urlFor(artist.image).url() : undefined,
-    url: `https://kkrecords.se/artist/${artist.currentSlug}`,
+    url: `https://kkrecords.se/artists/${artist.currentSlug}`,
     sameAs: [artist.Instagram || '', artist.Facebook || '', artist.spotify || ''].filter(Boolean),
   };
 
