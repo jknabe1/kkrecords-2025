@@ -4,7 +4,7 @@ import imageUrlBuilder from "@sanity/image-url";
 import { client } from "@/sanity/client";
 
 // Define the Sanity image source type
-interface SanityImageSource {
+export interface SanityImageSource {
   asset: {
     _ref: string;
   };

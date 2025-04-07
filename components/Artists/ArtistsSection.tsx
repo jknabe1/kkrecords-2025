@@ -1,23 +1,17 @@
-// pages/artists/ArtistsList.tsx
 'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { urlFor } from '@/app/artists/page';
-import { SanityDocument } from "next-sanity";
+import { urlFor, SanityImageSource } from '@/lib/utils'; // Updated import
 import Image from 'next/image';
-// Define the Artist interface based on your Sanity schema
-interface Artist extends SanityDocument {
+
+// Define the Artist interface to match app/artists/page.tsx
+interface Artist {
   _id: string;
   name: string;
   slug: { current: string };
   date: string;
-  image?: {
-    asset: {
-      _ref: string;
-    };
-    // Add other image properties if needed
-  };
+  image: SanityImageSource; // Use imported type
 }
 
 interface ArtistsListProps {
@@ -25,7 +19,7 @@ interface ArtistsListProps {
 }
 
 export default function ArtistsList({ initialArtists }: ArtistsListProps) {
-  const [selectedArtist, setSelectedArtist] = useState<Linkrtist | null>(
+  const [selectedArtist, setSelectedArtist] = useState<Artist | null>(
     initialArtists[0] || null
   );
 
@@ -42,7 +36,7 @@ export default function ArtistsList({ initialArtists }: ArtistsListProps) {
               <ul className="flex flex-col gap-px">
                 {initialArtists.map((artist) => (
                   <Link key={artist._id} href={`/artists/${artist.slug.current}`}>
-                    <li 
+                    <li
                       className="grid-col-border px-2 py-3 lg:px-5"
                       onMouseEnter={() => setSelectedArtist(artist)}
                     >
@@ -52,15 +46,13 @@ export default function ArtistsList({ initialArtists }: ArtistsListProps) {
                     </li>
                   </Link>
                 ))}
-                <Link href={"/om-oss/kontakta-oss"}>
-                    <li 
-                      className="grid-col-border px-2 py-3 lg:px-5 bg-black text-white"
-                    >
-                      <h2 className="italic text-sans-35 font-600">
-                        Du eller ditt band?
-                      </h2>
-                    </li>
-                  </Link>
+                <Link href="/om-oss/kontakta-oss">
+                  <li className="grid-col-border px-2 py-3 lg:px-5 bg-black text-white">
+                    <h2 className="italic text-sans-35 font-600">
+                      Du eller ditt band?
+                    </h2>
+                  </li>
+                </Link>
               </ul>
             </div>
             <div className="hidden lg:block col-span-6 grid-col-border sticky top-7 min-h-hero-minus-header overflow-hidden">
@@ -68,11 +60,11 @@ export default function ArtistsList({ initialArtists }: ArtistsListProps) {
                 {selectedArtist && selectedArtist.image ? (
                   <Image
                     src={urlFor(selectedArtist.image).url()}
-                    alt=""
+                    alt={selectedArtist.name || ''} // Added fallback alt text
                     className="w-full h-full object-cover noise"
                     width={1000}
                     height={1000}
-                    loading='lazy'
+                    loading="lazy"
                   />
                 ) : (
                   <div className="w-full h-full bg-gray-200 flex items-center justify-center">

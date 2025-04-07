@@ -1,14 +1,7 @@
 import '@/app/globals.css';
-import imageUrlBuilder from '@sanity/image-url';
 import { client } from '@/sanity/client';
 import ArtistsList from '@/components/Artists/ArtistsSection';
-
-// Define the Sanity image source type
-interface SanityImageSource {
-  asset: {
-    _ref: string;
-  };
-}
+import { SanityImageSource } from '@/lib/utils'; // Import type from utils
 
 // Define the Artist interface with proper image typing
 interface Artist {
@@ -24,11 +17,6 @@ interface Artist {
 }
 
 export const revalidate = 30;
-
-const builder = imageUrlBuilder(client);
-export function urlFor(source: SanityImageSource) {
-  return builder.image(source);
-}
 
 const ARTISTS_QUERY = `*[_type == "artist" && defined(slug.current)]{_id, name, slug, date, image}|order(name asc)`;
 
