@@ -1,9 +1,10 @@
 import imageUrlBuilder from '@sanity/image-url';
 import { client } from '@/sanity/client';
-import { PortableText, PortableTextBlock } from '@portabletext/react'; // Updated import
+import { PortableText, PortableTextBlock } from '@portabletext/react';
 import Image from 'next/image';
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { type NextPage } from 'next'; // Import NextPage for type safety
 
 export const revalidate = 30;
 
@@ -24,7 +25,7 @@ function urlFor(source: SanityImageSource) {
 interface Artist {
   currentSlug: string;
   name: string;
-  Biography: PortableTextBlock[]; // Replaced 'any' with PortableTextBlock[]
+  Biography: PortableTextBlock[];
   image: SanityImageSource;
   Instagram?: string;
   Facebook?: string;
@@ -82,7 +83,12 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogArticle({ params }: { params: { slug: string } }) {
+// Define the props type explicitly using NextPage
+type PageProps = {
+  params: { slug: string };
+};
+
+const BlogArticle: NextPage<PageProps> = async ({ params }) => {
   const artist = await getData(params.slug);
 
   if (!artist) {
@@ -171,4 +177,6 @@ export default async function BlogArticle({ params }: { params: { slug: string }
       </div>
     </div>
   );
-}
+};
+
+export default BlogArticle;
