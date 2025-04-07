@@ -54,10 +54,10 @@ async function getData(slug: string): Promise<Artist | null> {
 // Export metadata from the separate file
 export { generateMetadata };
 
-// Follow the Next.js docs example: no explicit type annotation
-export default async function BlogArticle({ params }: { params: unknown }) {
-  const typedParams = params as { slug: string };
-  const artist = await getData(typedParams.slug);
+// Type params as a Promise and await it
+export default async function BlogArticle({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params; // Await the Promise to get { slug: string }
+  const artist = await getData(resolvedParams.slug);
 
   if (!artist) {
     return <div>Artist not found</div>;
