@@ -51,12 +51,12 @@ async function getData(slug: string): Promise<Artist | null> {
   return artist;
 }
 
-// Export metadata directly from the imported function
+// Export metadata from the separate file
 export { generateMetadata };
 
-// Use type inference instead of explicit type
+// Follow the Next.js docs example: no explicit type annotation
 export default async function BlogArticle({ params }) {
-  const artist = await getData(params.slug); // This line
+  const artist = await getData(params.slug);
 
   if (!artist) {
     return <div>Artist not found</div>;
