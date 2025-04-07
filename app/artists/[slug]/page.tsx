@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { client } from '@/sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
-import { generateMetadata } from './metadata'; // Import the metadata function
+import { generateMetadata } from './metadata';
 
 export const revalidate = 30;
 
@@ -54,8 +54,9 @@ async function getData(slug: string): Promise<Artist | null> {
 // Export metadata directly from the imported function
 export { generateMetadata };
 
-export default async function BlogArticle({ params }: { params: { slug: string } }) {
-  const artist = await getData(params.slug);
+// Use type inference instead of explicit type
+export default async function BlogArticle({ params }) {
+  const artist = await getData(params.slug); // This line
 
   if (!artist) {
     return <div>Artist not found</div>;
