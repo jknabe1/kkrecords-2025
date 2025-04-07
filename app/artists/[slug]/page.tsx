@@ -54,8 +54,9 @@ async function getData(slug: string): Promise<Artist | null> {
 // Export metadata directly from the imported function
 export { generateMetadata };
 
-export default async function BlogArticle({ params }: { params: { slug: string } }) {
-  const artist = await getData(params.slug);
+export default async function BlogArticle({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const artist = await getData(slug);
 
   if (!artist) {
     return <div>Artist not found</div>;
