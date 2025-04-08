@@ -1,6 +1,3 @@
-// @ts-nocheck
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 import imageUrlBuilder from '@sanity/image-url';
 import { client } from '@/sanity/client';
 import { PortableText, PortableTextBlock } from 'next-sanity';
@@ -9,22 +6,18 @@ import type { Metadata } from 'next';
 
 export const revalidate = 30;
 
-// Single declaration of builder
 const builder = imageUrlBuilder(client);
 
-// Non-exported urlFor function
 function urlFor(source) {
   return builder.image(source);
 }
 
-// Define the Sanity image source type
 interface SanityImageSource {
   asset: {
     _ref: string;
   };
 }
 
-// Define the News data structure
 interface News {
   currentSlug: string;
   name: string;
