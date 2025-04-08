@@ -88,7 +88,7 @@ export default async function SearchPage({ searchParams }) {
       <div className="relative aspect-[4/5] lg:aspect-[6/5] bg-black flex items-center justify-center text-white border border-solid border-black">
         <div className="text-center">
           <h2 className="text-3xl font-bold mb-4">
-            {results.length} resultat för &quot;{query}&quot;
+            {results.length} resultat för "{query}"
           </h2>
           <p className="text-xl">Här är vad vi hittade för din sökning.</p>
         </div>
@@ -101,7 +101,6 @@ export default async function SearchPage({ searchParams }) {
             href={href}
             className="relative group overflow-hidden border-b md:border-b-0 md:border-r last:border-b-0 last:md:border-r-0 border-gray-200"
           >
-            {/* Category Label */}
             <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
               {item._type && (
                 <div className="bg-white text-black px-2 py-1 inline-block">
@@ -129,8 +128,6 @@ export default async function SearchPage({ searchParams }) {
                 </div>
               )}
             </div>
-
-            {/* Image */}
             <div className="noise relative aspect-[4/5] lg:aspect-[6/5] border border-black border-solid">
               {item.image ? (
                 <Image
