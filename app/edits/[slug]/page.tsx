@@ -3,13 +3,19 @@
 
 import imageUrlBuilder from '@sanity/image-url';
 import { client } from '@/sanity/client';
-import { PortableText, PortableTextBlock } from 'next-sanity'; // Updated import
+import { PortableText, PortableTextBlock } from 'next-sanity';
 import Image from 'next/image';
 import type { Metadata } from 'next';
 
 export const revalidate = 30;
 
+// Single declaration of builder
 const builder = imageUrlBuilder(client);
+
+// Non-exported urlFor function
+function urlFor(source) {
+  return builder.image(source);
+}
 
 // Define the Sanity image source type
 interface SanityImageSource {
@@ -18,15 +24,11 @@ interface SanityImageSource {
   };
 }
 
-const builder = imageUrlBuilder(client);
-function urlFor(source: SanityImageSource) {
-  return builder.image(source);
-}
 // Define the News data structure
 interface News {
   currentSlug: string;
   name: string;
-  details: PortableTextBlock[]; // Replaced 'any' with PortableTextBlock[]
+  details: PortableTextBlock[];
   image: SanityImageSource;
   excerpt?: string;
   publishedAt: string;
@@ -44,7 +46,6 @@ async function getData(slug: string): Promise<News | null> {
           publishedAt,
           date,
       }[0]`;
-
   const news = await client.fetch<News>(query);
   return news;
 }
@@ -55,14 +56,12 @@ export async function generateMetadata({
   params: { slug: string };
 }): Promise<Metadata> {
   const news = await getData(params.slug);
-
   if (!news) {
     return {
       title: 'News Not Found',
       description: 'The requested news article could not be found.',
     };
   }
-
   return {
     title: `${news.name}`,
     description: news.excerpt || 'Read the latest news and updates.',
@@ -82,11 +81,9 @@ export async function generateMetadata({
 
 export default async function BlogArticle({ params }: { params: { slug: string } }) {
   const news = await getData(params.slug);
-
   if (!news) {
     return <div>News article not found</div>;
   }
-
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'NewsArticle',
@@ -118,7 +115,6 @@ export default async function BlogArticle({ params }: { params: { slug: string }
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-
       <section className="relative">
         <section className="noise relative aspect-[4/5] lg:aspect-[12/5]">
           <Image
