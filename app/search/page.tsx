@@ -3,15 +3,14 @@ import { groq } from 'next-sanity';
 import Image from 'next/image';
 import Link from 'next/link';
 import imageUrlBuilder from '@sanity/image-url';
-import { SanityImageSource } from '@/lib/utils'; // Adjust the import path as necessary
 
 const builder = imageUrlBuilder(client);
 
-function urlFor(source: SanityImageSource) {
+function urlFor(source) {
   return builder.image(source);
 }
 
-async function getSearchResults(query: string) {
+async function getSearchResults(query) {
   if (!query) return [];
 
   const loweredQuery = query.toLowerCase();
@@ -59,7 +58,7 @@ const typeDisplayNames = {
 
 export const dynamic = 'force-dynamic';
 
-export async function generateMetadata({ searchParams }: { searchParams: { q?: string } }) {
+export async function generateMetadata({ searchParams }) {
   const query = searchParams.q || '';
 
   return {
@@ -71,11 +70,11 @@ export async function generateMetadata({ searchParams }: { searchParams: { q?: s
   };
 }
 
-export default async function SearchPage({ searchParams }: { searchParams: { q?: string } }) {
+export default async function SearchPage({ searchParams }) {
   const { q: query = '' } = await searchParams;
   const results = await getSearchResults(query);
 
-  function getItemHref(item: { _type: string; email: any; slug: { current: any; }; }) {
+  function getItemHref(item) {
     if (item._type === 'team' && item.email) {
       return `mailto:${item.email}`;
     } else if (item.slug?.current) {
@@ -89,7 +88,7 @@ export default async function SearchPage({ searchParams }: { searchParams: { q?:
       <div className="relative aspect-[4/5] lg:aspect-[6/5] bg-black flex items-center justify-center text-white border border-solid border-black">
         <div className="text-center">
           <h2 className="text-3xl font-bold mb-4">
-            {results.length} resultat för "{query}"
+            {results.length} resultat för &quot;{query}&quot;
           </h2>
           <p className="text-xl">Här är vad vi hittade för din sökning.</p>
         </div>
