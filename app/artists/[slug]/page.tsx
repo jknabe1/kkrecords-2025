@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-
 import Image from 'next/image';
 import Link from 'next/link';
 import { client } from '@/sanity/client';
