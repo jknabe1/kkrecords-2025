@@ -1,35 +1,17 @@
 import imageUrlBuilder from '@sanity/image-url';
 import { client } from '@/sanity/client';
 import Image from 'next/image';
-import type { Metadata } from 'next';
-import { PortableText, PortableTextBlock } from 'next-sanity'; // Updated import
-
-// Define the Sanity image source type
-interface SanityImageSource {
-  asset: {
-    _ref: string;
-  };
-}
+import { PortableText } from 'next-sanity';
 
 export const revalidate = 30;
 
 const builder = imageUrlBuilder(client);
-function urlFor(source: SanityImageSource) {
+
+function urlFor(source) {
   return builder.image(source);
 }
 
-// Define the About data structure
-interface About {
-  currentSlug: string;
-  name: string;
-  details: PortableTextBlock[]; // Replaced 'any' with PortableTextBlock[]
-  image: SanityImageSource;
-  excerpt?: string;
-  publishedAt: string;
-  date?: string;
-}
-
-async function getData(slug: string): Promise<About | null> {
+async function getData(slug) {
   const query = `
     *[_type == "about" && slug.current == '${slug}'] {
         "currentSlug": slug.current,
@@ -40,16 +22,11 @@ async function getData(slug: string): Promise<About | null> {
           publishedAt,
           date,
       }[0]`;
-
-  const about = await client.fetch<About>(query);
+  const about = await client.fetch(query);
   return about;
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
+export async function generateMetadata({ params }) {
   const about = await getData(params.slug);
 
   if (!about) {
@@ -76,7 +53,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogArticle({ params }: { params: { slug: string } }) {
+export default async function BlogArticle({ params }) {
   const about = await getData(params.slug);
 
   if (!about) {
