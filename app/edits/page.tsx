@@ -2,7 +2,6 @@ import '@/app/globals.css';
 import { client } from '@/sanity/client';
 import NewsList from '@/components/News/NewsSection';
 import { Metadata } from 'next';
-import { urlFor } from '@/lib/utils';
 interface SanityImageSource {
   asset: { _ref: string };
 }
