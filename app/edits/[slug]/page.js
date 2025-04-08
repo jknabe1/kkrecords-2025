@@ -1,8 +1,7 @@
 import imageUrlBuilder from '@sanity/image-url';
 import { client } from '@/sanity/client';
-import { PortableText, PortableTextBlock } from 'next-sanity';
+import { PortableText } from 'next-sanity';
 import Image from 'next/image';
-import type { Metadata } from 'next';
 
 export const revalidate = 30;
 
@@ -12,23 +11,7 @@ function urlFor(source) {
   return builder.image(source);
 }
 
-interface SanityImageSource {
-  asset: {
-    _ref: string;
-  };
-}
-
-interface News {
-  currentSlug: string;
-  name: string;
-  details: PortableTextBlock[];
-  image: SanityImageSource;
-  excerpt?: string;
-  publishedAt: string;
-  date?: string;
-}
-
-async function getData(slug: string): Promise<News | null> {
+async function getData(slug) {
   const query = `
     *[_type == "news" && slug.current == '${slug}'] {
         "currentSlug": slug.current,
@@ -39,15 +22,11 @@ async function getData(slug: string): Promise<News | null> {
           publishedAt,
           date,
       }[0]`;
-  const news = await client.fetch<News>(query);
+  const news = await client.fetch(query);
   return news;
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
+export async function generateMetadata({ params }) {
   const news = await getData(params.slug);
   if (!news) {
     return {
@@ -72,7 +51,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogArticle({ params }: { params: { slug: string } }) {
+export default async function BlogArticle({ params }) {
   const news = await getData(params.slug);
   if (!news) {
     return <div>News article not found</div>;
