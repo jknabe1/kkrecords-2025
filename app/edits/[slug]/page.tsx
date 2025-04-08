@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 
 import imageUrlBuilder from '@sanity/image-url';
 import { client } from '@/sanity/client';
@@ -18,10 +18,10 @@ interface SanityImageSource {
   };
 }
 
+const builder = imageUrlBuilder(client);
 function urlFor(source: SanityImageSource) {
   return builder.image(source);
 }
-
 // Define the News data structure
 interface News {
   currentSlug: string;
