@@ -3,7 +3,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { urlFor } from '@/app/artists/page';
+import { urlFor } from '@/lib/utils';
 import { SanityDocument } from "next-sanity";
 import Image from 'next/image';
 // Define the Artist interface based on your Sanity schema
@@ -25,7 +25,7 @@ interface ArtistsListProps {
 }
 
 export default function ArtistsList({ initialArtists }: ArtistsListProps) {
-  const [selectedArtist, setSelectedArtist] = useState<Linkrtist | null>(
+  const [selectedArtist, setSelectedArtist] = useState<Artist | null>(
     initialArtists[0] || null
   );
 

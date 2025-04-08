@@ -1,14 +1,10 @@
 import '@/app/globals.css';
-import { urlFor } from '@/lib/utils';
 import { client } from '@/sanity/client';
 import NewsList from '@/components/News/NewsSection';
 import { Metadata } from 'next';
-
-// Define the Sanity image source type
+import { urlFor } from '@/lib/utils';
 interface SanityImageSource {
-  asset: {
-    _ref: string;
-  };
+  asset: { _ref: string };
 }
 
 // Define the News interface with proper image typing

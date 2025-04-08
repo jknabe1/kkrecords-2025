@@ -59,7 +59,7 @@ export { generateMetadata };
 
 // Type params as a Promise and await it
 export default async function BlogArticle({ params }: { params: Promise<{ slug: string }> }) {
-  const resolvedParams = await params; // Await the Promise to get { slug: string }
+  const resolvedParams = await params;
   const artist = await getData(resolvedParams.slug);
 
   if (!artist) {
