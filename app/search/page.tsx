@@ -1,49 +1,16 @@
 import { client } from '@/sanity/client';
-import { groq, PortableTextBlock } from 'next-sanity'; // Updated import
+import { groq } from 'next-sanity';
 import Image from 'next/image';
 import Link from 'next/link';
 import imageUrlBuilder from '@sanity/image-url';
-import type { Metadata } from 'next';
-
-// Define the Sanity image source type
-interface SanityImageSource {
-  asset: {
-    _ref: string;
-  };
-  alt?: string;
-}
 
 const builder = imageUrlBuilder(client);
 
-function urlFor(source: SanityImageSource) {
+function urlFor(source) {
   return builder.image(source);
 }
 
-// Define the SearchResult data structure
-interface SearchResult {
-  _id: string;
-  _type: string;
-  name: string;
-  image?: SanityImageSource;
-  Biography?: PortableTextBlock[]; // Replaced 'any' with PortableTextBlock[]
-  description?: PortableTextBlock[]; // Replaced 'any' with PortableTextBlock[]
-  slug?: { current: string };
-  email?: string;
-  roll?: string;
-  title?: string;
-  location?: string;
-  date?: string;
-  link?: string;
-  category?: string;
-  categorySlug?: string;
-  publishedAt?: string;
-  author?: string;
-  excerpt?: string;
-}
-
-export const dynamic = 'force-dynamic';
-
-async function getSearchResults(query: string): Promise<SearchResult[]> {
+async function getSearchResults(query) {
   if (!query) return [];
 
   const loweredQuery = query.toLowerCase();
@@ -75,7 +42,7 @@ async function getSearchResults(query: string): Promise<SearchResult[]> {
   }
 `;
 
-  return await client.fetch<SearchResult[]>(groqQuery, {
+  return await client.fetch(groqQuery, {
     exact: `*${loweredQuery}*`,
     fuzzy: `*${loweredQuery}*`,
   });
@@ -87,13 +54,11 @@ const typeDisplayNames = {
   news: 'Edits',
   item: 'Item',
   team: 'Styrelsen',
-} as const;
-
-type Props = {
-  searchParams: { q?: string };
 };
 
-export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+export const dynamic = 'force-dynamic';
+
+export async function generateMetadata({ searchParams }) {
   const query = searchParams.q || '';
 
   return {
@@ -105,15 +70,11 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   };
 }
 
-export default async function SearchPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ q?: string }>;
-}) {
+export default async function SearchPage({ searchParams }) {
   const { q: query = '' } = await searchParams;
   const results = await getSearchResults(query);
 
-  function getItemHref(item: SearchResult): string {
+  function getItemHref(item) {
     if (item._type === 'team' && item.email) {
       return `mailto:${item.email}`;
     } else if (item.slug?.current) {
@@ -127,7 +88,7 @@ export default async function SearchPage({
       <div className="relative aspect-[4/5] lg:aspect-[6/5] bg-black flex items-center justify-center text-white border border-solid border-black">
         <div className="text-center">
           <h2 className="text-3xl font-bold mb-4">
-            {results.length} resultat för &quot;{query}&quot;
+            {results.length} resultat för "{query}"
           </h2>
           <p className="text-xl">Här är vad vi hittade för din sökning.</p>
         </div>
@@ -145,7 +106,7 @@ export default async function SearchPage({
               {item._type && (
                 <div className="bg-white text-black px-2 py-1 inline-block">
                   <span className="text-[--vividGreen] mr-1">■</span>
-                  {typeDisplayNames[item._type as keyof typeof typeDisplayNames] || item._type}
+                  {typeDisplayNames[item._type] || item._type}
                 </div>
               )}
               <div className="bg-white text-black px-2 py-1 inline-block">{item.name}</div>
