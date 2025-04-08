@@ -1,36 +1,16 @@
 import { client } from '@/sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
-import type { Metadata } from 'next';
 import Image from 'next/image';
-import { PortableText, PortableTextBlock } from 'next-sanity'; // Updated import
+import { PortableText } from 'next-sanity';
 import Link from 'next/link';
 
 const builder = imageUrlBuilder(client);
 
-// Define the Sanity image source type
-interface SanityImageSource {
-  asset: {
-    _ref: string;
-  };
-}
-
-function urlFor(source: SanityImageSource) {
+function urlFor(source) {
   return builder.image(source);
 }
 
-// Define the Event data structure
-interface Event {
-  name: string;
-  slug: { current: string };
-  details: PortableTextBlock[]; // Replaced 'any' with PortableTextBlock[]
-  image?: SanityImageSource;
-  date?: string;
-  venue?: string;
-  tickets?: string;
-  headline?: string;
-}
-
-async function getEvent(slug: string): Promise<Event | null> {
+async function getEvent(slug) {
   const EVENT_QUERY = `*[
     _type == "event" &&
     slug.current == $slug
@@ -39,14 +19,10 @@ async function getEvent(slug: string): Promise<Event | null> {
     headline->,
     venue->
   }`;
-  return await client.fetch<Event>(EVENT_QUERY, { slug });
+  return await client.fetch(EVENT_QUERY, { slug });
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
+export async function generateMetadata({ params }) {
   const event = await getEvent(params.slug);
 
   if (!event) {
@@ -75,7 +51,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function EventPage({ params }: { params: { slug: string } }) {
+export default async function EventPage({ params }) {
   const event = await getEvent(params.slug);
 
   if (!event) {
