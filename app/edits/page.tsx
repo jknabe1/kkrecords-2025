@@ -1,5 +1,5 @@
 import '@/app/globals.css';
-import imageUrlBuilder from '@sanity/image-url';
+import { urlFor } from '@/lib/utils';
 import { client } from '@/sanity/client';
 import NewsList from '@/components/News/NewsSection';
 import { Metadata } from 'next';
@@ -52,11 +52,6 @@ export const metadata: Metadata = {
     images: ['https://kkrecords.se/api'],
   },
 };
-
-const builder = imageUrlBuilder(client);
-export function urlFor(source: SanityImageSource) {
-  return builder.image(source);
-}
 
 const NEWS_QUERY = `*[_type == "news" && defined(slug.current)]{_id, name, slug, date, image, publishedAt} | order(publishedAt desc)`;
 

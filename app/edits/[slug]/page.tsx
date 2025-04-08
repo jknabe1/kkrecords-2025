@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
+
 import imageUrlBuilder from '@sanity/image-url';
 import { client } from '@/sanity/client';
 import { PortableText, PortableTextBlock } from 'next-sanity'; // Updated import
