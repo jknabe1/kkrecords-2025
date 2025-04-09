@@ -68,7 +68,7 @@ const Header = () => {
         className="fixed top-0 left-0 right-0 h-[60px] lg:h-[70px] bg-background border-b-black border-b border-solid flex flex-col justify-center z-20"
         role="navigation"
       >
-        <div className="px-2 py-3 lg:px-5">
+        <div className="px-2 py-8 lg:px-5">
           <div className="grid grid-cols-12 items-center">
             <div className="hidden lg:block col-span-4">
               <ul className="flex items-center">
@@ -157,22 +157,12 @@ const Header = () => {
                       </div>
                     </div>
                     <div className="text-center lg:hidden relative bottom-[2px]">
-                      <svg width="23" height="29" viewBox="0 0 23 29" fill="none" className="icon-fill">
-                        <rect
-                          x="1.19751"
-                          y="6.48889"
-                          width="20.4104"
-                          height="21.9772"
-                          stroke="currentColor"
-                          className="none"
-                        ></rect>
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M17.5948 6.05257C16.8094 3.10725 14.2917 1.0141 11.4026 1.0141C8.51356 1.0141 5.99588 3.10725 5.2105 6.05257H4.18115C4.99264 2.58313 7.91808 0.0140991 11.4026 0.0140991C14.8872 0.0140991 17.8126 2.58313 18.6241 6.05257H17.5948Z"
-                          fill="currentColor"
-                        ></path>
-                      </svg>
+                    <svg width="23" height="29" viewBox="0 0 35 36" className="icon-fill">
+                          <circle cx="17.6423" cy="10.1467" r="8.73657" stroke="currentColor" strokeWidth="2" fill="none" className="icon-fill-fill"></circle>
+                          <path fillRule="evenodd" clipRule="evenodd" d="M32.6461 35.7288C32.6659 35.414 32.676 35.0965 32.676 34.7767C32.676 26.5491 26.0062 19.8794 17.7787 19.8794C9.55111 19.8794 2.88135 26.5491 2.88135 34.7767C2.88135 35.0965 2.89143 35.414 2.91128 35.7288H0.907722C0.890217 35.4137 0.881348 35.0962 0.881348 34.7767C0.881348 25.4446 8.44654 17.8794 17.7787 17.8794C27.1108 17.8794 34.676 25.4446 34.676 34.7767C34.676 35.0962 34.6671 35.4137 34.6496 35.7288H32.6461Z"></path>
+                          <circle cx="17.5" cy="35" r="16" fill="none" className="icon-fill-fill"></circle>
+                          <rect x="2" y="34" height="2" width="32" fill="currentColor"></rect>
+                        </svg>
                     </div>
                   </Link>
                 </li>
@@ -291,28 +281,28 @@ const Header = () => {
           </div>
 
           {/* Footer area */}
-          <div className="flex items-center justify-center border-gray-800 right-0">
+            <div className="flex items-center justify-center border-gray-800 right-0">
             <div className="w-full h-full flex flex-col items-center justify-center p-8">
               {/* Social Links */}
-              <ul className="flex items-center space-x-6 list-none">
-                <li>
-                  <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Instagram" aria-label="Instagram" href="https://www.instagram.com/kkrecords.se">Instagram</Link>
-                </li>
-                <li>
-                  <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Facebook" aria-label="Facebook" href="https://www.facebook.com/kkmusicrecords">Facebook</Link>
-                </li>
-                <li>
-                  <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="TikTok" aria-label="TikTok" href="https://www.tiktok.com/kkrecords.se">TikTok</Link>
-                </li>
-                <li>
-                  <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Spotify" aria-label="Spotify" href="https://open.spotify.com/user/rp0di7du2vijxmhev2mp6vugo">Spotify</Link>
-                </li>
-                <li>
-                  <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Youtube" aria-label="Youtube" href="https://www.youtube.com/@kkrec">Youtube</Link>
-                </li>
+              <ul className="flex flex-col items-center space-y-4 list-none lg:flex-row lg:space-y-0 lg:space-x-6">
+              <li>
+                <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-center" title="Instagram" aria-label="Instagram" href="https://www.instagram.com/kkrecords.se">Instagram</Link>
+              </li>
+              <li>
+                <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-center" title="Facebook" aria-label="Facebook" href="https://www.facebook.com/kkmusicrecords">Facebook</Link>
+              </li>
+              <li>
+                <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-center" title="TikTok" aria-label="TikTok" href="https://www.tiktok.com/kkrecords.se">TikTok</Link>
+              </li>
+              <li>
+                <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-center" title="Spotify" aria-label="Spotify" href="https://open.spotify.com/user/rp0di7du2vijxmhev2mp6vugo">Spotify</Link>
+              </li>
+              <li>
+                <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-center" title="Youtube" aria-label="Youtube" href="https://www.youtube.com/@kkrec">Youtube</Link>
+              </li>
               </ul>
             </div>
-          </div>
+            </div>
         </div>
       </div>
     </>

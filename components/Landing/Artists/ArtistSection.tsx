@@ -43,16 +43,17 @@ export default function ArtistSection() {
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
-  const [sliderRef] = useKeenSlider(
-    isMobile
-      ? {
-          slides: {
-            perView: 1.2,
-            spacing: 10,
-          },
-        }
-      : {}
-  );
+  const [sliderRef] = useKeenSlider<HTMLDivElement>({
+    slides: {
+      perView: 1.2,
+      spacing: 10,
+    },
+    breakpoints: {
+      "(min-width: 768px)": {
+        slides: { perView: 1 },
+      },
+    },
+  });
 
   useEffect(() => {
     const fetchArtists = async () => {
@@ -96,7 +97,7 @@ export default function ArtistSection() {
           <div ref={sliderRef} className="keen-slider">
             {/* First Two Artists (Dynamic) */}
             {filteredArtists.slice(0, 2).map((artist) => (
-              <div key={artist._id} className="keen-slider__slide">
+              <div key={artist._id} className="keen-slider__slide mt-12">
                 <Link href={`/artists/${artist.slug.current}`} className="group block">
                   <div className="noise relative aspect-[4/5] lg:aspect-[6/5]">
                     <Image
@@ -170,7 +171,7 @@ export default function ArtistSection() {
         ) : (
           <>
             {/* Desktop: Two Column Grid */}
-            <div className="grid gap-5 lg:grid-cols-2">
+            <div className="grid gap-5 lg:grid-cols-2 md:pt-14">
               {filteredArtists.slice(0, 2).map((artist) => (
                 <div key={artist._id} className="col-span-1">
                   <Link className="group block" href={`/artists/${artist.slug.current}`}>
