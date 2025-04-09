@@ -101,10 +101,10 @@ export default async function BlogArticle({ params }) {
             priority
           />
           <div className="absolute top-4 z-5 flex flex-col items-start gap-1 px-2 py-3 lg:px-5">
-            <div className="bg-white text-black px-2 py-1 inline-block">
+            <div className="bg-white text-black px-2 py-1 inline-block z-10">
               <span className="text-[--vividGreen]">■</span> {about.name}
             </div>
-            <div className="bg-white text-black text-sm px-2 py-1 inline-block">
+            <div className="bg-white text-black text-sm px-2 py-1 inline-block z-10">
               <p>{new Date(about.publishedAt).toLocaleDateString()}</p>
             </div>
           </div>

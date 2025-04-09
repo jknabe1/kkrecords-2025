@@ -53,7 +53,7 @@ export default function ArtistSection() {
         slides: { perView: 1.2, spacing: 10 },
       },
       "(min-width: 768px)": {
-        slides: { perView: 1 },
+        slides: { perView: 1, spacing: 10 },
       },
     },
   })

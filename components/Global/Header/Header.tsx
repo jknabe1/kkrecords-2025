@@ -1,66 +1,61 @@
-"use client";
+"use client"
 
-import type React from "react";
-import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
-import { useRouter } from 'next/navigation';
+import type React from "react"
+import { useState, useEffect, useRef } from "react"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 const Header = () => {
-  const [isNavVisible, setIsNavVisible] = useState(false);
-  const [isSearchVisible, setIsSearchVisible] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const searchRef = useRef<HTMLDivElement>(null);
-  const navRef = useRef<HTMLDivElement>(null);
+  const [isNavVisible, setIsNavVisible] = useState(false)
+  const [isSearchVisible, setIsSearchVisible] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
+  const searchRef = useRef<HTMLDivElement>(null)
+  const navRef = useRef<HTMLDivElement>(null)
 
-  const router = useRouter();
+  const router = useRouter()
 
   const toggleSearch = () => {
-    setIsSearchVisible(!isSearchVisible);
-  };
+    setIsSearchVisible(!isSearchVisible)
+  }
 
   const closeNav = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setIsNavVisible(false);
-  };
+    e.stopPropagation()
+    setIsNavVisible(false)
+  }
 
   const openNav = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setIsNavVisible(true);
-  };
+    e.stopPropagation()
+    setIsNavVisible(true)
+  }
 
   // Close search flyout when clicking outside
   const handleSearchClickOutside = (event: MouseEvent) => {
     if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
-      setIsSearchVisible(false);
+      setIsSearchVisible(false)
     }
-  };
+  }
 
-  // Close nav when clicking outside
-  const handleClickOutside = (event: MouseEvent) => {
-    if (navRef.current && !navRef.current.contains(event.target as Node)) {
-      setIsNavVisible(false);
-    }
-  };
+  // We're removing the click outside handler for the nav menu as requested
 
   useEffect(() => {
-    document.addEventListener("mousedown", handleSearchClickOutside);
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleSearchClickOutside)
+    // Removed the click outside handler for the nav menu
     return () => {
-      document.removeEventListener("mousedown", handleSearchClickOutside);
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+      document.removeEventListener("mousedown", handleSearchClickOutside)
+      // Removed the cleanup for the nav click outside handler
+    }
+  }, [])
 
   const handleLinkClick = () => {
-    setIsNavVisible(false);
-  };
+    setIsNavVisible(false)
+  }
 
   const handleSearchSubmit = () => {
     if (searchQuery.trim().length > 0) {
-      router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
-      toggleSearch(); // Optionally close the overlay
+      router.push(`/search?q=${encodeURIComponent(searchQuery)}`)
+      toggleSearch() // Optionally close the overlay
     }
-  };
+  }
 
   return (
     <>
@@ -149,20 +144,44 @@ const Header = () => {
                     <div className="h-[70px] flex flex-col justify-center hidden lg:flex">
                       <div className="relative">
                         <svg width="35" height="36" viewBox="0 0 35 36" className="icon-fill">
-                          <circle cx="17.6423" cy="10.1467" r="8.73657" stroke="currentColor" strokeWidth="2" fill="none" className="icon-fill-fill"></circle>
-                          <path fillRule="evenodd" clipRule="evenodd" d="M32.6461 35.7288C32.6659 35.414 32.676 35.0965 32.676 34.7767C32.676 26.5491 26.0062 19.8794 17.7787 19.8794C9.55111 19.8794 2.88135 26.5491 2.88135 34.7767C2.88135 35.0965 2.89143 35.414 2.91128 35.7288H0.907722C0.890217 35.4137 0.881348 35.0962 0.881348 34.7767C0.881348 25.4446 8.44654 17.8794 17.7787 17.8794C27.1108 17.8794 34.676 25.4446 34.676 34.7767C34.676 35.0962 34.6671 35.4137 34.6496 35.7288H32.6461Z"></path>
+                          <circle
+                            cx="17.6423"
+                            cy="10.1467"
+                            r="8.73657"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            fill="none"
+                            className="icon-fill-fill"
+                          ></circle>
+                          <path
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            d="M32.6461 35.7288C32.6659 35.414 32.676 35.0965 32.676 34.7767C32.676 26.5491 26.0062 19.8794 17.7787 19.8794C9.55111 19.8794 2.88135 26.5491 2.88135 34.7767C2.88135 35.0965 2.89143 35.414 2.91128 35.7288H0.907722C0.890217 35.4137 0.881348 35.0962 0.881348 34.7767C0.881348 25.4446 8.44654 17.8794 17.7787 17.8794C27.1108 17.8794 34.676 25.4446 34.676 34.7767C34.676 35.0962 34.6671 35.4137 34.6496 35.7288H32.6461Z"
+                          ></path>
                           <circle cx="17.5" cy="35" r="16" fill="none" className="icon-fill-fill"></circle>
                           <rect x="2" y="34" height="2" width="32" fill="currentColor"></rect>
                         </svg>
                       </div>
                     </div>
                     <div className="text-center lg:hidden relative bottom-[2px]">
-                    <svg width="23" height="29" viewBox="0 0 35 36" className="icon-fill">
-                          <circle cx="17.6423" cy="10.1467" r="8.73657" stroke="currentColor" strokeWidth="2" fill="none" className="icon-fill-fill"></circle>
-                          <path fillRule="evenodd" clipRule="evenodd" d="M32.6461 35.7288C32.6659 35.414 32.676 35.0965 32.676 34.7767C32.676 26.5491 26.0062 19.8794 17.7787 19.8794C9.55111 19.8794 2.88135 26.5491 2.88135 34.7767C2.88135 35.0965 2.89143 35.414 2.91128 35.7288H0.907722C0.890217 35.4137 0.881348 35.0962 0.881348 34.7767C0.881348 25.4446 8.44654 17.8794 17.7787 17.8794C27.1108 17.8794 34.676 25.4446 34.676 34.7767C34.676 35.0962 34.6671 35.4137 34.6496 35.7288H32.6461Z"></path>
-                          <circle cx="17.5" cy="35" r="16" fill="none" className="icon-fill-fill"></circle>
-                          <rect x="2" y="34" height="2" width="32" fill="currentColor"></rect>
-                        </svg>
+                      <svg width="23" height="29" viewBox="0 0 35 36" className="icon-fill">
+                        <circle
+                          cx="17.6423"
+                          cy="10.1467"
+                          r="8.73657"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          fill="none"
+                          className="icon-fill-fill"
+                        ></circle>
+                        <path
+                          fillRule="evenodd"
+                          clipRule="evenodd"
+                          d="M32.6461 35.7288C32.6659 35.414 32.676 35.0965 32.676 34.7767C32.676 26.5491 26.0062 19.8794 17.7787 19.8794C9.55111 19.8794 2.88135 26.5491 2.88135 34.7767C2.88135 35.0965 2.89143 35.414 2.91128 35.7288H0.907722C0.890217 35.4137 0.881348 35.0962 0.881348 34.7767C0.881348 25.4446 8.44654 17.8794 17.7787 17.8794C27.1108 17.8794 34.676 25.4446 34.676 34.7767C34.676 35.0962 34.6671 35.4137 34.6496 35.7288H32.6461Z"
+                        ></path>
+                        <circle cx="17.5" cy="35" r="16" fill="none" className="icon-fill-fill"></circle>
+                        <rect x="2" y="34" height="2" width="32" fill="currentColor"></rect>
+                      </svg>
                     </div>
                   </Link>
                 </li>
@@ -217,13 +236,17 @@ const Header = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === "Enter") handleSearchSubmit();
+                if (e.key === "Enter") handleSearchSubmit()
               }}
               className="flex-1 text-2xl md:text-3xl lg:text-4xl font-light text-black placeholder-gray-300 bg-transparent border-none outline-none uppercase"
               autoFocus={isSearchVisible}
             />
 
-            <button className="ml-4 text-black hover:text-gray-900 transition-colors" aria-label="Submit search" onClick={handleSearchSubmit}>
+            <button
+              className="ml-4 text-black hover:text-gray-900 transition-colors"
+              aria-label="Submit search"
+              onClick={handleSearchSubmit}
+            >
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256">
                 <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path>
               </svg>
@@ -240,18 +263,104 @@ const Header = () => {
         }`}
         ref={navRef}
       >
-        <div className="grid grid-cols-2 h-[calc(100vh-60px)] lg:h-[calc(100vh-70px)] border-b border-black border-solid">
-          {/* Top row */}
+        {/* Mobile: Stacked Layout */}
+        <div className="lg:hidden flex flex-col h-full">
+          <div className="flex justify-end p-4">
+            <button onClick={() => setIsNavVisible(false)} className="text-black" aria-label="Close menu">
+              <svg width="23" height="23" viewBox="0 0 23 23">
+                <path d="M1 1L22 22" stroke="currentColor" strokeWidth="1.5"></path>
+                <path d="M22 1L1 22" stroke="currentColor" strokeWidth="1.5"></path>
+              </svg>
+            </button>
+          </div>
+
           <Link
             href="/"
-            className="flex items-center justify-center text-sans-35 lg:text-sans-60 font-600 border-r border-b border-black border-solid hover:italic"
+            className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
             onClick={handleLinkClick}
           >
             START
           </Link>
           <Link
             href="/om-oss"
-            className="flex items-center justify-center text-sans-35 lg:text-sans-60 font-600 border-b border-black border-solid hover:italic"
+            className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
+            onClick={handleLinkClick}
+          >
+            OM OSS
+          </Link>
+          <Link
+            href="/artists"
+            className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
+            onClick={handleLinkClick}
+          >
+            ARTISTER
+          </Link>
+          <Link
+            href="/edits"
+            className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
+            onClick={handleLinkClick}
+          >
+            EDITS
+          </Link>
+          <Link
+            href="/event"
+            className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
+            onClick={handleLinkClick}
+          >
+            EVENTS
+          </Link>
+
+          {/* Social Links - Styled like main navigation */}
+          <Link
+            href="https://www.instagram.com/kkrecords.se"
+            className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
+            onClick={handleLinkClick}
+          >
+            INSTAGRAM
+          </Link>
+          <Link
+            href="https://www.facebook.com/kkmusicrecords"
+            className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
+            onClick={handleLinkClick}
+          >
+            FACEBOOK
+          </Link>
+          <Link
+            href="https://www.tiktok.com/kkrecords.se"
+            className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
+            onClick={handleLinkClick}
+          >
+            TIKTOK
+          </Link>
+          <Link
+            href="https://open.spotify.com/user/rp0di7du2vijxmhev2mp6vugo"
+            className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
+            onClick={handleLinkClick}
+          >
+            SPOTIFY
+          </Link>
+          <Link
+            href="https://www.youtube.com/@kkrec"
+            className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
+            onClick={handleLinkClick}
+          >
+            YOUTUBE
+          </Link>
+        </div>
+
+        {/* Desktop: Keep the original grid layout */}
+        <div className="hidden lg:grid grid-cols-2 h-[calc(100vh-70px)] border-b border-black border-solid">
+          {/* Top row */}
+          <Link
+            href="/"
+            className="flex items-center justify-center text-sans-60 font-600 border-r border-b border-black border-solid hover:italic"
+            onClick={handleLinkClick}
+          >
+            START
+          </Link>
+          <Link
+            href="/om-oss"
+            className="flex items-center justify-center text-sans-60 font-600 border-b border-black border-solid hover:italic"
             onClick={handleLinkClick}
           >
             OM OSS
@@ -260,53 +369,88 @@ const Header = () => {
           {/* Middle row */}
           <Link
             href="/artists"
-            className="flex items-center justify-center text-sans-35 lg:text-sans-60 font-600 border-r border-b border-black border-solid hover:italic"
+            className="flex items-center justify-center text-sans-60 font-600 border-r border-b border-black border-solid hover:italic"
             onClick={handleLinkClick}
           >
             ARTISTER
           </Link>
           <Link
             href="/edits"
-            className="flex items-center justify-center text-sans-35 lg:text-sans-60 font-600 border-b border-black border-solid hover:italic"
+            className="flex items-center justify-center text-sans-60 font-600 border-b border-black border-solid hover:italic"
             onClick={handleLinkClick}
           >
             EDITS
           </Link>
 
           {/* Bottom row with lucky button */}
-          <div className="relative flex items-center justify-center text-sans-35 lg:text-sans-60 font-600 border-r border-black border-solid hover:italic">
+          <div className="relative flex items-center justify-center text-sans-60 font-600 border-r border-black border-solid hover:italic">
             <Link href="/event" className="w-full h-full flex items-center justify-center" onClick={handleLinkClick}>
               EVENTS
             </Link>
           </div>
 
           {/* Footer area */}
-            <div className="flex items-center justify-center border-gray-800 right-0">
+          <div className="flex items-center justify-center border-gray-800 right-0">
             <div className="w-full h-full flex flex-col items-center justify-center p-8">
               {/* Social Links */}
-              <ul className="flex flex-col items-center space-y-4 list-none lg:flex-row lg:space-y-0 lg:space-x-6">
-              <li>
-                <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-center" title="Instagram" aria-label="Instagram" href="https://www.instagram.com/kkrecords.se">Instagram</Link>
-              </li>
-              <li>
-                <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-center" title="Facebook" aria-label="Facebook" href="https://www.facebook.com/kkmusicrecords">Facebook</Link>
-              </li>
-              <li>
-                <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-center" title="TikTok" aria-label="TikTok" href="https://www.tiktok.com/kkrecords.se">TikTok</Link>
-              </li>
-              <li>
-                <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-center" title="Spotify" aria-label="Spotify" href="https://open.spotify.com/user/rp0di7du2vijxmhev2mp6vugo">Spotify</Link>
-              </li>
-              <li>
-                <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-center" title="Youtube" aria-label="Youtube" href="https://www.youtube.com/@kkrec">Youtube</Link>
-              </li>
+              <ul className="flex flex-row items-center space-x-6 list-none">
+                <li>
+                  <Link
+                    className="block w-full text-sans-14 uppercase tracking-wider p-2 text-center"
+                    title="Instagram"
+                    aria-label="Instagram"
+                    href="https://www.instagram.com/kkrecords.se"
+                  >
+                    Instagram
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="block w-full text-sans-14 uppercase tracking-wider p-2 text-center"
+                    title="Facebook"
+                    aria-label="Facebook"
+                    href="https://www.facebook.com/kkmusicrecords"
+                  >
+                    Facebook
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="block w-full text-sans-14 uppercase tracking-wider p-2 text-center"
+                    title="TikTok"
+                    aria-label="TikTok"
+                    href="https://www.tiktok.com/kkrecords.se"
+                  >
+                    TikTok
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="block w-full text-sans-14 uppercase tracking-wider p-2 text-center"
+                    title="Spotify"
+                    aria-label="Spotify"
+                    href="https://open.spotify.com/user/rp0di7du2vijxmhev2mp6vugo"
+                  >
+                    Spotify
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="block w-full text-sans-14 uppercase tracking-wider p-2 text-center"
+                    title="Youtube"
+                    aria-label="Youtube"
+                    href="https://www.youtube.com/@kkrec"
+                  >
+                    Youtube
+                  </Link>
+                </li>
               </ul>
             </div>
-            </div>
+          </div>
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
