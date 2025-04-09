@@ -8,14 +8,29 @@ import Image from "next/image";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 
+// Define the Sanity image source type
+interface SanityImageSource {
+  asset: {
+    _ref: string;
+  };
+}
+
 const builder = imageUrlBuilder(client);
-function urlFor(source) {
+function urlFor(source: SanityImageSource) {
   return builder.image(source).url();
 }
 
+// Define the Artist data structure
+interface Artist {
+  _id: string;
+  name: string;
+  slug: { current: string };
+  image: SanityImageSource;
+}
+
 export default function ArtistSection() {
-  const [artists, setArtists] = useState([]);
-  const [randomArtists, setRandomArtists] = useState([]);
+  const [artists, setArtists] = useState<Artist[]>([]);
+  const [randomArtists, setRandomArtists] = useState<Artist[]>([]);
   const [isMobile, setIsMobile] = useState(false);
 
   // Detect mobile screen
@@ -32,7 +47,7 @@ export default function ArtistSection() {
     isMobile
       ? {
           slides: {
-            perView: 1, // Changed from 1.2 to 1
+            perView: 1.2,
             spacing: 10,
           },
         }
@@ -43,7 +58,7 @@ export default function ArtistSection() {
     const fetchArtists = async () => {
       try {
         // Fetch all artists
-        const allArtists = await client.fetch(
+        const allArtists = await client.fetch<Artist[]>(
           `*[_type == "artist" && defined(slug.current)]{_id, name, slug, image}|order(name asc)`
         );
 
@@ -91,7 +106,7 @@ export default function ArtistSection() {
                       width={1536}
                       height={1920}
                       className="h-full w-full object-cover border border-solid border-black transition-transform duration-500 group-hover:scale-105"
-                      sizes="100vw" // Updated to match full viewport width
+                      sizes="50vw"
                     />
                     <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-transparent to-gray-950/50 p-5">
                       <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
@@ -120,7 +135,7 @@ export default function ArtistSection() {
                       width={1536}
                       height={1920}
                       className="h-full w-full object-cover border border-solid border-black"
-                      sizes="100vw" // Updated to match full viewport width
+                      sizes="50vw"
                     />
                     <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-transparent to-gray-950/50 p-5">
                       <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
