@@ -44,10 +44,10 @@ export default function RootLayout({ children,}: Readonly<{children: React.React
   return (
     <html lang="se_SV">
       <body className="antialiased">
-        <CookieNotice />
         <Header/>  
           <LenisScrollProvider>
             {children}
+            <CookieNotice />
             <Analytics />
           </LenisScrollProvider>
         <Footer />

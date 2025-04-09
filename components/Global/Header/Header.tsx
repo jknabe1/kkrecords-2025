@@ -65,7 +65,7 @@ const Header = () => {
   return (
     <>
       <header
-        className="fixed top-0 left-0 right-0 h-[60px] lg:h-[70px] bg-background border-b-black border-b border-solid flex flex-col justify-center z-20"
+        className="sticky top-0 left-0 right-0 h-[60px] lg:h-[70px] bg-white border-b-black border-b border-solid flex flex-col justify-center z-50 overflow-hidden"
         role="navigation"
       >
         <div className="px-2 py-8 lg:px-5">

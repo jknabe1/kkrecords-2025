@@ -11,7 +11,7 @@ export default function CookieConsent() {
 
   return (
     <div className="px-2 py-3 lg:px-5">
-      <div className="fixed bottom-0 left-0 md:bottom-2 md:left-5 right-0 lg:right-auto z-50 border border-solid border-black ">
+      <div className="fixed bottom-0 left-0 md:bottom-2 md:left-5 right-0 lg:right-auto z-[99] border border-solid border-black ">
         <div className="w-full lg:max-w-[480px] bg-white text-black overflow-hidden">
           <div className="flex flex-col gap-px">
             <div className="grid-col-border-invert-dark flex flex-col justify-center p-2">
