@@ -45,10 +45,13 @@ export default function ArtistSection() {
 
   const [sliderRef] = useKeenSlider<HTMLDivElement>({
     slides: {
-      perView: 1.2,
-      spacing: 10,
+      perView: 1,
+      spacing: 0,
     },
     breakpoints: {
+      "(min-width: 640px)": {
+        slides: { perView: 1.2, spacing: 10 },
+      },
       "(min-width: 768px)": {
         slides: { perView: 1, spacing: 10 },
       },
