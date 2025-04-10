@@ -6,7 +6,7 @@ import React from 'react'
 const AboutSection = () => {
   return (
     <div>
-        <section className="relative w-full pt-12 pb-12 md:pb-16 xl:pb-24">
+        <section className="relative w-full pt-8">
             <div className="flex flex-col px-2 py-3 lg:px-5 gap-5">
                 <section className="relative">
                     <h1 className="text-sans-35 lg:text-sans-60 font-600">VÅR HISTORIA</h1>
