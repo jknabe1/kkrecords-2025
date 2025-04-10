@@ -102,28 +102,22 @@ export default async function EventPage({ params }) {
                 <div className="mt-4 text-lg leading-relaxed border-t pt-2 border-solid border-black px-2 py-3 lg:px-5">
                   Information för {event.name}:
                   <div className="flex gap-4 mt-2">
-                    <span className="hover:italic">
+                    <span className="">
                       {typeof event.venue === 'string' ? event.venue : 'Ingen lokal tillgänglig'}
                     </span>
                     <span>
-                      {event.date ? new Date(event.date).toLocaleDateString() : 'Inget datum angivet'}
+                      Datum: {event.date ? new Date(event.date).toLocaleDateString() : 'Inget datum angivet'}
                     </span>
                     <Link href={typeof event.tickets === 'string' ? event.tickets : '#'}>
-                      <button
-                        type="submit"
-                        value="Sign Up"
-                        className="block button button-primary text-left"
-                      >
-                        <div className="px-2 tracking-tighter text-sans-22 md:text-sans-30 md:px-3">
-                          Biljetter
-                        </div>
-                      </button>
+                    <div className="hover:italic flex items-center gap-2">
+                        {typeof event.tickets === 'string' ? 'Biljetter via Tickster.se' : ''}
+                      </div>
                     </Link>
                   </div>
                 </div>
               </ul>
             </div>
-            <div className="hidden lg:block col-span-6 grid-col-border sticky top-7 min-h-hero-minus-header overflow-hidden">
+            <div className="hidden lg:block col-span-6 grid-col-b</svg>order sticky top-7 min-h-hero-minus-header overflow-hidden">
               <div className="image overflow-hidden absolute inset-0">
                 {event.image ? (
                   <Image

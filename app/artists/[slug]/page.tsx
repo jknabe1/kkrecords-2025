@@ -94,8 +94,8 @@ export default async function BlogArticle({ params }: { params: Promise<{ slug: 
                     <PortableText value={artist.Biography} />
                   </div>
                 </li>
-                <div className="text-lg leading-relaxed bg-black text-white px-2 py-3 lg:px-5">
-                  <h1 className="text-sans-35 font-600">Följ {artist.name} på sociala medier:</h1>
+                <div className="text-lg leading-relaxed border-t border-solid border-black px-2 py-3 lg:px-5">
+                  <h1>Följ {artist.name} på sociala medier:</h1>
                   <div className="flex gap-4 mt-2">
                     {artist.Instagram && (
                       <Link

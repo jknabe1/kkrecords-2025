@@ -121,7 +121,7 @@ export default function Footer() {
                             <h2 className="text-sans-60 font-600 mb-2 tracking-tighter ml-[-0.08em]">Genvägar</h2>
                             <ul>
                                 <li>
-                                    <Link className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Artister" aria-label="Artister" href="/artister">Artister</Link>
+                                    <Link className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Artister" aria-label="Artister" href="/artists">Artister</Link>
                                 </li>
                                 <li>
                                     <Link className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Edits" aria-label="Edits" href="/edits">Edits</Link>

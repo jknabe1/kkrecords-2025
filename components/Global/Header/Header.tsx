@@ -72,6 +72,7 @@ const Header = () => {
   return (
     <>
       <header
+        aria-label="Main Navigation"
         className="sticky top-0 left-0 right-0 h-[60px] lg:h-[70px] bg-white border-b-black border-b border-solid flex flex-col justify-center z-50 overflow-hidden"
         role="navigation"
       >
@@ -152,7 +153,7 @@ const Header = () => {
                   </button>
                 </li>
                 <li>
-                  <Link className="block px-[7px] lg:pr-0" href="/backstage">
+                  <Link className="block px-[7px] lg:pr-0" title="Backstage" href="/backstage">
                     <div className="h-[70px] flex flex-col justify-center hidden lg:flex">
                       <div className="relative">
                         <svg width="35" height="36" viewBox="0 0 35 36" className="icon-fill">
