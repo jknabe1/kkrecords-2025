@@ -91,7 +91,11 @@ export default function DynamicSlider({ items, itemType }: SliderProps) {
                   <>
                     <div className="bg-white text-black text-xs px-2 py-1 inline-block">
                       <span className="text-[--vividGreen] mr-2">■</span>
-                      {new Date(item.date || "").toLocaleDateString()}
+                      {new Date(item.date || "").toLocaleDateString("sv-SE", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      })}
                     </div>
                     <div className="bg-white text-black text-sm px-2 py-1 inline-block">
                       {item.name}
