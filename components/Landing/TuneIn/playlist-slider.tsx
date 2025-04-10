@@ -74,10 +74,10 @@ export default function PlaylistSlider({
                   <span className="text-[--vividGreen]">■</span> TUNE-IN
                 </div>
                 <div className="bg-white text-black text-sm px-2 py-1 inline-block uppercase">
-                  Skapad av: {playlist.creator}
+                  Namn: {playlist.name}
                 </div>
                 <div className="bg-white text-black text-xs px-2 py-1 inline-block uppercase">
-                  Namn: {playlist.name}
+                Skapad av: {playlist.creator}
                 </div>
               </div>
             </div>

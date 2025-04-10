@@ -57,6 +57,18 @@ const Header = () => {
     }
   }
 
+  useEffect(() => {
+    if (isNavVisible) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
+    }
+
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [isNavVisible])
+
   return (
     <>
       <header
@@ -258,22 +270,14 @@ const Header = () => {
       </div>
 
       <div
-        className={`fixed top-[60px] lg:top-[70px] left-0 right-0 bottom-0 bg-white text-black z-40 transform transition-all duration-300 ease-in-out ${
+        className={`fixed top-[60px] lg:top-[70px] left-0 right-0 bottom-0 bg-white text-black z-40 transform transition-all duration-300 ease-in-out overflow-hidden ${
           isNavVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
         }`}
         ref={navRef}
       >
         {/* Mobile: Stacked Layout */}
-        <div className="lg:hidden flex flex-col h-full">
-          <div className="flex justify-end p-4">
-            <button onClick={() => setIsNavVisible(false)} className="text-black" aria-label="Close menu">
-              <svg width="23" height="23" viewBox="0 0 23 23">
-                <path d="M1 1L22 22" stroke="currentColor" strokeWidth="1.5"></path>
-                <path d="M22 1L1 22" stroke="currentColor" strokeWidth="1.5"></path>
-              </svg>
-            </button>
-          </div>
-
+        <div className="lg:hidden flex flex-col h-full overflow-y-auto">
+          {/* Main Navigation Links */}
           <Link
             href="/"
             className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
@@ -310,42 +314,53 @@ const Header = () => {
             EVENTS
           </Link>
 
-          {/* Social Links - Styled like main navigation */}
-          <Link
-            href="https://www.instagram.com/kkrecords.se"
-            className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
-            onClick={handleLinkClick}
-          >
-            INSTAGRAM
-          </Link>
-          <Link
-            href="https://www.facebook.com/kkmusicrecords"
-            className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
-            onClick={handleLinkClick}
-          >
-            FACEBOOK
-          </Link>
-          <Link
-            href="https://www.tiktok.com/kkrecords.se"
-            className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
-            onClick={handleLinkClick}
-          >
-            TIKTOK
-          </Link>
-          <Link
-            href="https://open.spotify.com/user/rp0di7du2vijxmhev2mp6vugo"
-            className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
-            onClick={handleLinkClick}
-          >
-            SPOTIFY
-          </Link>
-          <Link
-            href="https://www.youtube.com/@kkrec"
-            className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
-            onClick={handleLinkClick}
-          >
-            YOUTUBE
-          </Link>
+          {/* Social Links - Grouped in two rows: 3 links on top, 2 links on bottom */}
+          <div className="py-6 border-b border-black border-solid">
+            <div className="flex flex-col items-center gap-4">
+              {/* First row - 3 links */}
+              <div className="flex justify-center items-center space-x-4">
+                <Link
+                  href="https://www.instagram.com/kkrecords.se"
+                  className="text-sm font-medium hover:italic px-2 py-1 whitespace-nowrap"
+                  onClick={handleLinkClick}
+                >
+                  INSTAGRAM
+                </Link>
+                <Link
+                  href="https://www.facebook.com/kkmusicrecords"
+                  className="text-sm font-medium hover:italic px-2 py-1 whitespace-nowrap"
+                  onClick={handleLinkClick}
+                >
+                  FACEBOOK
+                </Link>
+                <Link
+                  href="https://www.tiktok.com/kkrecords.se"
+                  className="text-sm font-medium hover:italic px-2 py-1 whitespace-nowrap"
+                  onClick={handleLinkClick}
+                >
+                  TIKTOK
+                </Link>
+              </div>
+
+              {/* Second row - 2 links */}
+              <div className="flex justify-center items-center space-x-4">
+                <Link
+                  href="https://open.spotify.com/user/rp0di7du2vijxmhev2mp6vugo"
+                  className="text-sm font-medium hover:italic px-2 py-1 whitespace-nowrap"
+                  onClick={handleLinkClick}
+                >
+                  SPOTIFY
+                </Link>
+                <Link
+                  href="https://www.youtube.com/@kkrec"
+                  className="text-sm font-medium hover:italic px-2 py-1 whitespace-nowrap"
+                  onClick={handleLinkClick}
+                >
+                  YOUTUBE
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Desktop: Keep the original grid layout */}
