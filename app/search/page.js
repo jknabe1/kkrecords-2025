@@ -103,36 +103,36 @@ export default async function SearchPage({ searchParams }) {
           >
             <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
               {item._type && (
-                <div className="bg-white text-black px-2 py-1 inline-block">
-                  <span className="text-[--vividGreen] mr-1">■</span>
-                  {typeDisplayNames[item._type] || item._type}
-                </div>
+          <div className="bg-white text-black px-2 py-1 inline-block">
+            <span className="text-[--vividGreen] mr-1">■</span>
+            {typeDisplayNames[item._type] || item._type}
+          </div>
               )}
               <div className="bg-white text-black px-2 py-1 inline-block">{item.name}</div>
               {item.roll && (
-                <div className="bg-white text-black px-2 py-1 inline-block">{item.roll}</div>
+          <div className="bg-white text-black px-2 py-1 inline-block">{item.roll}</div>
               )}
               {item.publishedAt && (
-                <div className="bg-white text-black px-2 py-1 inline-block">
-                  {new Date(item.publishedAt).toLocaleDateString()}
-                </div>
+          <div className="bg-white text-black px-2 py-1 inline-block">
+            {new Date(item.publishedAt).toLocaleDateString()}
+          </div>
               )}
               {item.email && (
-                <div className="bg-white text-black px-2 py-1 inline-block hover:text-[--vividGreen] hover:underline">
-                  {item.email}
-                </div>
+          <div className="bg-white text-black px-2 py-1 inline-block hover:text-[--vividGreen] hover:underline">
+            {item.email}
+          </div>
               )}
               {item.date && (
-                <div className="bg-white text-black px-2 py-1 inline-block">
-                  {new Date(item.date).toLocaleDateString()}
-                </div>
+          <div className="bg-white text-black px-2 py-1 inline-block">
+            {new Date(item.date).toLocaleDateString()}
+          </div>
               )}
             </div>
             <div className="noise relative aspect-[4/5] lg:aspect-[6/5] border border-black border-solid">
               {item.image ? (
-                <Image
-                  src={urlFor(item.image).url()}
-                  alt={item.name}
+          <Image
+            src={urlFor(item.image).url()}
+            alt=
                   loading="lazy"
                   width={1536}
                   height={1920}
