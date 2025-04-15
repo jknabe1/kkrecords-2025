@@ -117,7 +117,7 @@ const Header = () => {
               <Link aria-label="K&K Records" className="block xl:ml-3" href="/">
                 <picture>
                   <img
-                    src="https://kkrecords.se/media/kkrecords-embed.svg"
+                    src="https://kkrecords.se/media/kkrecords.svg"
                     alt="K&K Records Logo"
                     className="block w-full h-full"
                   />
