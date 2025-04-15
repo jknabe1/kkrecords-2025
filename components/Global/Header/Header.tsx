@@ -334,7 +334,7 @@ const Header = () => {
                   FACEBOOK
                 </Link>
                 <Link
-                  href="https://www.tiktok.com/kkrecords.se"
+                  href="https://www.tiktok.com/@kkrecordssweden"
                   className="text-sm font-medium hover:italic px-2 py-1 whitespace-nowrap"
                   onClick={handleLinkClick}
                 >
@@ -434,7 +434,7 @@ const Header = () => {
                     className="block w-full text-sans-14 uppercase tracking-wider p-2 text-center"
                     title="TikTok"
                     aria-label="TikTok"
-                    href="https://www.tiktok.com/kkrecords.se"
+                    href="https://www.tiktok.com/@kkrecordssweden"
                   >
                     TikTok
                   </Link>

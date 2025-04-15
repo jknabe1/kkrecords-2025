@@ -80,7 +80,7 @@ export default function Footer() {
                                             <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Facebook" aria-label="Facebook" href="https://www.facebook.com/kkmusicrecords">Facebook</Link>
                                         </li>
                                         <li className="grid-col-border">
-                                            <Link className='block w-full text-sans-14 uppercase tracking-wider p-2 text-left' title="TikTok" aria-label="TikTok" href="https://www.tiktok.com/kkrecords.se">TikTok</Link>
+                                            <Link className='block w-full text-sans-14 uppercase tracking-wider p-2 text-left' title="TikTok" aria-label="TikTok" href="https://www.tiktok.com/@kkrecordssweden">TikTok</Link>
                                         </li>
                                         <li className="grid-col-border">
                                             <Link className="block w-full text-sans-14 uppercase tracking-wider p-2 text-left" title="Spotify" aria-label="Spotify" href="https://open.spotify.com/user/rp0di7du2vijxmhev2mp6vugo">Spotify</Link>
@@ -144,7 +144,7 @@ export default function Footer() {
                                     <Link className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Facebook" aria-label="Facebook" href="https://www.facebook.com/kkmusicrecords">Facebook</Link>
                                 </li>
                                 <li>
-                                    <Link className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="TikTok" aria-label="TikTok" href="https://www.tiktok.com/kkrecords.se">TikTok</Link>
+                                    <Link className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="TikTok" aria-label="TikTok" href="https://www.tiktok.com/@kkrecordssweden">TikTok</Link>
                                 </li>
                                 <li>
                                     <Link className="inline-block text-sans-16 uppercase tracking-wider font-800 link-primary pb-1" title="Spotify" aria-label="Spotify" href="https://open.spotify.com/user/rp0di7du2vijxmhev2mp6vugo">Spotify</Link>
