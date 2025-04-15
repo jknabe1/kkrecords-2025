@@ -132,7 +132,7 @@ export default async function SearchPage({ searchParams }) {
               {item.image ? (
           <Image
             src={urlFor(item.image).url()}
-            alt=
+            alt={item.name}
                   loading="lazy"
                   width={1536}
                   height={1920}
