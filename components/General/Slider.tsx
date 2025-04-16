@@ -60,7 +60,6 @@ export default function DynamicSlider({ items, itemType }: SliderProps) {
         <Link
           href={`/${itemType}/${item.slug.current}`}
           className="group block h-full"
-          target="_blank"
           rel="noopener"
         >
           <div className="noise relative aspect-[4/5] lg:aspect-[6/5]">
