@@ -18,6 +18,8 @@ interface SliderProps {
   itemType: "playlist" | "event";
 }
 
+export const revalidate = 30;
+
 export default function DynamicSlider({ items, itemType }: SliderProps) {
   const [isMobile, setIsMobile] = useState(false);
 
