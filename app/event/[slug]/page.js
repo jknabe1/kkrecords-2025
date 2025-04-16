@@ -59,18 +59,6 @@ export async function generateMetadata({ params }) {
 export default async function EventPage({ params }) {
   const event = await getEvent(params.slug);
 
-  const {
-    name,
-    date,
-    headline,
-    image,
-    details,
-    eventType,
-    doorsOpen,
-    venue,
-    tickets,
-  } = event;
-
   if (!event) {
     return <div className="text-center text-2xl p-10">Event Not Found</div>;
   }
