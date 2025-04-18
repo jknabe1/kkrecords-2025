@@ -6,6 +6,9 @@ import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { useEffect, useState } from "react";
 
+export const revalidate = 60; // Revalidate every 60 seconds
+
+
 export default function PlaylistSlider({
   playlists,
 }: {
