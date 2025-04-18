@@ -118,17 +118,13 @@ export default async function EventPage({ params }) {
                     <span>
                       Datum: {event.date ? new Date(event.date).toLocaleDateString() : 'Inget datum angivet'}
                     </span>
-                    <Link href={typeof event.tickets === 'string' ? event.tickets : '#'}>
-                      <button
-                        type="submit"
-                        value="Sign Up"
-                        className="block button button-primary text-left"
-                      >
-                        <div className="px-2 tracking-tighter text-sans-22 md:text-sans-30 md:px-3">
+                    {tickets && (
+                      <Link href={tickets} target="_blank" rel="noopener noreferrer">
+                        <div className="hover:italic">
                           Biljetter
                         </div>
-                      </button>
-                    </Link>
+                      </Link>
+                    )}
                   </div>
                 </div>
               </ul>
