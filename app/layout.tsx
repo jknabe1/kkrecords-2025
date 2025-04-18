@@ -5,6 +5,7 @@ import Footer from "@/components/Global/Footer/Footer";
 import CookieNotice from "@/components/Global/CookieNotice/CookieNotice";
 import LenisScrollProvider from "@/providers/lenis-providers";
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
   title: {
@@ -48,6 +49,7 @@ export default function RootLayout({ children,}: Readonly<{children: React.React
           <LenisScrollProvider>
             {children}
             <CookieNotice />
+            <SpeedInsights/>
             <Analytics />
           </LenisScrollProvider>
         <Footer />

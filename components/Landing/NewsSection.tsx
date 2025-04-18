@@ -8,6 +8,8 @@ import Image from "next/image";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 
+export const revalidate = 30; 
+
 // Define the Sanity image source type
 interface SanityImageSource {
   asset: {
