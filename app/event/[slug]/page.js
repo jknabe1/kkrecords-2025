@@ -6,6 +6,8 @@ import Link from 'next/link';
 
 const builder = imageUrlBuilder(client);
 
+export const revalidate = 60;
+
 function urlFor(source) {
   return builder.image(source);
 }
@@ -17,10 +19,13 @@ async function getEvent(slug) {
   ][0]{
     ...,
     headline->,
-    venue->
+    venue->,
+    tickets,
   }`;
   return await client.fetch(EVENT_QUERY, { slug });
 }
+
+
 
 export async function generateMetadata({ params }) {
   const event = await getEvent(params.slug);
@@ -53,6 +58,11 @@ export async function generateMetadata({ params }) {
 
 export default async function EventPage({ params }) {
   const event = await getEvent(params.slug);
+
+  const {
+    venue,
+    tickets,
+  } = event;
 
   if (!event) {
     return <div className="text-center text-2xl p-10">Event Not Found</div>;
@@ -102,16 +112,22 @@ export default async function EventPage({ params }) {
                 <div className="mt-4 text-lg leading-relaxed border-t pt-2 border-solid border-black px-2 py-3 lg:px-5">
                   Information för {event.name}:
                   <div className="flex gap-4 mt-2">
-                    <span className="">
-                      {typeof event.venue === 'string' ? event.venue : 'Ingen lokal tillgänglig'}
+                    <span>
+                      {venue ? venue.name : 'Ingen plats angiven'}
                     </span>
                     <span>
                       Datum: {event.date ? new Date(event.date).toLocaleDateString() : 'Inget datum angivet'}
                     </span>
                     <Link href={typeof event.tickets === 'string' ? event.tickets : '#'}>
-                    <div className="hover:italic flex items-center gap-2">
-                        {typeof event.tickets === 'string' ? 'Biljetter via Tickster.se' : ''}
-                      </div>
+                      <button
+                        type="submit"
+                        value="Sign Up"
+                        className="block button button-primary text-left"
+                      >
+                        <div className="px-2 tracking-tighter text-sans-22 md:text-sans-30 md:px-3">
+                          Biljetter
+                        </div>
+                      </button>
                     </Link>
                   </div>
                 </div>

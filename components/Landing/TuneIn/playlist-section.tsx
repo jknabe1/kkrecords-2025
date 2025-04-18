@@ -10,6 +10,8 @@ interface SanityImageSource {
   };
 }
 
+export const revalidate = 60; // Revalidate every 60 seconds
+
 const builder = imageUrlBuilder(client);
 export function urlFor(source: SanityImageSource) {
   return builder.image(source);

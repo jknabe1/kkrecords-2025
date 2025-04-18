@@ -18,6 +18,8 @@ interface SliderProps {
   itemType: "playlist" | "event";
 }
 
+export const revalidate = 30;
+
 export default function DynamicSlider({ items, itemType }: SliderProps) {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -58,7 +60,6 @@ export default function DynamicSlider({ items, itemType }: SliderProps) {
         <Link
           href={`/${itemType}/${item.slug.current}`}
           className="group block h-full"
-          target="_blank"
           rel="noopener"
         >
           <div className="noise relative aspect-[4/5] lg:aspect-[6/5]">
