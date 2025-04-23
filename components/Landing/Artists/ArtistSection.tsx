@@ -121,6 +121,9 @@ export default function ArtistSection() {
 
   return (
     <div className="px-2 py-3 lg:px-5">
+      <section className="relative">
+        <h1 className="text-sans-35 lg:text-sans-60 font-600">VÅRA ARTISTER</h1>
+      </section>
       {isMobile ? (
         // Mobile: Use Keen Slider with See More slide
         <section className="relative mt-10 mb-10">
