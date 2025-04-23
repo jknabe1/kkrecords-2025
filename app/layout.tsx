@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Global/Header/Header";
 import Footer from "@/components/Global/Footer/Footer";
-import CookieNotice from "@/components/Global/CookieNotice/CookieNotice";
 import LenisScrollProvider from "@/providers/lenis-providers";
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from "@vercel/speed-insights/next"
