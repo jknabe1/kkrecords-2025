@@ -147,7 +147,11 @@ export default async function EventPage({ params }) {
                   Information för {event.name}:
                   <div className="flex gap-4 mt-2">
                     <span>{venue ? venue.name : "Ingen plats angiven"}</span>
-                    <span>Datum: {event.date ? new Date(event.date).toLocaleDateString() : "Inget datum angivet"}</span>
+                    <span>Datum: {event.date ? new Date(event.date).toLocaleDateString('sv-SE', {
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric',
+                }) : "Inget datum angivet"}</span>
                     {tickets && (
                       <Link href={tickets} target="_blank" rel="noopener noreferrer">
                         <div className="hover:italic">Biljetter</div>

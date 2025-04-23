@@ -105,7 +105,13 @@ export default async function BlogArticle({ params }) {
               <span className="text-[--vividGreen]">■</span> {news.name}
             </div>
             <div className="bg-white text-black text-sm px-2 py-1 inline-block z-10">
-              <p>{new Date(news.publishedAt).toLocaleDateString()}</p>
+              <p>
+                {new Date(news.publishedAt).toLocaleDateString('sv-SE', {
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric',
+                })}
+              </p>            
             </div>
           </div>
         </section>

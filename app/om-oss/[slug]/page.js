@@ -105,7 +105,13 @@ export default async function BlogArticle({ params }) {
               <span className="text-[--vividGreen]">■</span> {about.name}
             </div>
             <div className="bg-white text-black text-sm px-2 py-1 inline-block z-10">
-              <p>{new Date(about.publishedAt).toLocaleDateString()}</p>
+              <p>
+                {new Date(about.publishedAt).toLocaleDateString('sv-SE', {
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric',
+                })}
+              </p>                 
             </div>
           </div>
         </section>
@@ -115,7 +121,11 @@ export default async function BlogArticle({ params }) {
             <PortableText value={about.details} />
           </div>
           <p className="mt-4 text-sm text-gray-500">
-            Senast uppdaterad: {new Date(about.publishedAt).toLocaleDateString()}
+            Senast uppdaterad: {new Date(about.publishedAt).toLocaleDateString('sv-SE', {
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric',
+                })}
           </p>
         </section>
       </section>
