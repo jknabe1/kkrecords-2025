@@ -1,7 +1,7 @@
 import imageUrlBuilder from '@sanity/image-url';
 import { client } from '@/sanity/client';
-import { PortableText } from 'next-sanity';
 import Image from 'next/image';
+import { PortableText } from 'next-sanity';
 
 export const revalidate = 30;
 
@@ -28,12 +28,14 @@ async function getData(slug) {
 
 export async function generateMetadata({ params }) {
   const news = await getData(params.slug);
+
   if (!news) {
     return {
-      title: 'News Not Found',
-      description: 'The requested news article could not be found.',
+      title: 'news Not Found - K&K Records',
+      description: 'The requested news page could not be found.',
     };
   }
+
   return {
     title: `${news.name}`,
     description: news.excerpt || 'Read the latest news and updates.',
@@ -53,18 +55,19 @@ export async function generateMetadata({ params }) {
 
 export default async function BlogArticle({ params }) {
   const news = await getData(params.slug);
+
   if (!news) {
-    return <div>News article not found</div>;
+    return <div>news page not found</div>;
   }
+
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'NewsArticle',
     headline: news.name,
-    description: news.excerpt || 'Read the latest news and updates.',
+    description: news.excerpt || '',
     datePublished: news.publishedAt,
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://kkrecords.se/edits/${news.currentSlug}`,
+      '@id': `https://kkrecords.se/om-oss/${news.currentSlug}`,
     },
     image: news.image ? urlFor(news.image).url() : undefined,
     author: {
@@ -91,7 +94,7 @@ export default async function BlogArticle({ params }) {
         <section className="noise relative aspect-[4/5] lg:aspect-[12/5]">
           <Image
             alt={news.name}
-            src={urlFor(news.image).url()}
+            src={urlFor(news.image).width(1920).height(700).url()}
             width={1920}
             height={700}
             className="absolute inset-0 object-cover w-full h-full"
@@ -108,7 +111,7 @@ export default async function BlogArticle({ params }) {
         </section>
         <section className="max-w-3xl mx-auto p-6 text-black">
           <h1 className="text-sans-35 lg:text-sans-60 font-600">{news.name}</h1>
-          <div className="mt-6">
+          <div className="mt-6 prose">
             <PortableText value={news.details} />
           </div>
           <p className="mt-4 text-sm text-gray-500">
