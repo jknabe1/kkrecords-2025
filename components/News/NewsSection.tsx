@@ -28,7 +28,6 @@ export default function ArtistsList({ initialArtists }: ArtistsListProps) {
   const [artists, setArtists] = useState<Artist[]>(initialArtists);
   const [displayedArtists, setDisplayedArtists] = useState<Artist[]>([]);
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(initialArtists[0] || null);
-  const [filter, setFilter] = useState('');
   const [page, setPage] = useState(1);
   const itemsPerPage = 5;
 
@@ -38,14 +37,6 @@ export default function ArtistsList({ initialArtists }: ArtistsListProps) {
   }, [initialArtists]);
 
   // Handle filter changes
-  useEffect(() => {
-    const filteredArtists = initialArtists.filter((artist) =>
-      artist.name.toLowerCase().includes(filter.toLowerCase())
-    );
-    setArtists(filteredArtists);
-    setDisplayedArtists(filteredArtists.slice(0, itemsPerPage));
-    setPage(1);
-  }, [filter, initialArtists]);
 
   const loadMore = () => {
     const nextPage = page + 1;
