@@ -117,7 +117,7 @@ export default async function BlogArticle({ params }) {
         </section>
         <section className="max-w-3xl mx-auto p-6 text-black">
           <h1 className="text-sans-35 lg:text-sans-60 font-600">{news.name}</h1>
-          <div className="mt-6 prose">
+          <div className="mt-6 prose overflow-hidden text-wrap">
             <PortableText value={news.details} />
           </div>
           <p className="mt-4 text-sm text-gray-500">
