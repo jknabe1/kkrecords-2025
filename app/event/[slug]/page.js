@@ -139,7 +139,7 @@ export default async function EventPage({ params }) {
               <ul className="flex flex-col gap-px">
                 <li className="px-2 py-3 lg:px-5">
                   <h1 className="text-sans-35 lg:text-sans-60 font-600">{event.name}</h1>
-                  <div className="mt-4 text-lg leading-relaxed prose">
+                  <div className="mt-4 text-lg leading-relaxed prose overflow-hidden text-wrap">
                     <PortableText value={event.details} />
                   </div>
                 </li>
