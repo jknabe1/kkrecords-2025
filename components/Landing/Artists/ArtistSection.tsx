@@ -132,7 +132,7 @@ export default function ArtistSection() {
             {[...randomArtists, ...filteredArtists.slice(0, 3)].map((artist) => (
               <div key={artist._id} className="keen-slider__slide">
                 <Link
-                  href={`/artist/${artist.slug.current}`}
+                  href={`/artists/${artist.slug.current}`}
                   className="group block relative aspect-[4/5] overflow-hidden"
                 >
                   <Image
@@ -167,7 +167,7 @@ export default function ArtistSection() {
                 {randomArtists.map((artist) => (
                   <Link
                     key={artist._id}
-                    href={`/artist/${artist.slug.current}`}
+                    href={`/artists/${artist.slug.current}`}
                     className="group block relative aspect-[4/5] lg:aspect-[6/5] overflow-hidden"
                   >
                     <Image
@@ -198,7 +198,7 @@ export default function ArtistSection() {
                 {filteredArtists.slice(0, 2).map((artist) => (
                   <Link
                     key={artist._id}
-                    href={`/artist/${artist.slug.current}`}
+                    href={`/artists/${artist.slug.current}`}
                     className="group block relative aspect-[4/5] lg:aspect-[6/5] overflow-hidden"
                   >
                     <Image
