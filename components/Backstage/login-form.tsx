@@ -12,7 +12,7 @@ export default async function LoginForm() {
                   <h1 className="text-sans-35 lg:text-sans-60 font-600">
                     Logga in
                   </h1>
-                  <div className='mt-4 text-lg leading-relaxed text-prose'>
+                  <div className='mt-4 text-lg leading-relaxed prose'>
                     <p>
                       Inlogg för artister och personal.
                     </p>
