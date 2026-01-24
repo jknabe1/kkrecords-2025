@@ -90,7 +90,7 @@ export default async function BlogArticle({ params }: { params: Promise<{ slug: 
               <ul className="flex flex-col gap-px">
                 <li className="px-2 py-3 lg:px-5">
                   <h1 className="text-sans-35 lg:text-sans-60 font-600">{artist.name}</h1>
-                  <div className="mt-4 text-lg leading-relaxed text-prose">
+                  <div className="mt-4 text-lg leading-relaxed prose">
                     <PortableText value={artist.Biography} />
                   </div>
                 </li>
