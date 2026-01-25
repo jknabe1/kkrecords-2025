@@ -154,7 +154,7 @@ export default function Footer() {
                                 </li>
                             </ul>
                         </div>
-                        <div className="col-span-12 grid-col-border p-2 py-3 text-center">
+                        <div className="sm:hidden col-span-12 grid-col-border p-2 py-3 text-center">
                         <div className="flex gap-2 items-center">
                             
                                 <div className="block text-sans-16 uppercase tracking-wider link-primary">Skapad av:</div>
