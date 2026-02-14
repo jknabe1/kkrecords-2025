@@ -19,7 +19,7 @@
     "embla-carousel-react": "^8.5.1",
     "keen-slider": "^6.8.6",
     "lenis": "^1.1.22",
-    "next": "15.2.8",
+    "next": "^16.1.6",
     "next-sanity": "^9.8.61",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

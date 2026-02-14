@@ -154,15 +154,15 @@ export default function Footer() {
                                 </li>
                             </ul>
                         </div>
-                        <div className="sm:hidden col-span-12 grid-col-border p-2 py-3 text-center">
-                        <div className="flex gap-2 items-center">
-                            
-                                <div className="block text-sans-16 uppercase tracking-wider link-primary">Skapad av:</div>
-                                <Link href="https://www.kkmedia.se" className="text-sans-16 uppercase tracking-wider">K&K Media Group Sweden AB</Link>
-                            </div>
-                        </div>
                     </div>
                 </div>
+                <div className="col-span-12 grid-col-border p-2 py-3 lg:block hidden">
+                        <div className="flex gap-2 items-center">
+                            
+                                <div className="block text-sans-14 uppercase tracking-wider link-primary">Skapad av:</div>
+                                <Link href="https://www.kkmedia.se" className="text-sans-14 uppercase tracking-wider">K&K Media Group Sweden AB</Link>
+                            </div>
+                        </div>
             </footer>
     </div>
   )
