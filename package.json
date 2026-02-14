@@ -20,7 +20,7 @@
     "keen-slider": "^6.8.6",
     "lenis": "^1.1.22",
     "next": "^16.1.6",
-    "next-sanity": "^9.8.61",
+    "next-sanity": "^12.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "styled-components": "^6.1.15",
