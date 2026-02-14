@@ -4,6 +4,7 @@ import ConcertSection from "@/components/Landing/ConcertSection";
 import NewsSection from "@/components/Landing/NewsSection";
 import TuneIn from "@/components/Landing/TuneIn/playlist-section";
 import ArtistSection from "@/components/Landing/Artists/ArtistSection";
+import { AsciiHero } from '@/components/Landing/ASCII-Header/hero';
 
 export const metadata: Metadata = {
   title: "K&K RECORDS",
@@ -59,6 +60,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <AsciiHero />
       <ArtistSection />
       <AboutSection />
       <ConcertSection />
