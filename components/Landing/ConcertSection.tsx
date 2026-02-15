@@ -3,6 +3,9 @@ import imageUrlBuilder from "@sanity/image-url";
 import { SanityDocument } from "next-sanity";
 import DynamicSlider from "@/components/General/Slider";
 
+export const revalidate = 30; 
+
+
 // Define the Sanity image source type
 interface SanityImageSource {
   asset: {
