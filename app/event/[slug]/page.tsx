@@ -1,30 +1,53 @@
 import { client } from "@/sanity/client"
 import imageUrlBuilder from "@sanity/image-url"
 import Image from "next/image"
-import { PortableText } from 'next-sanity';
+import { PortableText, PortableTextBlock } from 'next-sanity'
 import Link from "next/link"
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types"
 
 const builder = imageUrlBuilder(client)
 
 export const revalidate = 60
 
-function urlFor(source) {
+function urlFor(source: SanityImageSource) {
   return builder.image(source)
 }
 
+interface Venue {
+  name?: string
+  address?: string
+}
+
+interface Headline {
+  name?: string
+}
+
+interface Event {
+  name: string
+  slug: {
+    current: string
+  }
+  date?: string
+  image?: SanityImageSource
+  details?: PortableTextBlock[]
+  headline?: Headline
+  venue?: Venue
+  tickets?: string
+}
+
 // Helper function to convert Portable Text to plain text for meta descriptions
-function portableTextToPlainText(blocks = []) {
+function portableTextToPlainText(blocks: PortableTextBlock[] = []): string {
   return blocks
     .map((block) => {
       if (block._type !== "block" || !block.children) {
         return ""
       }
-      return block.children.map((child) => child.text).join("")
+      return block.children.map((child: any) => child.text).join("")
     })
     .join("\n\n")
 }
 
-async function getEvent(slug) {
+async function getEvent(slug: string): Promise<Event | null> {
   const EVENT_QUERY = `*[
     _type == "event" &&
     slug.current == $slug
@@ -37,8 +60,9 @@ async function getEvent(slug) {
   return await client.fetch(EVENT_QUERY, { slug })
 }
 
-export async function generateMetadata({ params }) {
-  const event = await getEvent(params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const event = await getEvent(slug)
 
   if (!event) {
     return {
@@ -47,7 +71,6 @@ export async function generateMetadata({ params }) {
     }
   }
 
-  // Convert Portable Text to plain text for meta description
   const plainTextDescription = event.details ? portableTextToPlainText(event.details) : ""
 
   return {
@@ -69,8 +92,9 @@ export async function generateMetadata({ params }) {
   }
 }
 
-export default async function EventPage({ params }) {
-  const event = await getEvent(params.slug)
+export default async function EventPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const event = await getEvent(slug)
 
   if (!event) {
     return <div className="text-center text-2xl p-10">Event Not Found</div>
@@ -78,29 +102,25 @@ export default async function EventPage({ params }) {
 
   const { venue, tickets } = event
 
-  // Convert Portable Text to plain text for schema description
   const plainTextDescription = event.details ? portableTextToPlainText(event.details) : ""
 
-  // Ensure we have a valid venue object
   const venueObject = venue
     ? {
-        "@type": "Place",
+        "@type": "Place" as const,
         name: venue.name || "K&K Records Venue",
         address: venue.address || "K&K Records, Sweden",
       }
     : {
-        "@type": "Place",
+        "@type": "Place" as const,
         name: "K&K Records Venue",
         address: "K&K Records, Sweden",
       }
 
-  // Ensure we have a valid performer object
   const performerObject = {
-    "@type": "MusicGroup",
+    "@type": "MusicGroup" as const,
     name: event.headline?.name || event.name || "K&K Records Artist",
   }
 
-  // Create the JSON-LD schema with all required fields
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "MusicEvent",
@@ -139,19 +159,23 @@ export default async function EventPage({ params }) {
               <ul className="flex flex-col gap-px">
                 <li className="px-2 py-3 lg:px-5">
                   <h1 className="text-sans-35 lg:text-sans-60 font-600">{event.name}</h1>
-                  <div className="mt-4 text-lg leading-relaxed prose overflow-hidden text-wrap">
-                    <PortableText value={event.details} />
-                  </div>
+                  {event.details && (
+                    <div className="mt-4 text-lg leading-relaxed prose overflow-hidden text-wrap">
+                      <PortableText value={event.details} />
+                    </div>
+                  )}
                 </li>
                 <div className="mt-4 text-lg leading-relaxed border-t pt-2 border-solid border-black px-2 py-3 lg:px-5">
                   Information för {event.name}:
                   <div className="flex gap-4 mt-2">
                     <span>{venue ? venue.name : "Ingen plats angiven"}</span>
-                    <span>Datum: {event.date ? new Date(event.date).toLocaleDateString('sv-SE', {
-                  day: '2-digit',
-                  month: '2-digit',
-                  year: 'numeric',
-                }) : "Inget datum angivet"}</span>
+                    <span>
+                      Datum: {event.date ? new Date(event.date).toLocaleDateString('sv-SE', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric',
+                      }) : "Inget datum angivet"}
+                    </span>
                     {tickets && (
                       <Link href={tickets} target="_blank" rel="noopener noreferrer">
                         <div className="hover:italic">Biljetter</div>
