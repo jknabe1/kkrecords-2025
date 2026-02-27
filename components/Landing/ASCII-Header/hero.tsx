@@ -67,16 +67,6 @@ export function AsciiHero() {
     )
   }
 
-  if (!release) {
-    return (
-      <section className="w-full flex items-center justify-center py-12">
-        <p className="text-muted-foreground text-sm animate-pulse">
-          Loading...
-        </p>
-      </section>
-    )
-  }
-
   return (
     <section className="w-full px-2 py-8 lg:px-5">
       <div className="">
