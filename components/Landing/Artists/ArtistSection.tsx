@@ -94,11 +94,11 @@ export default function ArtistSection() {
   const filteredArtists = artists.filter((artist) => !randomArtists.some((random) => random._id === artist._id))
 
   if (loading) {
-    return <div className="px-2 py-3 lg:px-5">Loading artists...</div>
+    return <div className="px-2 py-3 lg:px-5"></div>
   }
 
   if (artists.length === 0) {
-    return <div className="px-2 py-3 lg:px-5">No artists found.</div>
+    return <div className="px-2 py-3 lg:px-5"></div>
   }
 
   // Custom See More component for the slider
@@ -122,7 +122,7 @@ export default function ArtistSection() {
   return (
     <div className="px-2 py-3 lg:px-5">
       <section className="relative">
-        <h1 className="text-sans-35 lg:text-sans-60 font-600">VÅRA ARTISTER</h1>
+        <h1 className="text-sans-35 lg:text-sans-60 font-600">VÅRA ARRANGEMANG</h1>
       </section>
       {isMobile ? (
         // Mobile: Use Keen Slider with See More slide
@@ -142,10 +142,7 @@ export default function ArtistSection() {
                     className="h-full w-full object-cover border border-solid border-black transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-transparent to-gray-950/50 p-5">
-                    <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
-                      <div className="bg-white text-black text-xs px-2 py-1 inline-block">
-                        <span className="text-[--vividGreen] mr-2">■</span> ARTIST
-                      </div>
+                    <div className="absolute bottom-4 left-4 z-10 flex flex-col items-start gap-1">
                       <div className="bg-white text-black text-sm px-2 py-1 inline-block">{artist.name}</div>
                     </div>
                   </div>
@@ -156,7 +153,7 @@ export default function ArtistSection() {
             {/* See More slide */}
             <SeeMoreSlide />
           </div>
-        </section>
+        </section> 
       ) : (
         // Desktop: Show the two grid layouts
         <div className="mt-10">
@@ -176,12 +173,9 @@ export default function ArtistSection() {
                       fill
                       className="h-full w-full object-cover border border-solid border-black transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-transparent to-gray-950/50 p-5">
-                      <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
-                        <div className="bg-white text-black text-xs px-2 py-1 inline-block">
-                          <span className="text-[--vividGreen] mr-2">■</span> ARTIST
-                        </div>
-                        <div className="bg-white text-black text-sm px-2 py-1 inline-block">{artist.name}</div>
+                    <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-b from-transparent to-gray-950/50 p-5">
+                      <div className="absolute bottom-4 left-4 z-10 flex flex-col items-start gap-1">
+                      <div className="bg-white text-black text-sm px-2 py-1 inline-block">{artist.name}</div>
                       </div>
                     </div>
                   </Link>
