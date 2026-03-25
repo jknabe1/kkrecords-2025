@@ -62,6 +62,7 @@ export default async function BlogArticle({ params }) {
 
   const jsonLd = {
     '@context': 'https://schema.org',
+    '@type': 'Article',
     headline: about.name,
     description: about.excerpt || '',
     datePublished: about.publishedAt,
@@ -79,7 +80,7 @@ export default async function BlogArticle({ params }) {
       name: 'K&K Records',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://kkrecords.se/api',
+        url: 'https://kkrecords.se/og-image.jpg',
       },
     },
   };

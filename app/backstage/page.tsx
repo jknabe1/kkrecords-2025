@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     siteName: "Backstage - K&K Records",
     images: [
       {
-        url: "https://kkrecords.se/api",
+        url: "https://kkrecords.se/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Backstage - K&K Records",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Backstage - K&K Records",
     description: "Backstage - K&K Records",
-    images: ["https://kkrecords.se/api"],
+    images: ["https://kkrecords.se/og-image.jpg"],
   },
 };
 

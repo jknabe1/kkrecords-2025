@@ -15,9 +15,9 @@ export const metadata: Metadata = {
     siteName: "K&K Records",
     images: [
       {
-        url: "https://kkrecords.se/api",
+        url: "https://kkrecords.se/og-image.jpg",
         width: 1200,
-        height: 800,
+        height: 630,
         alt: "K&K Records Kontakt",
       },
     ],
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Kontakta oss - K&K Records",
     description: "Behöver du nå oss? Här hittar du kontaktuppgifter till K&K Records.",
-    images: ["https://kkrecords.se/api"],
+    images: ["https://kkrecords.se/og-image.jpg"],
   },
 };
 
@@ -39,7 +39,7 @@ export default function page() {
         "name": "Kontakta oss  - K&K Records",
         "description": "Kontaktuppgifter till K&K Records.",
         "url": "https://kkrecords.se/om-oss/kontakta-oss",
-        "image": "https://kkrecords.se/api",
+        "image": "https://kkrecords.se/og-image.jpg",
         "publisher": {
           "@type": "Organization",
           "name": "K&K Records",
