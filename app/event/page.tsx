@@ -42,28 +42,49 @@ export async function generateMetadata(): Promise<Metadata> {
     description: 'Se våra kommande och tidigare konserter och evenemang.',
     openGraph: {
       title: 'Events - K&K Records',
-      description: 'Check out the latest concerts and events at K&K Records.',
-      url: 'https://kkrecords.se/events',
+      description: 'Se våra kommande och tidigare konserter och evenemang.',
+      url: 'https://kkrecords.se/event',
       siteName: 'K&K Records',
       images: events.length > 0
         ? events.map((event) => ({ url: urlFor(event.image).url() }))
-        : [{ url: 'https://kkrecords.se/assets/default-event.jpg' }],
+        : [{ url: 'https://kkrecords.se/og-image.jpg' }],
       type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
       title: 'Events - K&K Records',
-      description: 'Stay updated with the latest concerts and events at K&K Records.',
+      description: 'Se våra kommande och tidigare konserter och evenemang.',
       images: events.length > 0
         ? events.map((event) => urlFor(event.image).url())
-        : ['https://kkrecords.se/assets/default-event.jpg'],
+        : ['https://kkrecords.se/og-image.jpg'],
     },
   };
 }
 
 export default function Page() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Events - K&K Records',
+    description: 'Se våra kommande och tidigare konserter och evenemang.',
+    url: 'https://kkrecords.se/event',
+    publisher: {
+      '@type': 'Organization',
+      name: 'K&K Records',
+      url: 'https://kkrecords.se',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://kkrecords.se/og-image.jpg',
+      },
+    },
+  };
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <EventGrid />
     </div>
   );

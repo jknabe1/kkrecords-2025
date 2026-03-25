@@ -16,9 +16,9 @@ export const metadata: Metadata = {
     siteName: "K&K Records",
     images: [
       {
-        url: "https://kkrecords.se/api",
+        url: "https://kkrecords.se/og-image.jpg",
         width: 1200,
-        height: 800,
+        height: 630,
         alt: "K&K Records - Om oss",
       },
     ],
@@ -29,9 +29,7 @@ export const metadata: Metadata = {
     title: "Om K&K Records - Mer än ett skivbolag",
     description:
       "K&K Records är en ledande aktör inom live- och underhållningsindustrin i Sverige och Europa. Vi representerar artister, producerar konserter, festivaler och musikaler.",
-    images: [
-      "https://kkrecords.se/api",
-    ],
+    images: ["https://kkrecords.se/og-image.jpg"],
   },
 };
 

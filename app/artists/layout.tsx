@@ -9,7 +9,7 @@ export const metadata = {
       siteName: "K&K Records",
       images: [
         {
-          url: "https://kkrecords.se/api",
+          url: "https://kkrecords.se/og-image.jpg",
           width: 1200,
           height: 630,
           alt: "Artister | K&K RECORDS",
@@ -21,7 +21,7 @@ export const metadata = {
       card: "summary_large_image",
       title: "Artister | K&K RECORDS",
       description: "Upptäck artister som tillhör K&K Records – allt från nya stjärnskott till etablerade namn.",
-      images: ["https://kkrecords.se/api"],
+      images: ["https://kkrecords.se/og-image.jpg"],
     },
   };
 

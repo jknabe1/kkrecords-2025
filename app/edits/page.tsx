@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     siteName: 'K&K Records',
     images: [
       {
-        url: 'https://kkrecords.se/api', // Replace with a valid image
+        url: 'https://kkrecords.se/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Nyheter - K&K Records',
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Edits - K&K Records',
     description: 'Håll dig uppdaterad med de senaste nyheterna från K&K Records.',
-    images: ['https://kkrecords.se/api'],
+    images: ['https://kkrecords.se/og-image.jpg'],
   },
 };
 
@@ -65,5 +65,30 @@ export default async function Page() {
     publishedAt: news.publishedAt,
   }));
 
-  return <NewsList initialArtists={newsItems} />;
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Edits - K&K Records',
+    description: 'Senaste nyheterna från K&K Records. Håll dig uppdaterad med pressmeddelanden, evenemang och nyheter.',
+    url: 'https://kkrecords.se/edits',
+    publisher: {
+      '@type': 'Organization',
+      name: 'K&K Records',
+      url: 'https://kkrecords.se',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://kkrecords.se/og-image.jpg',
+      },
+    },
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <NewsList initialArtists={newsItems} />
+    </>
+  );
 }
