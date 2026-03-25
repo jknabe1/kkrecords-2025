@@ -3,16 +3,18 @@ import { MetadataRoute } from "next";
 
 // ✅ Define static pages manually
 const staticPages = [
-  "",
-  "om-oss",
-  "kontakta-oss",
-  "backstage",
-  "artists",
-  "events",
-  "edits",
-].map((path) => ({
+  { path: "", priority: 1.0, changeFrequency: "daily" as const },
+  { path: "om-oss", priority: 0.8, changeFrequency: "monthly" as const },
+  { path: "kontakta-oss", priority: 0.7, changeFrequency: "monthly" as const },
+  { path: "backstage", priority: 0.6, changeFrequency: "weekly" as const },
+  { path: "artists", priority: 0.9, changeFrequency: "weekly" as const },
+  { path: "event", priority: 0.9, changeFrequency: "weekly" as const },
+  { path: "edits", priority: 0.8, changeFrequency: "weekly" as const },
+].map(({ path, priority, changeFrequency }) => ({
   url: `https://kkrecords.se/${path}`,
   lastModified: new Date().toISOString(),
+  changeFrequency,
+  priority,
 }));
 
 // ✅ Fetch dynamic pages from Sanity

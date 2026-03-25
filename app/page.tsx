@@ -7,15 +7,15 @@ import ArtistSection from "@/components/Landing/Artists/ArtistSection";
 
 export const metadata: Metadata = {
   title: "K&K RECORDS",
-  description: "Discover the best artists, latest concerts, and exclusive music updates from K&K Records.",
+  description: "Upptäck de bästa artisterna, senaste konserterna och exklusiva musiknyheter från K&K Records.",
   openGraph: {
-    title: "",
-    description: "Explore top artists, upcoming concerts, and new releases from K&K Records.",
+    title: "K&K RECORDS - Inte den vanliga sortens skivbolag",
+    description: "Upptäck topparter, kommande konserter och nya släpp från K&K Records.",
     url: "https://kkrecords.se/",
     siteName: "K&K RECORDS",
     images: [
       {
-        url: "https://kkrecords.se/api",
+        url: "https://kkrecords.se/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "K&K RECORDS",
@@ -26,8 +26,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "K&K RECORDS",
-    description: "Stay updated with the latest music, concerts, and artists at K&K Records.",
-    images: ["https://kkrecords.se/api"],
+    description: "Håll dig uppdaterad med den senaste musiken, konserterna och artisterna hos K&K Records.",
+    images: ["https://kkrecords.se/og-image.jpg"],
   },
 };
 
@@ -43,7 +43,7 @@ export default function Home() {
       "name": "K&K Records",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://kkrecords.se/api"
+        "url": "https://kkrecords.se/og-image.jpg"
       }
     },
     "potentialAction": {
