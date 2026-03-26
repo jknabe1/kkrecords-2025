@@ -8,12 +8,16 @@ export const metadata: Metadata = {
   title: "Om Oss",
   description:
     "K&K Records är en ledande aktör inom live- och underhållningsindustrin i Sverige och Europa. Vi representerar artister, producerar konserter, festivaler och musikaler.",
+  alternates: {
+    canonical: "https://kkrecords.se/om-oss",
+  },
   openGraph: {
     title: "Om K&K Records - Mer än ett skivbolag",
     description:
       "K&K Records är en ledande aktör inom live- och underhållningsindustrin i Sverige och Europa. Vi representerar artister, producerar konserter, festivaler och musikaler.",
     url: "https://kkrecords.se/om-oss",
     siteName: "K&K Records",
+    locale: "sv_SE",
     images: [
       {
         url: "https://kkrecords.se/api",
@@ -40,30 +44,51 @@ export default function Page() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "K&K Records",
-    "description":
+    "@id": "https://kkrecords.se/#organization",
+    name: "K&K Records",
+    description:
       "K&K Records är en ledande aktör inom live- och underhållningsindustrin i Sverige och Europa. Vi representerar artister, producerar konserter, festivaler och musikaler.",
-    "image": "https://cdn.sanity.io/images/1k2t1bm0/production/b34d044f641e16d3f97b0237d7fbda9b0a22b306-1439x1913.jpg",
-    "url": "https://kkrecords.se/about",
-    "sameAs": [
+    image: "https://cdn.sanity.io/images/1k2t1bm0/production/b34d044f641e16d3f97b0237d7fbda9b0a22b306-1439x1913.jpg",
+    url: "https://kkrecords.se/om-oss",
+    sameAs: [
       "https://www.facebook.com/kkmusicrecords",
       "https://www.instagram.com/kkrecords.se",
     ],
-    "foundingDate": "2019",
-    "founder": [
+    foundingDate: "2019",
+    founder: [
       {
         "@type": "Person",
-        "name": "Jens Knabe",
+        name: "Jens Knabe",
       },
       {
         "@type": "Person",
-        "name": "Edwin Krutholm",
+        name: "Edwin Krutholm",
       },
     ],
-    "memberOf": {
+    memberOf: {
       "@type": "Organization",
-      "name": "Music For Pennies",
+      name: "Music For Pennies",
     },
+  };
+
+  // Breadcrumb schema for better navigation in search results
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Hem",
+        item: "https://kkrecords.se"
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Om Oss",
+        item: "https://kkrecords.se/om-oss"
+      }
+    ]
   };
 
 
@@ -72,6 +97,10 @@ export default function Page() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <div className="grid grid-cols-12 gap-px">
             <div className="col-span-12 relative h-full grid-col-border">
