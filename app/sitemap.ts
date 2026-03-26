@@ -1,19 +1,45 @@
 import { client } from "@/sanity/client";
 import { MetadataRoute } from "next";
 
-// ✅ Define static pages manually
-const staticPages = [
-  "",
-  "om-oss",
-  "kontakta-oss",
-  "backstage",
-  "artists",
-  "events",
-  "edits",
-].map((path) => ({
-  url: `https://kkrecords.se/${path}`,
-  lastModified: new Date().toISOString(),
-}));
+// ✅ Define static pages manually with priority and changeFrequency
+const staticPages: MetadataRoute.Sitemap = [
+  {
+    url: "https://kkrecords.se",
+    lastModified: new Date().toISOString(),
+    changeFrequency: "weekly",
+    priority: 1.0,
+  },
+  {
+    url: "https://kkrecords.se/om-oss",
+    lastModified: new Date().toISOString(),
+    changeFrequency: "monthly",
+    priority: 0.8,
+  },
+  {
+    url: "https://kkrecords.se/om-oss/kontakta-oss",
+    lastModified: new Date().toISOString(),
+    changeFrequency: "monthly",
+    priority: 0.7,
+  },
+  {
+    url: "https://kkrecords.se/artists",
+    lastModified: new Date().toISOString(),
+    changeFrequency: "weekly",
+    priority: 0.9,
+  },
+  {
+    url: "https://kkrecords.se/event",
+    lastModified: new Date().toISOString(),
+    changeFrequency: "weekly",
+    priority: 0.9,
+  },
+  {
+    url: "https://kkrecords.se/edits",
+    lastModified: new Date().toISOString(),
+    changeFrequency: "weekly",
+    priority: 0.8,
+  },
+];
 
 // ✅ Fetch dynamic pages from Sanity
 async function fetchDynamicRoutes() {
@@ -27,20 +53,26 @@ async function fetchDynamicRoutes() {
     client.fetch<{ slug: { current: string } }[]>(EVENTS_QUERY),
   ]);
 
-  // Convert Sanity data to sitemap format
-  const artistRoutes = artists.map(({ slug }) => ({
+  // Convert Sanity data to sitemap format with priority and changeFrequency
+  const artistRoutes: MetadataRoute.Sitemap = artists.map(({ slug }) => ({
     url: `https://kkrecords.se/artists/${slug.current}`,
     lastModified: new Date().toISOString(),
+    changeFrequency: "monthly",
+    priority: 0.7,
   }));
 
-  const newsRoutes = news.map(({ slug }) => ({
+  const newsRoutes: MetadataRoute.Sitemap = news.map(({ slug }) => ({
     url: `https://kkrecords.se/edits/${slug.current}`,
     lastModified: new Date().toISOString(),
+    changeFrequency: "weekly",
+    priority: 0.6,
   }));
 
-  const eventRoutes = events.map(({ slug }) => ({
+  const eventRoutes: MetadataRoute.Sitemap = events.map(({ slug }) => ({
     url: `https://kkrecords.se/event/${slug.current}`,
     lastModified: new Date().toISOString(),
+    changeFrequency: "weekly",
+    priority: 0.8,
   }));
 
   return [...artistRoutes, ...newsRoutes, ...eventRoutes];

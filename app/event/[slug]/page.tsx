@@ -76,12 +76,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${event.name}`,
     description: plainTextDescription || `Event by K&K Records: ${event.name}`,
+    alternates: {
+      canonical: `https://kkrecords.se/event/${event.slug.current}`,
+    },
     openGraph: {
       title: `${event.name} - K&K Records`,
       description: plainTextDescription || `Event by K&K Records: ${event.name}`,
       url: `https://kkrecords.se/event/${event.slug.current}`,
       siteName: "K&K Records",
-      images: event.image ? [{ url: urlFor(event.image).url() }] : [],
+      locale: "sv_SE",
+      type: "website",
+      images: event.image ? [{ url: urlFor(event.image).url(), width: 1200, height: 630, alt: event.name }] : [],
     },
     twitter: {
       card: "summary_large_image",
@@ -121,9 +126,35 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
     name: event.headline?.name || event.name || "K&K Records Artist",
   }
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Hem",
+        item: "https://kkrecords.se"
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Event",
+        item: "https://kkrecords.se/event"
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: event.name,
+        item: `https://kkrecords.se/event/${event.slug.current}`
+      }
+    ]
+  };
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "MusicEvent",
+    "@id": `https://kkrecords.se/event/${event.slug.current}`,
     name: event.name,
     startDate: event.date,
     eventStatus: "https://schema.org/EventScheduled",
@@ -151,6 +182,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
 
   return (
     <div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="grid grid-cols-12 gap-px">
         <div className="col-span-12 relative h-full grid-col-border">

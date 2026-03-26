@@ -42,9 +42,46 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children,}: Readonly<{children: React.ReactNode;}>) {
-  
+  // Site-wide Organization Schema for better SEO
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "RecordLabel",
+    "@id": "https://kkrecords.se/#organization",
+    name: "K&K Records",
+    alternateName: "K&K RECORDS",
+    url: "https://kkrecords.se",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://kkrecords.se/api",
+      width: 800,
+      height: 600,
+    },
+    description: "K&K Records - Inte den vanliga sortens skivbolag. Vi stödjer unga kulturutövare i Örebro län med finansiering, vägledning och kreativt stöd.",
+    foundingDate: "2019",
+    founder: [
+      { "@type": "Person", name: "Jens Knabe" },
+      { "@type": "Person", name: "Edwin Krutholm" },
+    ],
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Örebro",
+      addressCountry: "SE",
+    },
+    sameAs: [
+      "https://www.facebook.com/kkmusicrecords",
+      "https://www.instagram.com/kkrecords.se",
+    ],
+    knowsLanguage: "sv",
+  };
+
   return (
-    <html lang="se_SV">
+    <html lang="sv">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+      </head>
       <body className="antialiased">
         <Header/>  
           <LenisScrollProvider>

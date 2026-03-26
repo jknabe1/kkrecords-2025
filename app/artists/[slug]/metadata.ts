@@ -59,18 +59,27 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
   }
 
+  const description = artist.Biography?.map(block => block.children?.map(child => child.text).join(' ')).join(' ').slice(0, 160) || `${artist.name} - Artist hos K&K Records`;
+
   return {
-    title: `${artist.name} | K&K RECORDS`,
-    description: artist.Biography?.map(block => block.children?.map(child => child.text).join(' ')).join(' ') || 'Explore the artist’s biography and works.',
+    title: `${artist.name}`,
+    description,
+    alternates: {
+      canonical: `https://kkrecords.se/artists/${artist.currentSlug}`,
+    },
     openGraph: {
-      title: artist.name,
-      description: artist.Biography?.map(block => block.children?.map(child => child.text).join(' ')).join(' ') || 'Explore the artist’s biography and works.',
-      images: artist.image ? [{ url: urlFor(artist.image).url() }] : [],
+      title: `${artist.name} - K&K Records`,
+      description,
+      url: `https://kkrecords.se/artists/${artist.currentSlug}`,
+      siteName: "K&K Records",
+      locale: "sv_SE",
+      type: "profile",
+      images: artist.image ? [{ url: urlFor(artist.image).url(), width: 1200, height: 630, alt: artist.name }] : [],
     },
     twitter: {
       card: 'summary_large_image',
-      title: artist.name,
-      description: artist.Biography?.map(block => block.children?.map(child => child.text).join(' ')).join(' ') || 'Explore the artist’s biography and works.',
+      title: `${artist.name} - K&K Records`,
+      description,
       images: artist.image ? [{ url: urlFor(artist.image).url() }] : [],
     },
   };

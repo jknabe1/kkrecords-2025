@@ -54,6 +54,20 @@ async function getData(slug: string): Promise<Artist | null> {
   return artist;
 }
 
+// Helper function to convert Portable Text to plain text for schema
+function portableTextToPlainText(blocks: PortableTextBlock[] = []): string {
+  return blocks
+    .map((block) => {
+      if (block._type !== "block" || !block.children) {
+        return "";
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return (block.children as any[]).map((child) => child.text || "").join("");
+    })
+    .join(" ")
+    .trim();
+}
+
 // Export metadata from the separate file
 export { generateMetadata };
 
@@ -66,14 +80,26 @@ export default async function BlogArticle({ params }: { params: Promise<{ slug: 
     return <div>Artist not found</div>;
   }
 
+  const plainTextBio = portableTextToPlainText(artist.Biography);
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'MusicGroup',
+    '@id': `https://kkrecords.se/artists/${artist.currentSlug}`,
     name: artist.name,
-    description: artist.Biography,
+    description: plainTextBio || `${artist.name} - Artist hos K&K Records`,
     image: artist.image ? urlFor(artist.image).url() : undefined,
     url: `https://kkrecords.se/artists/${artist.currentSlug}`,
     sameAs: [artist.Instagram || '', artist.Facebook || '', artist.spotify || ''].filter(Boolean),
+    member: {
+      "@type": "OrganizationRole",
+      "roleName": "Artist",
+      "memberOf": {
+        "@type": "RecordLabel",
+        "name": "K&K Records",
+        "url": "https://kkrecords.se"
+      }
+    }
   };
 
   return (
