@@ -3,8 +3,8 @@ import Link from 'next/link'
 import { client } from '@/sanity/client'
 import imageUrlBuilder from '@sanity/image-url'
 import { PortableText, PortableTextBlock } from 'next-sanity'
-import { generateMetadata } from './metadata'
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 
 export const revalidate = 30
 
@@ -71,7 +71,39 @@ function portableTextToPlainText(blocks: PortableTextBlock[] = []): string {
     .trim()
 }
 
-export { generateMetadata }
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const resolvedParams = await params
+  const news = await getData(resolvedParams.slug)
+
+  if (!news) {
+    return {
+      title: 'Artikel hittades inte | K&K Records',
+      description: 'Den sökta artikeln kunde inte hittas.',
+    }
+  }
+
+  const plainTextDescription = news.excerpt || portableTextToPlainText(news.details)
+
+  return {
+    title: `${news.name} | K&K Records`,
+    description: plainTextDescription.slice(0, 160),
+    keywords: news.tags?.join(', '),
+    openGraph: {
+      title: news.name,
+      description: plainTextDescription.slice(0, 160),
+      type: 'article',
+      url: `https://kkrecords.se/edits/${news.currentSlug}`,
+      images: news.image ? [{ url: urlFor(news.image).width(1200).height(630).url() }] : [],
+      publishedTime: news.publishedAt,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: news.name,
+      description: plainTextDescription.slice(0, 160),
+      images: news.image ? [urlFor(news.image).width(1200).height(630).url()] : [],
+    },
+  }
+}
 
 export default async function NewsArticle({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params
