@@ -340,8 +340,9 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           
           {/* Left column - Main content */}
-          <section className="lg:col-span-7 xl:col-span-8">
+          <section className="lg:col-span-7 xl:col-span-8 border border-black border-solid p-6 md:p-8">
             <h2 className="sr-only">Om eventet</h2>
+            <p className="text-sans-11 sm:text-sans-12 font-600 uppercase tracking-widest opacity-50 mb-3 sm:mb-4">Om eventet</p>
             
             {/* Short description highlight */}
             {shortDescription && (

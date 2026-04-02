@@ -330,6 +330,7 @@ export default async function NewsArticle({ params }: { params: Promise<{ slug: 
               </Link>
             </div>
           </nav>
+          
         </article>
       </main>
     </div>
