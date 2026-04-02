@@ -242,9 +242,9 @@ export default async function NewsArticle({ params }: { params: Promise<{ slug: 
             <div className="max-w-3xl mx-auto px-6 py-6 lg:py-8">
               <Link
                 href="/edits"
-                className="inline-block text-blue-600 hover:text-blue-700 hover:underline font-medium"
+                className="inline-block hover:underline font-medium"
               >
-                ← Back to all edits
+                ← Tillbaka
               </Link>
             </div>
           </nav>

@@ -24,7 +24,7 @@ export default function Icon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: 'white',
+          color: 'black',
           fontWeight: 'bold',
           fontFamily: 'system-ui, -apple-system, sans-serif',
         }}
