@@ -1,39 +1,58 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
 
+/**
+ * Artist Schema Type
+ * Represents artists, performers, and musicians.
+ * Referenced by events and other content types.
+ */
 export const artistType = defineType({
   name: 'artist',
   title: 'Artist',
   type: 'document',
+
   fields: [
-    defineField(
-      {
+    // --- Basic Information ---
+    defineField({
       name: 'name',
       type: 'string',
+      title: 'Artist Name',
     }),
-    defineField({
-      name: 'image',
-      type: 'image',
-      options: {
-        hotspot: true
-      },
-    }),
-    defineField({
-      name: 'Biography',
-      type: 'array',
-      of: [{type: 'block'}],
-    }),
-    defineField({
-      name: 'Events',
-      type: 'reference',
-      to: [{type: 'event'}],
-    }),
+
     defineField({
       name: 'slug',
       type: 'slug',
-      options: {source: 'name'},
-      validation: (rule) => rule
-      .required()
-      .error(`Required to generate a page on the website`),
+      title: 'Slug',
+      options: { source: 'name' },
+      validation: (rule) =>
+        rule
+          .required()
+          .error('Required to generate a page on the website'),
+    }),
+
+    // --- Media ---
+    defineField({
+      name: 'image',
+      type: 'image',
+      title: 'Artist Image',
+      options: {
+        hotspot: true,
+      },
+    }),
+
+    // --- Content ---
+    defineField({
+      name: 'Biography',
+      type: 'array',
+      title: 'Biography',
+      of: [{ type: 'block' }],
+    }),
+
+    // --- Relations ---
+    defineField({
+      name: 'Events',
+      type: 'reference',
+      title: 'Events',
+      to: [{ type: 'event' }],
     }),
   ],
 })
