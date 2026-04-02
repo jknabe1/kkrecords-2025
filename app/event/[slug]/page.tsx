@@ -499,7 +499,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
                   )}
                   {tickets && (
                  <div className="flex flex-col">
-                      <dt className="text-sm text-neutral-500 uppercase tracking-wide mb-1">Pris</dt>
+                      <dt className="text-sm text-neutral-500 uppercase tracking-wide mb-1">Biljetter</dt>
                       <dd className="text-lg font-600">
                         <Link 
                           href={tickets} 
