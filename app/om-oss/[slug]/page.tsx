@@ -229,7 +229,7 @@ export default async function AboutArticle({ params }: { params: Promise<{ slug:
           )}
 
           {/* Article Content */}
-          <section className="bg-white px-2 lg:px-5 py-8 md:py-12 lg:py-16">
+          <section className="px-2 lg:px-5 py-8 md:py-12 lg:py-16">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
               
               {/* Left column - Main content */}

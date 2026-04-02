@@ -216,12 +216,12 @@ export default async function NewsArticle({ params }: { params: Promise<{ slug: 
               </div>
 
               {/* Overlay content */}
-              <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 lg:p-12">
+              <div className="absolute inset-0 flex flex-col justify-end px-2 lg:px-5">
                 <div className="max-w-4xl">
                   {/* Category badge */}
                   {news.category && (
                     <div className="mb-4">
-                      <span className="inline-block bg-[--vividGreen] text-white text-xs font-bold uppercase tracking-wider px-3 py-1.5">
+                      <span className="inline-block bg-black text-white text-xs font-bold uppercase tracking-wider px-3 py-1.5">
                         {news.category === 'news' && 'Nyheter'}
                         {news.category === 'release' && 'Utgåva'}
                         {news.category === 'event' && 'Evenemang'}
@@ -237,26 +237,10 @@ export default async function NewsArticle({ params }: { params: Promise<{ slug: 
                 </div>
               </div>
             </div>
-            {news.excerpt && (
-            <div className="absolute bottom-0 left-0 right-0 z-10 h-1/2 flex flex-col items-start justify-end gap-1 pointer-events-none">
-              <nav aria-label="Breadcrumb" className="mb-4 bg-black px-2 py-1 pointer-events-auto">
-                <ol className="flex items-center gap-2 text-white text-sm">
-                <li>
-                <Link href="/" className="hover:italic transition-colors">Hem</Link>
-                </li>
-                <li aria-hidden="true">/</li>
-                <li>
-                <Link href="/edits" className="hover:italic transition-colors">Edits</Link>
-                </li>
-                <li aria-hidden="true">/</li>
-                <li aria-current="page" className="text-white">{news.name}</li>
-                </ol>
-              </nav>
-              </div>
-          )}
           </header>
           {/* Article Content */}
-          <section className="bg-white px-2 lg:px-5 py-8 md:py-12 lg:py-16">
+          <section className="px-2 lg:px-5 py-8 md:py-12 lg:py-16">
+            
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
               
               {/* Left column - Main content */}
@@ -299,23 +283,6 @@ export default async function NewsArticle({ params }: { params: Promise<{ slug: 
                     </div>
                   </div>
                 )}
-
-                {/* Tags */}
-                {news.tags && news.tags.length > 0 && (
-                  <div className="mt-12 pt-12 border-t border-neutral-200">
-                    <p className="text-sm text-neutral-500 font-semibold uppercase tracking-wider mb-4">Etiketter</p>
-                    <div className="flex flex-wrap gap-2">
-                      {news.tags.map((tag, index) => (
-                        <span
-                          key={index}
-                          className="inline-block bg-neutral-100 text-neutral-700 px-4 py-2 text-sm font-medium hover:bg-neutral-200 transition-colors duration-200"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
               </div>
 
               {/* Right column - Share sidebar */}
@@ -329,6 +296,23 @@ export default async function NewsArticle({ params }: { params: Promise<{ slug: 
                       variant="dark"
                     />
                   </div>
+                  {news.tags && news.tags.length > 0 && (
+                  <div className="mt-6 pt-6 border border-solid p-6 md:p-8">
+                    <p className="text-sm text-neutral-500 font-semibold uppercase tracking-wider mb-4">Etiketter</p>
+                    <div className="flex flex-wrap gap-2">
+                      {news.tags.map((tag, index) => (
+                        <span
+                          key={index}
+                          className="inline-block bg-neutral-100 text-neutral-700 px-4 py-2 text-sm font-medium hover:bg-neutral-200 transition-colors duration-200"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                </div>
+                <div>
                 </div>
               </aside>
             </div>
