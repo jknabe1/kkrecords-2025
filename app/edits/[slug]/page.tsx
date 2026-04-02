@@ -5,6 +5,7 @@ import imageUrlBuilder from '@sanity/image-url'
 import { PortableText, PortableTextBlock } from 'next-sanity'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import ShareButtons from '@/components/Share/ShareButtons'
 
 export const revalidate = 30
 
@@ -197,8 +198,15 @@ export default async function NewsArticle({ params }: { params: Promise<{ slug: 
               {/* Gradient overlay for text readability */}
               <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-transparent" />
               
-              <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-transparent to-gray-950/50 p-5">
-                <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
+              {/* Date positioned at top left */}
+              <div className="absolute top-4 left-4 z-20 bg-white px-3 py-2 font-medium text-black text-sm md:text-base">
+                <time dateTime={news.publishedAt}>
+                  {formattedDate}
+                </time>
+              </div>
+
+              {/* Breadcrumb */}
+              <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
                 <nav aria-label="Breadcrumb" className="mb-4 bg-white px-2 py-1">
                   <ol className="flex items-center gap-2 text-black text-sm">
                   <li>
@@ -212,8 +220,7 @@ export default async function NewsArticle({ params }: { params: Promise<{ slug: 
                   <li aria-current="page" className="text-black">{news.name}</li>
                   </ol>
                 </nav>
-                </div>
-            </div>
+              </div>
 
               {/* Overlay content */}
               <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 lg:p-12">
@@ -234,23 +241,21 @@ export default async function NewsArticle({ params }: { params: Promise<{ slug: 
                   <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 text-balance">
                     {news.name}
                   </h1>
-
-                  {/* Publication metadata */}
-                  <div className="flex flex-wrap items-center gap-4 text-white/90 text-sm md:text-base bttom">
-                    <time dateTime={news.publishedAt} className="font-medium">
-                      {formattedDate}
-                    </time>
-                    {news.excerpt && (
-                      <>
-                        <span className="hidden sm:inline text-white/50">•</span>
-                        <p className="text-white/80 max-w-2xl">{news.excerpt}</p>
-                      </>
-                    )}
-                  </div>
                 </div>
               </div>
             </div>
           </header>
+
+          {/* Excerpt Banner - Black banner beneath image */}
+          {news.excerpt && (
+            <div className="bg-black text-white px-6 md:px-8 lg:px-12 py-6 md:py-8">
+              <div className="max-w-3xl mx-auto">
+                <p className="text-lg md:text-xl font-medium leading-relaxed">
+                  {news.excerpt}
+                </p>
+              </div>
+            </div>
+          )}
 
           {/* Article Content */}
           <section className="bg-white">
@@ -309,6 +314,15 @@ export default async function NewsArticle({ params }: { params: Promise<{ slug: 
                 <p className="text-sm text-neutral-500">
                   Publicerad <time dateTime={news.publishedAt}>{formattedDate}</time>
                 </p>
+              </div>
+
+              {/* Share Section */}
+              <div className="mt-12">
+                <ShareButtons 
+                  title={news.name}
+                  url={`https://kkrecords.se/edits/${news.currentSlug}`}
+                  variant="dark"
+                />
               </div>
             </div>
           </section>

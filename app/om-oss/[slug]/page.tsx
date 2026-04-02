@@ -5,6 +5,7 @@ import { PortableText, PortableTextBlock } from 'next-sanity';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
+import ShareButtons from '@/components/Share/ShareButtons';
 
 export const revalidate = 30;
 
@@ -267,6 +268,15 @@ export default async function AboutArticle({ params }: { params: Promise<{ slug:
               <p className="text-sm text-gray-600">
                 Senast uppdaterad: {publishedDate.toLocaleDateString('sv-SE')}
               </p>
+            </div>
+
+            {/* Share Section */}
+            <div className="mt-12">
+              <ShareButtons 
+                title={about.name}
+                url={`https://kkrecords.se/om-oss/${about.currentSlug}`}
+                variant="dark"
+              />
             </div>
           </section>
 
