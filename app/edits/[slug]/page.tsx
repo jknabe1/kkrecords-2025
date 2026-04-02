@@ -1,41 +1,41 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { client } from '@/sanity/client';
-import imageUrlBuilder from '@sanity/image-url';
-import { PortableText, PortableTextBlock } from 'next-sanity';
-import { generateMetadata } from './metadata';
-import { notFound } from 'next/navigation';
+import Image from 'next/image'
+import Link from 'next/link'
+import { client } from '@/sanity/client'
+import imageUrlBuilder from '@sanity/image-url'
+import { PortableText, PortableTextBlock } from 'next-sanity'
+import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 
-export const revalidate = 30;
+export const revalidate = 30
 
 interface SanityImageSource {
   asset: {
-    _ref: string;
-  };
+    _ref: string
+  }
 }
 
 interface GalleryImage {
-  asset: SanityImageSource;
-  alt?: string;
-  caption?: string;
+  asset: SanityImageSource
+  alt?: string
+  caption?: string
 }
 
 interface NewsArticle {
-  currentSlug: string;
-  name: string;
-  details: PortableTextBlock[];
-  image: SanityImageSource;
-  gallery?: GalleryImage[];
-  excerpt: string;
-  publishedAt: string;
-  category?: string;
-  tags?: string[];
+  currentSlug: string
+  name: string
+  details: PortableTextBlock[]
+  image: SanityImageSource
+  gallery?: GalleryImage[]
+  excerpt: string
+  publishedAt: string
+  category?: string
+  tags?: string[]
 }
 
-const builder = imageUrlBuilder(client);
+const builder = imageUrlBuilder(client)
 
 function urlFor(source: SanityImageSource) {
-  return builder.image(source);
+  return builder.image(source)
 }
 
 async function getData(slug: string): Promise<NewsArticle | null> {
@@ -54,36 +54,72 @@ async function getData(slug: string): Promise<NewsArticle | null> {
         publishedAt,
         category,
         tags
-    }[0]`;
-  const news = await client.fetch<NewsArticle>(query);
-  return news;
+    }[0]`
+  const news = await client.fetch<NewsArticle>(query)
+  return news
 }
 
-// Helper function to convert Portable Text to plain text for schema
 function portableTextToPlainText(blocks: PortableTextBlock[] = []): string {
   return blocks
     .map((block) => {
       if (block._type !== 'block' || !block.children) {
-        return '';
+        return ''
       }
-      return (block.children as unknown as Array<{ text?: string }>).map((child) => child.text || '').join('');
+      return (block.children as unknown as Array<{ text?: string }>).map((child) => child.text || '').join('')
     })
     .join(' ')
-    .trim();
+    .trim()
 }
 
-export { generateMetadata };
-
-export default async function NewsArticle({ params }: { params: Promise<{ slug: string }> }) {
-  const resolvedParams = await params;
-  const news = await getData(resolvedParams.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const resolvedParams = await params
+  const news = await getData(resolvedParams.slug)
 
   if (!news) {
-    notFound();
+    return {
+      title: 'Artikel hittades inte | K&K Records',
+      description: 'Den sökta artikeln kunde inte hittas.',
+    }
   }
 
-  const plainTextContent = portableTextToPlainText(news.details);
-  const publishedDate = new Date(news.publishedAt);
+  const plainTextDescription = news.excerpt || portableTextToPlainText(news.details)
+
+  return {
+    title: `${news.name} | K&K Records`,
+    description: plainTextDescription.slice(0, 160),
+    keywords: news.tags?.join(', '),
+    openGraph: {
+      title: news.name,
+      description: plainTextDescription.slice(0, 160),
+      type: 'article',
+      url: `https://kkrecords.se/edits/${news.currentSlug}`,
+      images: news.image ? [{ url: urlFor(news.image).width(1200).height(630).url() }] : [],
+      publishedTime: news.publishedAt,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: news.name,
+      description: plainTextDescription.slice(0, 160),
+      images: news.image ? [urlFor(news.image).width(1200).height(630).url()] : [],
+    },
+  }
+}
+
+export default async function NewsArticle({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params
+  const news = await getData(resolvedParams.slug)
+
+  if (!news) {
+    notFound()
+  }
+
+  const plainTextContent = portableTextToPlainText(news.details)
+  const publishedDate = new Date(news.publishedAt)
+  const formattedDate = publishedDate.toLocaleDateString('sv-SE', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  })
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -113,7 +149,7 @@ export default async function NewsArticle({ params }: { params: Promise<{ slug: 
       '@type': 'WebPage',
       '@id': `https://kkrecords.se/edits/${news.currentSlug}`,
     },
-  };
+  }
 
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
@@ -122,7 +158,7 @@ export default async function NewsArticle({ params }: { params: Promise<{ slug: 
       {
         '@type': 'ListItem',
         position: 1,
-        name: 'Home',
+        name: 'Hem',
         item: 'https://kkrecords.se',
       },
       {
@@ -138,7 +174,7 @@ export default async function NewsArticle({ params }: { params: Promise<{ slug: 
         item: `https://kkrecords.se/edits/${news.currentSlug}`,
       },
     ],
-  };
+  }
 
   return (
     <div>
@@ -147,109 +183,128 @@ export default async function NewsArticle({ params }: { params: Promise<{ slug: 
 
       <main>
         <article className="relative">
-          <header className="relative overflow-hidden">
-            <div className="noise relative aspect-[4/5] lg:aspect-[12/5] bg-gray-200">
+          {/* Hero Section with Featured Image */}
+          <header className="relative overflow-hidden bg-neutral-900">
+            <div className="relative w-full aspect-video lg:aspect-[2/1]">
               <Image
                 alt={news.name}
-                src={urlFor(news.image).width(1920).height(700).url()}
-                width={1920}
-                height={700}
-                className="absolute inset-0 object-cover w-full h-full"
+                src={urlFor(news.image).width(1920).height(960).url()}
+                fill
+                className="object-cover w-full h-full"
                 priority
                 quality={85}
               />
-              <div className="absolute top-4 z-10 flex flex-col items-start gap-2 px-4 py-3 lg:px-6">
-                <div className="bg-white text-black px-3 py-2 inline-block shadow-sm">
-                  <span className="text-[--vividGreen] font-bold">■</span> <span className="font-semibold">{news.name}</span>
+              {/* Gradient overlay for text readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-transparent" />
+              
+              {/* Overlay content */}
+              <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 lg:p-12">
+                <div className="max-w-4xl">
+                  {/* Category badge */}
+                  {news.category && (
+                    <div className="mb-4">
+                      <span className="inline-block bg-[--vividGreen] text-white text-xs font-bold uppercase tracking-wider px-3 py-1.5">
+                        {news.category === 'news' && 'Nyheter'}
+                        {news.category === 'release' && 'Utgåva'}
+                        {news.category === 'event' && 'Evenemang'}
+                        {news.category === 'announcement' && 'Tillkännagivande'}
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Headline */}
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 text-balance">
+                    {news.name}
+                  </h1>
+
+                  {/* Publication metadata */}
+                  <div className="flex flex-wrap items-center gap-4 text-white/90 text-sm md:text-base">
+                    <time dateTime={news.publishedAt} className="font-medium">
+                      {formattedDate}
+                    </time>
+                    {news.excerpt && (
+                      <>
+                        <span className="hidden sm:inline text-white/50">•</span>
+                        <p className="text-white/80 max-w-2xl">{news.excerpt}</p>
+                      </>
+                    )}
+                  </div>
                 </div>
-                <time className="bg-white text-black text-sm px-3 py-2 inline-block shadow-sm" dateTime={news.publishedAt}>
-                  {publishedDate.toLocaleDateString('sv-SE', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric',
-                  })}
-                </time>
               </div>
             </div>
           </header>
 
-          <section className="max-w-3xl mx-auto p-6 lg:p-8 text-gray-900">
-            <div className="mb-6">
-              <h1 className="text-4xl lg:text-5xl font-bold mb-2">{news.name}</h1>
-              <time dateTime={news.publishedAt} className="text-gray-600 text-sm">
-                Published on{' '}
-                {publishedDate.toLocaleDateString('sv-SE', {
-                  weekday: 'long',
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                })}
-              </time>
-            </div>
+          {/* Article Content */}
+          <section className="bg-white">
+            <div className="max-w-3xl mx-auto px-6 md:px-8 lg:px-12 py-12 md:py-16 lg:py-20">
+              {/* Main content */}
+              <div className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-neutral-900 prose-p:text-neutral-700 prose-p:leading-relaxed prose-a:text-[--vividGreen] hover:prose-a:underline prose-strong:font-bold prose-strong:text-neutral-900 prose-em:text-neutral-600">
+                <PortableText value={news.details} />
+              </div>
 
-            {news.excerpt && (
-              <p className="text-xl text-gray-700 mb-8 font-medium leading-relaxed">{news.excerpt}</p>
-            )}
-
-            <div className="prose prose-lg max-w-none mb-8">
-              <PortableText value={news.details} />
-            </div>
-
-            {/* Image Gallery */}
-            {news.gallery && news.gallery.length > 0 && (
-              <div className="mt-12 mb-8">
-                <h3 className="text-xl font-bold mb-4">Galleri</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {news.gallery.map((img, index) => (
-                    <figure key={index} className="relative aspect-video overflow-hidden bg-gray-100 rounded-lg">
-                      <Image
-                        src={urlFor(img.asset).width(800).height(450).url()}
-                        alt={img.alt || `Bild ${index + 1} från ${news.name}`}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 640px) 100vw, 50vw"
-                      />
-                      {img.caption && (
-                        <figcaption className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-2 rounded-b-lg">
-                          {img.caption}
-                        </figcaption>
-                      )}
-                    </figure>
-                  ))}
+              {/* Image Gallery */}
+              {news.gallery && news.gallery.length > 0 && (
+                <div className="mt-16 pt-12 border-t border-neutral-200">
+                  <h2 className="text-2xl md:text-3xl font-bold mb-8 text-neutral-900">Galleri</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {news.gallery.map((img, index) => (
+                      <figure key={index} className="group overflow-hidden bg-neutral-100 aspect-video">
+                        <div className="relative w-full h-full">
+                          <Image
+                            src={urlFor(img.asset).width(800).height(450).url()}
+                            alt={img.alt || `Bild ${index + 1} från ${news.name}`}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-300"
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                          />
+                        </div>
+                        {img.caption && (
+                          <figcaption className="mt-3 text-sm text-neutral-600">
+                            {img.caption}
+                          </figcaption>
+                        )}
+                      </figure>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {/* Tags */}
-            {news.tags && news.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-8">
-                {news.tags.map((tag, index) => (
-                  <span key={index} className="bg-gray-100 text-gray-700 px-3 py-1 text-sm rounded-full">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
+              {/* Tags */}
+              {news.tags && news.tags.length > 0 && (
+                <div className="mt-12 pt-12 border-t border-neutral-200">
+                  <p className="text-sm text-neutral-500 font-semibold uppercase tracking-wider mb-4">Etiketter</p>
+                  <div className="flex flex-wrap gap-2">
+                    {news.tags.map((tag, index) => (
+                      <span
+                        key={index}
+                        className="inline-block bg-neutral-100 text-neutral-700 px-4 py-2 text-sm font-medium hover:bg-neutral-200 transition-colors duration-200"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
 
-            <div className="border-t border-gray-300 pt-6 mt-8">
-              <p className="text-sm text-gray-600">
-                Last updated: {publishedDate.toLocaleDateString('sv-SE')}
-              </p>
+              {/* Footer metadata */}
+              <div className="mt-12 pt-8 border-t border-neutral-200">
+                <p className="text-sm text-neutral-500">
+                  Publicerad <time dateTime={news.publishedAt}>{formattedDate}</time>
+                </p>
+              </div>
             </div>
           </section>
 
-          <nav className="bg-gray-50 border-t border-gray-200">
-            <div className="max-w-3xl mx-auto px-6 py-6 lg:py-8">
-              <Link
-                href="/edits"
-                className="inline-block hover:underline font-medium"
-              >
-                ← Tillbaka
+          {/* Navigation footer */}
+          <nav className="bg-neutral-50 border-t border-neutral-200">
+            <div className="max-w-3xl mx-auto px-6 md:px-8 lg:px-12 py-8">
+              <Link href="/edits" className="inline-flex items-center gap-2 text-[--vividGreen] hover:text-[--vividGreen]/80 font-medium transition-colors duration-200">
+                <span>←</span> Tillbaka till alla edits
               </Link>
             </div>
           </nav>
         </article>
       </main>
     </div>
-  );
+  )
 }
