@@ -179,22 +179,26 @@ export default async function AboutArticle({ params }: { params: Promise<{ slug:
                 quality={85}
               />
               <div className="absolute top-4 z-10 flex flex-col items-start gap-2 px-4 py-3 lg:px-6">
-                <div className="bg-white text-black px-3 py-2 inline-block shadow-sm">
-                  <span className="text-[--vividGreen] font-bold">■</span> <span className="font-semibold">{about.name}</span>
-                </div>
-                <time className="bg-white text-black text-sm px-3 py-2 inline-block shadow-sm" dateTime={about.publishedAt}>
-                  {publishedDate.toLocaleDateString('sv-SE', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric',
-                  })}
-                </time>
+                              <nav aria-label="Breadcrumb" className="mb-4 bg-white px-2 py-1">
+                                <ol className="flex items-center gap-2 text-black text-sm">
+                                <li>
+                                  <Link href="/" className="hover:text-white transition-colors">Hem</Link>
+                                </li>
+                                <li aria-hidden="true">/</li>
+                                <li>
+                                  <Link href="/om-oss" className="hover:text-white transition-colors">Om oss</Link>
+                                </li>
+                                <li aria-hidden="true">/</li>
+                                <li aria-current="page" className="text-black">{about.name}</li>
+                                </ol>
+                              </nav>
               </div>
             </div>
           </header>
 
           {/* Main Content */}
           <section className="max-w-3xl mx-auto p-6 lg:p-8 text-gray-900">
+            
             <div className="mb-6">
               <h1 className="text-4xl lg:text-5xl font-bold mb-2">{about.name}</h1>
               <time dateTime={about.publishedAt} className="text-gray-600 text-sm">

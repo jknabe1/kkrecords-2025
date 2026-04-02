@@ -305,6 +305,15 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
               </div>
             )}
           </div>
+          {/* ── Mobile banner bar — event name + date prominently displayed ── */}
+        <div className="md:hidden bg-white text-black">
+          {/* Event name */}
+          <div className="px-4 pt-5 pb-4 border- border-solid border-black">
+            <h1 className="text-sans-28 font-700 uppercase leading-[1.05] text-balance">
+              {event.name}
+            </h1>
+          </div>
+        </div>
         <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-transparent to-gray-950/50 p-5">
               <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
                 <nav aria-label="Breadcrumb" className="mb-4 bg-white px-2 py-1">
@@ -325,7 +334,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
       </header>
 
       {/* Two-column content area */}
-      <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 py-8 md:py-12 lg:py-16">
+      <div className="px-2 lg:px-5 py-8 md:py-12 lg:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           
           {/* Left column - Main content */}
@@ -381,7 +390,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
           <aside className="lg:col-span-5 xl:col-span-4">
             <div className="sticky top-24 space-y-6">
               {/* Event info card */}
-              <div className="bg-neutral-100 p-6 md:p-8">
+              <div className="border border-black border-solid p-6 md:p-8">
                 <h2 className="text-sans-22 font-600 mb-6 uppercase tracking-wide">Eventinfo</h2>
                 
                 <dl className="space-y-4">
@@ -494,7 +503,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
                       href={tickets} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="button button-secondary-vividGreen w-full text-center block"
+                      className="button button-secondary-vividGreen w-full text-center block px-2 py-1"
                     >
                       Köp Biljetter
                     </a>
@@ -503,7 +512,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
               </div>
 
               {/* Share section */}
-              <div className="bg-neutral-100 p-6 md:p-8">
+              <div className="border border-black border-solid p-6 md:p-8">
                 <h2 className="text-sans-18 font-600 mb-4 uppercase tracking-wide">Dela event</h2>
                 <div className="flex gap-3">
                   <Link

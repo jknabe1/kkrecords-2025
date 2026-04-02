@@ -197,6 +197,24 @@ export default async function NewsArticle({ params }: { params: Promise<{ slug: 
               {/* Gradient overlay for text readability */}
               <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-transparent" />
               
+              <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-transparent to-gray-950/50 p-5">
+                <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
+                <nav aria-label="Breadcrumb" className="mb-4 bg-white px-2 py-1">
+                  <ol className="flex items-center gap-2 text-black text-sm">
+                  <li>
+                    <Link href="/" className="hover:text-white transition-colors">Hem</Link>
+                  </li>
+                  <li aria-hidden="true">/</li>
+                  <li>
+                    <Link href="/edits" className="hover:text-white transition-colors">Edits</Link>
+                  </li>
+                  <li aria-hidden="true">/</li>
+                  <li aria-current="page" className="text-black">{news.name}</li>
+                  </ol>
+                </nav>
+                </div>
+            </div>
+
               {/* Overlay content */}
               <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 lg:p-12">
                 <div className="max-w-4xl">
@@ -218,7 +236,7 @@ export default async function NewsArticle({ params }: { params: Promise<{ slug: 
                   </h1>
 
                   {/* Publication metadata */}
-                  <div className="flex flex-wrap items-center gap-4 text-white/90 text-sm md:text-base">
+                  <div className="flex flex-wrap items-center gap-4 text-white/90 text-sm md:text-base bttom">
                     <time dateTime={news.publishedAt} className="font-medium">
                       {formattedDate}
                     </time>
