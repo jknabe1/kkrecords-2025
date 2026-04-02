@@ -68,6 +68,11 @@ function portableTextToPlainText(blocks: PortableTextBlock[] = []): string {
 }
 
 async function getEvent(slug: string): Promise<Event | null> {
+  // Validate slug format - should only contain alphanumeric, hyphens, underscores
+  if (!slug || !/^[a-z0-9-_]+$/i.test(slug)) {
+    return null
+  }
+
   const EVENT_QUERY = `*[
     _type == "event" &&
     slug.current == $slug
@@ -91,53 +96,68 @@ async function getEvent(slug: string): Promise<Event | null> {
       caption
     }
   }`
-  return await client.fetch(EVENT_QUERY, { slug })
+  
+  try {
+    return await client.fetch(EVENT_QUERY, { slug })
+  } catch (error) {
+    console.error(`[v0] Error fetching event with slug "${slug}":`, error)
+    return null
+  }
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
-  const event = await getEvent(slug)
+  try {
+    const { slug } = await params
+    const event = await getEvent(slug)
 
-  if (!event) {
-    return {
-      title: "Event Not Found - K&K Records",
-      description: "The requested event does not exist.",
+    if (!event) {
+      return {
+        title: "Event Not Found - K&K Records",
+        description: "The requested event does not exist.",
+      }
     }
-  }
 
-  const plainTextDescription = event.shortDescription || (event.details ? portableTextToPlainText(event.details) : "")
+    const plainTextDescription = event.shortDescription || (event.details ? portableTextToPlainText(event.details) : "")
 
-  return {
-    title: `${event.name}`,
-    description: plainTextDescription || `Event by K&K Records: ${event.name}`,
-    alternates: {
-      canonical: `https://kkrecords.se/event/${event.slug.current}`,
-    },
-    openGraph: {
-      title: `${event.name} - K&K Records`,
-      description: plainTextDescription || `Event by K&K Records: ${event.name}`,
-      url: `https://kkrecords.se/event/${event.slug.current}`,
-      siteName: "K&K Records",
-      locale: "sv_SE",
-      type: "website",
-      images: event.image ? [{ url: urlFor(event.image).url(), width: 1200, height: 630, alt: event.name }] : [],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${event.name} - K&K Records`,
-      description: plainTextDescription || `Event by K&K Records: ${event.name}`,
-      images: event.image ? [{ url: urlFor(event.image).url() }] : [],
-    },
+    return {
+      title: `${event.name}`,
+      description: plainTextDescription.slice(0, 160) || `Event by K&K Records: ${event.name}`,
+      alternates: {
+        canonical: `https://kkrecords.se/event/${event.slug.current}`,
+      },
+      openGraph: {
+        title: `${event.name} - K&K Records`,
+        description: plainTextDescription.slice(0, 160) || `Event by K&K Records: ${event.name}`,
+        url: `https://kkrecords.se/event/${event.slug.current}`,
+        siteName: "K&K Records",
+        locale: "sv_SE",
+        type: "website",
+        images: event.image ? [{ url: urlFor(event.image).url(), width: 1200, height: 630, alt: event.name }] : [],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: `${event.name} - K&K Records`,
+        description: plainTextDescription.slice(0, 160) || `Event by K&K Records: ${event.name}`,
+        images: event.image ? [{ url: urlFor(event.image).url() }] : [],
+      },
+    }
+  } catch (error) {
+    console.error('[v0] Error generating metadata:', error)
+    return {
+      title: "Event - K&K Records",
+      description: "Browse upcoming events.",
+    }
   }
 }
 
 export default async function EventPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
-  const event = await getEvent(slug)
+  try {
+    const { slug } = await params
+    const event = await getEvent(slug)
 
-  if (!event) {
-    notFound()
-  }
+    if (!event) {
+      notFound()
+    }
 
   const { venue, tickets, ticketPrice, eventCategory, ageRestriction, lineup, specialGuests, gallery, shortDescription, doorsOpen } = event
 
@@ -229,6 +249,18 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
         hour: '2-digit',
         minute: '2-digit',
       })
+    : null
+
+  // Create a date block object for hero overlay
+  const dateBlock = event.date
+    ? {
+        day: new Date(event.date).getDate().toString().padStart(2, '0'),
+        month: new Date(event.date).toLocaleString('sv-SE', { month: 'short' }).toUpperCase(),
+        time: new Date(event.date).toLocaleTimeString('sv-SE', {
+          hour: '2-digit',
+          minute: '2-digit',
+        }),
+      }
     : null
 
   return (
@@ -458,15 +490,14 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
                 {/* Tickets button */}
                 {tickets && (
                   <div className="mt-8">
-                    <Link 
+                    <a 
                       href={tickets} 
                       target="_blank" 
-                      rel="noopener noreferrer"                    >
-                      <div className="flex flex-col">
-                      <dt className="text-sm text-neutral-500 uppercase tracking-wide mb-1">Biljetter</dt>
-                      <dd className="text-lg font-600 hover:italic">Tickster</dd>
-                    </div>
-                    </Link>
+                      rel="noopener noreferrer"
+                      className="button button-secondary-vividGreen w-full text-center block"
+                    >
+                      Köp Biljetter
+                    </a>
                   </div>
                 )}
               </div>
@@ -536,5 +567,9 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
         </div>
       </div>
     </article>
-  )
+  ) 
+  } catch (error) {
+    console.error('[v0] Error rendering event page:', error)
+    notFound()
+  }
 }
