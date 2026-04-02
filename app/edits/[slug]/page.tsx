@@ -14,13 +14,22 @@ interface SanityImageSource {
   };
 }
 
+interface GalleryImage {
+  asset: SanityImageSource;
+  alt?: string;
+  caption?: string;
+}
+
 interface NewsArticle {
   currentSlug: string;
   name: string;
   details: PortableTextBlock[];
   image: SanityImageSource;
+  gallery?: GalleryImage[];
   excerpt: string;
   publishedAt: string;
+  category?: string;
+  tags?: string[];
 }
 
 const builder = imageUrlBuilder(client);
@@ -36,8 +45,15 @@ async function getData(slug: string): Promise<NewsArticle | null> {
         name,
         details,
         image,
+        "gallery": gallery[]{
+          asset,
+          alt,
+          caption
+        },
         excerpt,
         publishedAt,
+        category,
+        tags
     }[0]`;
   const news = await client.fetch<NewsArticle>(query);
   return news;
@@ -178,6 +194,42 @@ export default async function NewsArticle({ params }: { params: Promise<{ slug: 
             <div className="prose prose-lg max-w-none mb-8">
               <PortableText value={news.details} />
             </div>
+
+            {/* Image Gallery */}
+            {news.gallery && news.gallery.length > 0 && (
+              <div className="mt-12 mb-8">
+                <h3 className="text-xl font-bold mb-4">Galleri</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {news.gallery.map((img, index) => (
+                    <figure key={index} className="relative aspect-video overflow-hidden bg-gray-100 rounded-lg">
+                      <Image
+                        src={urlFor(img.asset).width(800).height(450).url()}
+                        alt={img.alt || `Bild ${index + 1} från ${news.name}`}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 640px) 100vw, 50vw"
+                      />
+                      {img.caption && (
+                        <figcaption className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-2 rounded-b-lg">
+                          {img.caption}
+                        </figcaption>
+                      )}
+                    </figure>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Tags */}
+            {news.tags && news.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-8">
+                {news.tags.map((tag, index) => (
+                  <span key={index} className="bg-gray-100 text-gray-700 px-3 py-1 text-sm rounded-full">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
 
             <div className="border-t border-gray-300 pt-6 mt-8">
               <p className="text-sm text-gray-600">

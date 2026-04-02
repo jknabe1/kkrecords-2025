@@ -21,6 +21,15 @@ interface Venue {
 
 interface Headline {
   name?: string
+  slug?: {
+    current: string
+  }
+}
+
+interface GalleryImage {
+  asset: SanityImageSource
+  alt?: string
+  caption?: string
 }
 
 interface Event {
@@ -29,11 +38,21 @@ interface Event {
     current: string
   }
   date?: string
+  endDate?: string
   image?: SanityImageSource
+  gallery?: GalleryImage[]
+  shortDescription?: string
   details?: PortableTextBlock[]
   headline?: Headline
   venue?: Venue
   tickets?: string
+  ticketPrice?: string
+  eventType?: 'in-person' | 'virtual' | 'hybrid'
+  eventCategory?: string
+  ageRestriction?: string
+  lineup?: Headline[]
+  specialGuests?: string
+  doorsOpen?: number
 }
 
 // Helper function to convert Portable Text to plain text for meta descriptions
@@ -54,9 +73,23 @@ async function getEvent(slug: string): Promise<Event | null> {
     slug.current == $slug
   ][0]{
     ...,
-    headline->,
+    headline->{name, slug},
     venue->,
     tickets,
+    ticketPrice,
+    eventType,
+    eventCategory,
+    ageRestriction,
+    endDate,
+    doorsOpen,
+    shortDescription,
+    specialGuests,
+    "lineup": lineup[]->{name, slug},
+    "gallery": gallery[]{
+      asset,
+      alt,
+      caption
+    }
   }`
   return await client.fetch(EVENT_QUERY, { slug })
 }
@@ -72,7 +105,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     }
   }
 
-  const plainTextDescription = event.details ? portableTextToPlainText(event.details) : ""
+  const plainTextDescription = event.shortDescription || (event.details ? portableTextToPlainText(event.details) : "")
 
   return {
     title: `${event.name}`,
@@ -106,9 +139,9 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
     notFound()
   }
 
-  const { venue, tickets } = event
+  const { venue, tickets, ticketPrice, eventCategory, ageRestriction, lineup, specialGuests, gallery, shortDescription, doorsOpen } = event
 
-  const plainTextDescription = event.details ? portableTextToPlainText(event.details) : ""
+  const plainTextDescription = shortDescription || (event.details ? portableTextToPlainText(event.details) : "")
 
   const venueObject = venue
     ? {
@@ -257,16 +290,49 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
           {/* Left column - Main content */}
           <section className="lg:col-span-7 xl:col-span-8">
             <h2 className="sr-only">Om eventet</h2>
+            
+            {/* Short description highlight */}
+            {shortDescription && (
+              <p className="text-xl md:text-2xl text-neutral-700 font-500 leading-relaxed mb-8 text-balance">
+                {shortDescription}
+              </p>
+            )}
+            
             {event.details && (
               <div className="prose prose-lg max-w-none leading-relaxed">
                 <PortableText value={event.details} />
               </div>
             )}
             
-            {!event.details && (
+            {!event.details && !shortDescription && (
               <p className="text-neutral-600 text-lg">
                 Mer information kommer snart.
               </p>
+            )}
+
+            {/* Image Gallery */}
+            {gallery && gallery.length > 0 && (
+              <div className="mt-12">
+                <h3 className="text-sans-22 font-600 mb-6 uppercase tracking-wide">Galleri</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {gallery.map((img, index) => (
+                    <figure key={index} className="relative aspect-video overflow-hidden bg-neutral-100">
+                      <Image
+                        src={urlFor(img.asset).width(800).height(450).url()}
+                        alt={img.alt || `Bild ${index + 1} från ${event.name}`}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 640px) 100vw, 50vw"
+                      />
+                      {img.caption && (
+                        <figcaption className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-2">
+                          {img.caption}
+                        </figcaption>
+                      )}
+                    </figure>
+                  ))}
+                </div>
+              </div>
             )}
           </section>
 
@@ -293,6 +359,9 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
                     <div className="flex flex-col">
                       <dt className="text-sm text-neutral-500 uppercase tracking-wide mb-1">Tid</dt>
                       <dd className="text-lg font-600">{formattedTime}</dd>
+                      {doorsOpen && (
+                        <dd className="text-sm text-neutral-600 mt-1">Dörrar öppnar {doorsOpen} min innan</dd>
+                      )}
                     </div>
                   )}
 
@@ -307,11 +376,72 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
                     </div>
                   )}
 
+                  {/* Event Category */}
+                  {eventCategory && (
+                    <div className="flex flex-col">
+                      <dt className="text-sm text-neutral-500 uppercase tracking-wide mb-1">Typ</dt>
+                      <dd className="text-lg font-600 capitalize">{eventCategory.replace('-', ' ')}</dd>
+                    </div>
+                  )}
+
+                  {/* Age Restriction */}
+                  {ageRestriction && (
+                    <div className="flex flex-col">
+                      <dt className="text-sm text-neutral-500 uppercase tracking-wide mb-1">Åldersgräns</dt>
+                      <dd className="text-lg font-600">{ageRestriction === 'all-ages' ? 'Alla åldrar' : ageRestriction === 'family' ? 'Familjevänligt' : ageRestriction}</dd>
+                    </div>
+                  )}
+
                   {/* Headline artist */}
                   {event.headline?.name && (
                     <div className="flex flex-col">
-                      <dt className="text-sm text-neutral-500 uppercase tracking-wide mb-1">Artist</dt>
-                      <dd className="text-lg font-600">{event.headline.name}</dd>
+                      <dt className="text-sm text-neutral-500 uppercase tracking-wide mb-1">Huvudartist</dt>
+                      <dd className="text-lg font-600">
+                        {event.headline.slug?.current ? (
+                          <Link href={`/artists/${event.headline.slug.current}`} className="hover:underline">
+                            {event.headline.name}
+                          </Link>
+                        ) : (
+                          event.headline.name
+                        )}
+                      </dd>
+                    </div>
+                  )}
+
+                  {/* Additional lineup */}
+                  {lineup && lineup.length > 0 && (
+                    <div className="flex flex-col">
+                      <dt className="text-sm text-neutral-500 uppercase tracking-wide mb-1">Lineup</dt>
+                      <dd className="text-lg font-600">
+                        {lineup.map((artist, index) => (
+                          <span key={artist.slug?.current || index}>
+                            {artist.slug?.current ? (
+                              <Link href={`/artists/${artist.slug.current}`} className="hover:underline">
+                                {artist.name}
+                              </Link>
+                            ) : (
+                              artist.name
+                            )}
+                            {index < lineup.length - 1 && ', '}
+                          </span>
+                        ))}
+                      </dd>
+                    </div>
+                  )}
+
+                  {/* Special guests */}
+                  {specialGuests && (
+                    <div className="flex flex-col">
+                      <dt className="text-sm text-neutral-500 uppercase tracking-wide mb-1">Special guests</dt>
+                      <dd className="text-lg font-600">{specialGuests}</dd>
+                    </div>
+                  )}
+
+                  {/* Ticket Price */}
+                  {ticketPrice && (
+                    <div className="flex flex-col">
+                      <dt className="text-sm text-neutral-500 uppercase tracking-wide mb-1">Pris</dt>
+                      <dd className="text-lg font-600">{ticketPrice}</dd>
                     </div>
                   )}
                 </dl>
