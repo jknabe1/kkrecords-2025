@@ -203,11 +203,11 @@ export default async function NewsArticle({ params }: { params: Promise<{ slug: 
                 <nav aria-label="Breadcrumb" className="mb-4 bg-white px-2 py-1">
                   <ol className="flex items-center gap-2 text-black text-sm">
                   <li>
-                    <Link href="/" className="hover:text-white transition-colors">Hem</Link>
+                    <Link href="/" className="hover:italic transition-colors">Hem</Link>
                   </li>
                   <li aria-hidden="true">/</li>
                   <li>
-                    <Link href="/edits" className="hover:text-white transition-colors">Edits</Link>
+                    <Link href="/edits" className="hover:italic transition-colors">Edits</Link>
                   </li>
                   <li aria-hidden="true">/</li>
                   <li aria-current="page" className="text-black">{news.name}</li>
@@ -237,38 +237,39 @@ export default async function NewsArticle({ params }: { params: Promise<{ slug: 
                 </div>
               </div>
             </div>
-          </header>
-
-          {/* Excerpt Banner - Black banner beneath image */}
-          {news.excerpt && (
-            <div className="bg-black text-white px-2 lg:px-5 py-8 md:py-12 lg:py-16">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-                <div className="lg:col-span-7 xl:col-span-8">
-                  <p className="text-lg md:text-xl font-medium leading-relaxed">
-                    {news.excerpt}
-                  </p>
-                </div>
+            {news.excerpt && (
+            <div className="absolute bottom-0 left-0 right-0 z-10 h-1/2 flex flex-col items-start justify-end gap-1 pointer-events-none">
+              <nav aria-label="Breadcrumb" className="mb-4 bg-black px-2 py-1 pointer-events-auto">
+                <ol className="flex items-center gap-2 text-white text-sm">
+                <li>
+                <Link href="/" className="hover:italic transition-colors">Hem</Link>
+                </li>
+                <li aria-hidden="true">/</li>
+                <li>
+                <Link href="/edits" className="hover:italic transition-colors">Edits</Link>
+                </li>
+                <li aria-hidden="true">/</li>
+                <li aria-current="page" className="text-white">{news.name}</li>
+                </ol>
+              </nav>
               </div>
-            </div>
           )}
-
+          </header>
           {/* Article Content */}
           <section className="bg-white px-2 lg:px-5 py-8 md:py-12 lg:py-16">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
               
               {/* Left column - Main content */}
               <div className="lg:col-span-7 xl:col-span-8">
-                {/* Date positioned at top left of content section */}
-                <div className="mb-8">
-                  <div className="inline-block bg-neutral-900 text-white px-4 py-2 font-medium text-sm md:text-base">
+                {/* Main content */}
+                <div className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-neutral-900 prose-p:text-neutral-700 prose-p:leading-relaxed prose-a:text-[--vividGreen] hover:prose-a:underline prose-strong:font-bold prose-strong:text-neutral-900 prose-em:text-neutral-600 border-black border border-solid p-6 md:p-8">
+                  <div className="mb-8">
+                  <div className="inline-block border border-black border-solid text-black px-4 py-2 font-medium text-sm md:text-base">
                     <time dateTime={news.publishedAt}>
                       {formattedDate}
                     </time>
                   </div>
                 </div>
-
-                {/* Main content */}
-                <div className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-neutral-900 prose-p:text-neutral-700 prose-p:leading-relaxed prose-a:text-[--vividGreen] hover:prose-a:underline prose-strong:font-bold prose-strong:text-neutral-900 prose-em:text-neutral-600">
                   <PortableText value={news.details} />
                 </div>
 
@@ -321,7 +322,7 @@ export default async function NewsArticle({ params }: { params: Promise<{ slug: 
               <aside className="lg:col-span-5 xl:col-span-4">
                 <div className="sticky top-24">
                   {/* Share Section */}
-                  <div className="border border-black border-solid p-6 md:p-8">
+                  <div>
                     <ShareButtons 
                       title={news.name}
                       url={`https://kkrecords.se/edits/${news.currentSlug}`}
@@ -331,21 +332,7 @@ export default async function NewsArticle({ params }: { params: Promise<{ slug: 
                 </div>
               </aside>
             </div>
-          </section>
-
-          {/* Navigation footer */}
-          <nav className="bg-neutral-50 border-t border-neutral-200">
-            <div className="px-2 lg:px-5 py-8 md:py-12 lg:py-16">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-                <div className="lg:col-span-7 xl:col-span-8">
-                  <Link href="/edits" className="inline-flex items-center gap-2 text-[--vividGreen] hover:text-[--vividGreen]/80 font-medium transition-colors duration-200">
-                    <span>←</span> Tillbaka till alla edits
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </nav>
-          
+          </section>          
         </article>
       </main>
     </div>
