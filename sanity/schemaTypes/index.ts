@@ -17,7 +17,6 @@ import { teamType } from './teamType'
 import { sponsorType } from './sponsorType'
 
 // --- Media & Content Types ---
-import { video } from './videoType'
 import { playlist } from './playListType'
 
 // --- Data/Utility Types ---
@@ -45,7 +44,6 @@ export const schemaTypes = [
   sponsorType,
 
   // --- Media & Content Types ---
-  video,
   playlist,
 
   // --- Data/Utilities ---
