@@ -215,15 +215,13 @@ export default async function AboutArticle({ params }: { params: Promise<{ slug:
             </div>
           </header>
 
-          {/* Excerpt Banner - Black banner beneath image */}
+          {/* Excerpt Banner - Centered, constrained black banner */}
           {about.excerpt && (
-            <div className="bg-black text-white px-2 lg:px-5 py-8 md:py-12 lg:py-16">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-                <div className="lg:col-span-7 xl:col-span-8">
-                  <p className="text-lg md:text-xl font-medium leading-relaxed">
-                    {about.excerpt}
-                  </p>
-                </div>
+            <div className="bg-black py-6 md:py-8 px-4">
+              <div className="max-w-2xl mx-auto">
+                <p className="text-white text-lg md:text-xl font-medium leading-relaxed text-center">
+                  {about.excerpt}
+                </p>
               </div>
             </div>
           )}

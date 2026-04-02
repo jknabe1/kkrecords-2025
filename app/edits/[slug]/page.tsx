@@ -255,6 +255,18 @@ export default async function NewsArticle({ params }: { params: Promise<{ slug: 
               </div>
           )}
           </header>
+
+          {/* Excerpt Banner - Centered, constrained black banner */}
+          {news.excerpt && (
+            <div className="bg-black py-6 md:py-8 px-4">
+              <div className="max-w-2xl mx-auto">
+                <p className="text-white text-lg md:text-xl font-medium leading-relaxed text-center">
+                  {news.excerpt}
+                </p>
+              </div>
+            </div>
+          )}
+
           {/* Article Content */}
           <section className="bg-white px-2 lg:px-5 py-8 md:py-12 lg:py-16">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
@@ -262,14 +274,7 @@ export default async function NewsArticle({ params }: { params: Promise<{ slug: 
               {/* Left column - Main content */}
               <div className="lg:col-span-7 xl:col-span-8">
                 {/* Main content */}
-                <div className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-neutral-900 prose-p:text-neutral-700 prose-p:leading-relaxed prose-a:text-[--vividGreen] hover:prose-a:underline prose-strong:font-bold prose-strong:text-neutral-900 prose-em:text-neutral-600 border-black border border-solid p-6 md:p-8">
-                  <div className="mb-8">
-                  <div className="inline-block border border-black border-solid text-black px-4 py-2 font-medium text-sm md:text-base">
-                    <time dateTime={news.publishedAt}>
-                      {formattedDate}
-                    </time>
-                  </div>
-                </div>
+                <div className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-neutral-900 prose-p:text-neutral-700 prose-p:leading-relaxed prose-a:text-[--vividGreen] hover:prose-a:underline prose-strong:font-bold prose-strong:text-neutral-900 prose-em:text-neutral-600">
                   <PortableText value={news.details} />
                 </div>
 
