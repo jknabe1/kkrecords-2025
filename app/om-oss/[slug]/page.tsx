@@ -198,97 +198,111 @@ export default async function AboutArticle({ params }: { params: Promise<{ slug:
           </header>
 
           {/* Main Content */}
-          <section className="max-w-3xl mx-auto p-6 lg:p-8 text-gray-900">
-            
-            <div className="mb-6">
-              <h1 className="text-4xl lg:text-5xl font-bold mb-2">{about.name}</h1>
-              <time dateTime={about.publishedAt} className="text-gray-600 text-sm">
-                Publicerad{' '}
-                {publishedDate.toLocaleDateString('sv-SE', {
-                  weekday: 'long',
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                })}
-              </time>
-            </div>
+          <section className="px-2 lg:px-5 py-8 md:py-12 lg:py-16">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+              
+              {/* Left column - Main content */}
+              <div className="lg:col-span-7 xl:col-span-8">
+                <div className="mb-6">
+                  <h1 className="text-4xl lg:text-5xl font-bold mb-2">{about.name}</h1>
+                  <time dateTime={about.publishedAt} className="text-gray-600 text-sm">
+                    Publicerad{' '}
+                    {publishedDate.toLocaleDateString('sv-SE', {
+                      weekday: 'long',
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
+                  </time>
+                </div>
 
-            {about.excerpt && (
-              <p className="text-xl text-gray-700 mb-8 font-medium leading-relaxed">{about.excerpt}</p>
-            )}
+                {about.excerpt && (
+                  <p className="text-xl text-gray-700 mb-8 font-medium leading-relaxed">{about.excerpt}</p>
+                )}
 
-            <div className="prose prose-lg max-w-none mb-8">
-              <PortableText value={about.details} />
-            </div>
+                <div className="prose prose-lg max-w-none mb-8">
+                  <PortableText value={about.details} />
+                </div>
 
-            {/* Additional Content Sections */}
-            {about.additionalContent && about.additionalContent.length > 0 && (
-              <div className="space-y-8 mt-12">
-                {about.additionalContent.map((section, index) => (
-                  <section key={index} className="border-t border-gray-200 pt-8">
-                    {section.sectionTitle && (
-                      <h2 className="text-2xl font-bold mb-4">{section.sectionTitle}</h2>
-                    )}
-                    {section.sectionContent && (
-                      <div className="prose prose-lg max-w-none">
-                        <PortableText value={section.sectionContent} />
-                      </div>
-                    )}
-                  </section>
-                ))}
-              </div>
-            )}
+                {/* Additional Content Sections */}
+                {about.additionalContent && about.additionalContent.length > 0 && (
+                  <div className="space-y-8 mt-12">
+                    {about.additionalContent.map((section, index) => (
+                      <section key={index} className="border-t border-gray-200 pt-8">
+                        {section.sectionTitle && (
+                          <h2 className="text-2xl font-bold mb-4">{section.sectionTitle}</h2>
+                        )}
+                        {section.sectionContent && (
+                          <div className="prose prose-lg max-w-none">
+                            <PortableText value={section.sectionContent} />
+                          </div>
+                        )}
+                      </section>
+                    ))}
+                  </div>
+                )}
 
-            {/* Image Gallery */}
-            {about.gallery && about.gallery.length > 0 && (
-              <div className="mt-12 mb-8">
-                <h3 className="text-xl font-bold mb-4">Galleri</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {about.gallery.map((img, index) => (
-                    <figure key={index} className="relative aspect-video overflow-hidden bg-gray-100 rounded-lg">
-                      <Image
-                        src={urlFor(img.asset).width(800).height(450).url()}
-                        alt={img.alt || `Bild ${index + 1} från ${about.name}`}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 640px) 100vw, 50vw"
-                      />
-                      {img.caption && (
-                        <figcaption className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-2 rounded-b-lg">
-                          {img.caption}
-                        </figcaption>
-                      )}
-                    </figure>
-                  ))}
+                {/* Image Gallery */}
+                {about.gallery && about.gallery.length > 0 && (
+                  <div className="mt-12 mb-8">
+                    <h3 className="text-xl font-bold mb-4">Galleri</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {about.gallery.map((img, index) => (
+                        <figure key={index} className="relative aspect-video overflow-hidden bg-gray-100 rounded-lg">
+                          <Image
+                            src={urlFor(img.asset).width(800).height(450).url()}
+                            alt={img.alt || `Bild ${index + 1} från ${about.name}`}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 640px) 100vw, 50vw"
+                          />
+                          {img.caption && (
+                            <figcaption className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-2 rounded-b-lg">
+                              {img.caption}
+                            </figcaption>
+                          )}
+                        </figure>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <div className="border-t border-gray-300 pt-6 mt-8">
+                  <p className="text-sm text-gray-600">
+                    Senast uppdaterad: {publishedDate.toLocaleDateString('sv-SE')}
+                  </p>
                 </div>
               </div>
-            )}
 
-            <div className="border-t border-gray-300 pt-6 mt-8">
-              <p className="text-sm text-gray-600">
-                Senast uppdaterad: {publishedDate.toLocaleDateString('sv-SE')}
-              </p>
-            </div>
-
-            {/* Share Section */}
-            <div className="mt-12">
-              <ShareButtons 
-                title={about.name}
-                url={`https://kkrecords.se/om-oss/${about.currentSlug}`}
-                variant="dark"
-              />
+              {/* Right column - Share sidebar */}
+              <aside className="lg:col-span-5 xl:col-span-4">
+                <div className="sticky top-24">
+                  {/* Share Section */}
+                  <div className="border border-black border-solid p-6 md:p-8">
+                    <ShareButtons 
+                      title={about.name}
+                      url={`https://kkrecords.se/om-oss/${about.currentSlug}`}
+                      variant="dark"
+                    />
+                  </div>
+                </div>
+              </aside>
             </div>
           </section>
 
           {/* Back navigation */}
           <nav className="bg-gray-50 border-t border-gray-200">
-            <div className="max-w-3xl mx-auto px-6 py-6 lg:py-8">
-              <Link
-                href="/om-oss"
-                className="inline-block text-blue-600 hover:text-blue-700 hover:underline font-medium"
-              >
-                ← Tillbaka till Om oss
-              </Link>
+            <div className="px-2 lg:px-5 py-8 md:py-12 lg:py-16">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+                <div className="lg:col-span-7 xl:col-span-8">
+                  <Link
+                    href="/om-oss"
+                    className="inline-block text-blue-600 hover:text-blue-700 hover:underline font-medium"
+                  >
+                    ← Tillbaka till Om oss
+                  </Link>
+                </div>
+              </div>
             </div>
           </nav>
         </article>

@@ -241,93 +241,108 @@ export default async function NewsArticle({ params }: { params: Promise<{ slug: 
 
           {/* Excerpt Banner - Black banner beneath image */}
           {news.excerpt && (
-            <div className="bg-black text-white px-6 md:px-8 lg:px-12 py-6 md:py-8">
-              <div className="max-w-3xl mx-auto">
-                <p className="text-lg md:text-xl font-medium leading-relaxed">
-                  {news.excerpt}
-                </p>
+            <div className="bg-black text-white px-2 lg:px-5 py-8 md:py-12 lg:py-16">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+                <div className="lg:col-span-7 xl:col-span-8">
+                  <p className="text-lg md:text-xl font-medium leading-relaxed">
+                    {news.excerpt}
+                  </p>
+                </div>
               </div>
             </div>
           )}
 
           {/* Article Content */}
-          <section className="bg-white">
-            <div className="max-w-3xl mx-auto px-6 md:px-8 lg:px-12 py-12 md:py-16 lg:py-20">
-              {/* Date positioned at top left of content section */}
-              <div className="mb-8">
-                <div className="inline-block bg-neutral-900 text-white px-4 py-2 font-medium text-sm md:text-base">
-                  <time dateTime={news.publishedAt}>
-                    {formattedDate}
-                  </time>
-                </div>
-              </div>
-
-              {/* Main content */}
-              <div className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-neutral-900 prose-p:text-neutral-700 prose-p:leading-relaxed prose-a:text-[--vividGreen] hover:prose-a:underline prose-strong:font-bold prose-strong:text-neutral-900 prose-em:text-neutral-600">
-                <PortableText value={news.details} />
-              </div>
-
-              {/* Image Gallery */}
-              {news.gallery && news.gallery.length > 0 && (
-                <div className="mt-16 pt-12 border-t border-neutral-200">
-                  <h2 className="text-2xl md:text-3xl font-bold mb-8 text-neutral-900">Galleri</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {news.gallery.map((img, index) => (
-                      <figure key={index} className="group overflow-hidden bg-neutral-100 aspect-video">
-                        <div className="relative w-full h-full">
-                          <Image
-                            src={urlFor(img.asset).width(800).height(450).url()}
-                            alt={img.alt || `Bild ${index + 1} från ${news.name}`}
-                            fill
-                            className="object-cover group-hover:scale-105 transition-transform duration-300"
-                            sizes="(max-width: 768px) 100vw, 50vw"
-                          />
-                        </div>
-                        {img.caption && (
-                          <figcaption className="mt-3 text-sm text-neutral-600">
-                            {img.caption}
-                          </figcaption>
-                        )}
-                      </figure>
-                    ))}
+          <section className="bg-white px-2 lg:px-5 py-8 md:py-12 lg:py-16">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+              
+              {/* Left column - Main content */}
+              <div className="lg:col-span-7 xl:col-span-8">
+                {/* Date positioned at top left of content section */}
+                <div className="mb-8">
+                  <div className="inline-block bg-neutral-900 text-white px-4 py-2 font-medium text-sm md:text-base">
+                    <time dateTime={news.publishedAt}>
+                      {formattedDate}
+                    </time>
                   </div>
                 </div>
-              )}
 
-              {/* Tags */}
-              {news.tags && news.tags.length > 0 && (
-                <div className="mt-12 pt-12 border-t border-neutral-200">
-                  <p className="text-sm text-neutral-500 font-semibold uppercase tracking-wider mb-4">Etiketter</p>
-                  <div className="flex flex-wrap gap-2">
-                    {news.tags.map((tag, index) => (
-                      <span
-                        key={index}
-                        className="inline-block bg-neutral-100 text-neutral-700 px-4 py-2 text-sm font-medium hover:bg-neutral-200 transition-colors duration-200"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                {/* Main content */}
+                <div className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-neutral-900 prose-p:text-neutral-700 prose-p:leading-relaxed prose-a:text-[--vividGreen] hover:prose-a:underline prose-strong:font-bold prose-strong:text-neutral-900 prose-em:text-neutral-600">
+                  <PortableText value={news.details} />
+                </div>
+
+                {/* Image Gallery */}
+                {news.gallery && news.gallery.length > 0 && (
+                  <div className="mt-16 pt-12 border-t border-neutral-200">
+                    <h2 className="text-2xl md:text-3xl font-bold mb-8 text-neutral-900">Galleri</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {news.gallery.map((img, index) => (
+                        <figure key={index} className="group overflow-hidden bg-neutral-100 aspect-video">
+                          <div className="relative w-full h-full">
+                            <Image
+                              src={urlFor(img.asset).width(800).height(450).url()}
+                              alt={img.alt || `Bild ${index + 1} från ${news.name}`}
+                              fill
+                              className="object-cover group-hover:scale-105 transition-transform duration-300"
+                              sizes="(max-width: 768px) 100vw, 50vw"
+                            />
+                          </div>
+                          {img.caption && (
+                            <figcaption className="mt-3 text-sm text-neutral-600">
+                              {img.caption}
+                            </figcaption>
+                          )}
+                        </figure>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Tags */}
+                {news.tags && news.tags.length > 0 && (
+                  <div className="mt-12 pt-12 border-t border-neutral-200">
+                    <p className="text-sm text-neutral-500 font-semibold uppercase tracking-wider mb-4">Etiketter</p>
+                    <div className="flex flex-wrap gap-2">
+                      {news.tags.map((tag, index) => (
+                        <span
+                          key={index}
+                          className="inline-block bg-neutral-100 text-neutral-700 px-4 py-2 text-sm font-medium hover:bg-neutral-200 transition-colors duration-200"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Right column - Share sidebar */}
+              <aside className="lg:col-span-5 xl:col-span-4">
+                <div className="sticky top-24">
+                  {/* Share Section */}
+                  <div className="border border-black border-solid p-6 md:p-8">
+                    <ShareButtons 
+                      title={news.name}
+                      url={`https://kkrecords.se/edits/${news.currentSlug}`}
+                      variant="dark"
+                    />
                   </div>
                 </div>
-              )}
-
-              {/* Share Section */}
-              <div className="mt-12 pt-8 border-t border-neutral-200">
-                <ShareButtons 
-                  title={news.name}
-                  url={`https://kkrecords.se/edits/${news.currentSlug}`}
-                  variant="dark"
-                />
-              </div>
+              </aside>
             </div>
           </section>
 
           {/* Navigation footer */}
           <nav className="bg-neutral-50 border-t border-neutral-200">
-            <div className="max-w-3xl mx-auto px-6 md:px-8 lg:px-12 py-8">
-              <Link href="/edits" className="inline-flex items-center gap-2 text-[--vividGreen] hover:text-[--vividGreen]/80 font-medium transition-colors duration-200">
-                <span>←</span> Tillbaka till alla edits
-              </Link>
+            <div className="px-2 lg:px-5 py-8 md:py-12 lg:py-16">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+                <div className="lg:col-span-7 xl:col-span-8">
+                  <Link href="/edits" className="inline-flex items-center gap-2 text-[--vividGreen] hover:text-[--vividGreen]/80 font-medium transition-colors duration-200">
+                    <span>←</span> Tillbaka till alla edits
+                  </Link>
+                </div>
+              </div>
             </div>
           </nav>
           
