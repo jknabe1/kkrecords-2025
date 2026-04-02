@@ -276,6 +276,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
             alt={event.name}
             fill
             priority
+            loading="eager"
             className="object-cover"
             sizes="100vw"
           />
@@ -304,7 +305,6 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
               </div>
             )}
           </div>
-        </div>
         <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-transparent to-gray-950/50 p-5">
               <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
                 <nav aria-label="Breadcrumb" className="mb-4 bg-white px-2 py-1">
