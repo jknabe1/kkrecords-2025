@@ -32,7 +32,6 @@ export default function ArtistSection() {
   const [artists, setArtists] = useState<Artist[]>([])
   const [randomArtists, setRandomArtists] = useState<Artist[]>([])
   const [isMobile, setIsMobile] = useState(false)
-  const [loading, setLoading] = useState(true)
 
   // Use the useKeenSlider hook for mobile slider
   const [sliderRef] = useKeenSlider({
@@ -60,7 +59,6 @@ export default function ArtistSection() {
   useEffect(() => {
     const fetchArtists = async () => {
       try {
-        setLoading(true)
         // Fetch all artists
         const allArtists = await client.fetch<Artist[]>(
           `*[_type == "artist" && defined(slug.current)]{_id, name, slug, image}|order(name asc)`,
@@ -79,11 +77,8 @@ export default function ArtistSection() {
 
           setRandomArtists([allArtists[firstIndex], allArtists[secondIndex]])
         }
-
-        setLoading(false)
       } catch (error) {
         console.error("Error fetching artists:", error)
-        setLoading(false)
       }
     }
 
@@ -92,14 +87,6 @@ export default function ArtistSection() {
 
   // Ensure random artists do not appear in the main displayed list
   const filteredArtists = artists.filter((artist) => !randomArtists.some((random) => random._id === artist._id))
-
-  if (loading) {
-    return <div className="px-2 py-3 lg:px-5">Loading artists...</div>
-  }
-
-  if (artists.length === 0) {
-    return <div className="px-2 py-3 lg:px-5">No artists found.</div>
-  }
 
   // Custom See More component for the slider
   const SeeMoreSlide = () => (
