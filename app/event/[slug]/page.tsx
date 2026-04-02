@@ -300,7 +300,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
                   <span className="text-white text-sans-10 font-600 tracking-widest mt-1">{dateBlock.month}</span>
                 </div>
                 <div className="flex flex-col items-center justify-center px-4 py-3 bg-white/10 backdrop-blur-sm border-l border-white/50">
-                  <span className="text-white text-sans-10 font-600 tracking-widest mt-1">{dateBlock.time}</span>
+                  <span className="text-white text-sans-35 font-600 tracking-widest mt-1">{dateBlock.time}</span>
                 </div>
               </div>
             )}
@@ -497,21 +497,23 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
                       <dd className="text-lg font-600">{ticketPrice}</dd>
                     </div>
                   )}
-                </dl>
+                  {tickets && (
+                 <div className="flex flex-col">
+                      <dt className="text-sm text-neutral-500 uppercase tracking-wide mb-1">Pris</dt>
+                      <dd className="text-lg font-600">
+                        <Link 
+                          href={tickets} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="hover:italic"
+                        >
+                          Tickster
+                        </Link>
+                    </dd>
+                    </div>
+                    )}
 
-                {/* Tickets button */}
-                {tickets && (
-                  <div className="mt-8">
-                    <a 
-                      href={tickets} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="button button-secondary-vividGreen w-full text-center block px-2 py-1"
-                    >
-                      Köp Biljetter
-                    </a>
-                  </div>
-                )}
+                </dl>
               </div>
 
               {/* Share section */}
