@@ -307,11 +307,13 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
           </div>
           {/* ── Mobile banner bar — event name + date prominently displayed ── */}
         <div className="md:hidden bg-white text-black">
-          {/* Event name */}
-          <div className="px-4 pt-5 pb-4 border- border-solid border-black">
-            <h1 className="text-sans-28 font-700 uppercase leading-[1.05] text-balance">
-              {event.name}
-            </h1>
+          <div className="max-w-4xl mx-auto">
+            {/* Event name */}
+            <div className="px-6 py-5 border-b border-solid border-black">
+              <h1 className="text-sans-28 font-700 uppercase leading-[1.05] text-balance">
+                {event.name}
+              </h1>
+            </div>
           </div>
         </div>
         <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-transparent to-gray-950/50 p-5">
