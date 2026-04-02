@@ -134,7 +134,9 @@ export function AsciiHero() {
                     isHovered ? 'ml-1.5' : 'ml-0.5'
                   }`}
                 >
+                  <button className="cursor-pointer inline-block border disabled:text-opacity-70 disabled:border-opacity-70 text-center hover:bg-black hover:text-white border-black border-solid text-black text-[0.9375rem] tracking-normal leading-[1.4] px-2 py-2 lg:px-5 xl:text-[1.1875rem]">
                   Lyssna nu →
+                  </button>
                 </div>
               </div>
             </Link>

@@ -256,31 +256,40 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
         
         {/* Hero content overlay */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8 lg:p-12">
-          <div className="max-w-7xl mx-auto">
-            <nav aria-label="Breadcrumb" className="mb-4">
-              <ol className="flex items-center gap-2 text-white/80 text-sm">
-                <li>
-                  <Link href="/" className="hover:text-white transition-colors">Hem</Link>
-                </li>
-                <li aria-hidden="true">/</li>
-                <li>
-                  <Link href="/event" className="hover:text-white transition-colors">Event</Link>
-                </li>
-                <li aria-hidden="true">/</li>
-                <li aria-current="page" className="text-white">{event.name}</li>
-              </ol>
-            </nav>
-            <h1 className="text-sans-35 md:text-sans-60 lg:text-sans-120 font-600 text-white text-balance">
+        <div className="absolute bottom-0 left-0 right-0 z-10 px-2 lg:px-5 lg:pb-10 hidden md:flex md:flex-row md:items-end md:justify-between gap-4">
+            <h1 className="text-white uppercase font-600 text-sans-35 lg:text-sans-60 xl:text-sans-120 leading-[1.05] text-balance max-w-[75%]">
               {event.name}
             </h1>
-            {event.headline?.name && (
-              <p className="mt-2 text-lg md:text-xl text-white/90">
-                Med {event.headline.name}
-              </p>
+            {dateBlock && (
+              <div className="flex items-stretch shrink-0 border border-white/50">
+                <div className="flex flex-col items-center justify-center mx-2 px-4 py-3 bg-white/10 backdrop-blur-sm min-w-[64px]">
+                  <span className="text-white text-sans-35 lg:text-sans-60 font-600 leading-none">{dateBlock.day}</span>
+                  <span className="text-white text-sans-10 font-600 tracking-widest mt-1">{dateBlock.month}</span>
+                </div>
+                <div className="flex flex-col items-center justify-center px-4 py-3 bg-white/10 backdrop-blur-sm border-l border-white/50">
+                  <span className="text-white text-sans-10 font-600 tracking-widest mt-1">{dateBlock.time}</span>
+                </div>
+              </div>
             )}
           </div>
         </div>
+        <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-transparent to-gray-950/50 p-5">
+              <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
+                <nav aria-label="Breadcrumb" className="mb-4 bg-white px-2 py-1">
+                  <ol className="flex items-center gap-2 text-black text-sm">
+                  <li>
+                    <Link href="/" className="hover:text-white transition-colors">Hem</Link>
+                  </li>
+                  <li aria-hidden="true">/</li>
+                  <li>
+                    <Link href="/event" className="hover:text-white transition-colors">Event</Link>
+                  </li>
+                  <li aria-hidden="true">/</li>
+                  <li aria-current="page" className="text-black">{event.name}</li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
       </header>
 
       {/* Two-column content area */}
@@ -452,26 +461,11 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
                     <Link 
                       href={tickets} 
                       target="_blank" 
-                      rel="noopener noreferrer"
-                      className="button button-secondary-vividGreen w-full flex items-center justify-center gap-2 py-4 px-6 text-center font-600 uppercase tracking-wide transition-all hover:scale-[1.02]"
-                    >
-                      <span>Biljetter</span>
-                      <svg 
-                        xmlns="http://www.w3.org/2000/svg" 
-                        width="20" 
-                        height="20" 
-                        viewBox="0 0 24 24" 
-                        fill="none" 
-                        stroke="currentColor" 
-                        strokeWidth="2" 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round"
-                        aria-hidden="true"
-                      >
-                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                        <polyline points="15 3 21 3 21 9" />
-                        <line x1="10" y1="14" x2="21" y2="3" />
-                      </svg>
+                      rel="noopener noreferrer"                    >
+                      <div className="flex flex-col">
+                      <dt className="text-sm text-neutral-500 uppercase tracking-wide mb-1">Biljetter</dt>
+                      <dd className="text-lg font-600 hover:italic">Tickster</dd>
+                    </div>
                     </Link>
                   </div>
                 )}
