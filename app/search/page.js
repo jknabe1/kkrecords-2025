@@ -53,7 +53,6 @@ const typeDisplayNames = {
   event: 'Event',
   news: 'Edits',
   item: 'Item',
-  team: 'Styrelsen',
 };
 
 export const dynamic = 'force-dynamic';
