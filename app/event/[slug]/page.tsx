@@ -3,6 +3,7 @@ import imageUrlBuilder from "@sanity/image-url"
 import Image from "next/image"
 import { PortableText, PortableTextBlock } from 'next-sanity'
 import Link from "next/link"
+import { notFound } from "next/navigation"
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types"
 
 const builder = imageUrlBuilder(client)
@@ -20,6 +21,15 @@ interface Venue {
 
 interface Headline {
   name?: string
+  slug?: {
+    current: string
+  }
+}
+
+interface GalleryImage {
+  asset: SanityImageSource
+  alt?: string
+  caption?: string
 }
 
 interface Event {
@@ -28,11 +38,21 @@ interface Event {
     current: string
   }
   date?: string
+  endDate?: string
   image?: SanityImageSource
+  gallery?: GalleryImage[]
+  shortDescription?: string
   details?: PortableTextBlock[]
   headline?: Headline
   venue?: Venue
   tickets?: string
+  ticketPrice?: string
+  eventType?: 'in-person' | 'virtual' | 'hybrid'
+  eventCategory?: string
+  ageRestriction?: string
+  lineup?: Headline[]
+  specialGuests?: string
+  doorsOpen?: number
 }
 
 // Helper function to convert Portable Text to plain text for meta descriptions
@@ -53,9 +73,23 @@ async function getEvent(slug: string): Promise<Event | null> {
     slug.current == $slug
   ][0]{
     ...,
-    headline->,
+    headline->{name, slug},
     venue->,
     tickets,
+    ticketPrice,
+    eventType,
+    eventCategory,
+    ageRestriction,
+    endDate,
+    doorsOpen,
+    shortDescription,
+    specialGuests,
+    "lineup": lineup[]->{name, slug},
+    "gallery": gallery[]{
+      asset,
+      alt,
+      caption
+    }
   }`
   return await client.fetch(EVENT_QUERY, { slug })
 }
@@ -71,7 +105,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     }
   }
 
-  const plainTextDescription = event.details ? portableTextToPlainText(event.details) : ""
+  const plainTextDescription = event.shortDescription || (event.details ? portableTextToPlainText(event.details) : "")
 
   return {
     title: `${event.name}`,
@@ -102,12 +136,12 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
   const event = await getEvent(slug)
 
   if (!event) {
-    return <div className="text-center text-2xl p-10">Event Not Found</div>
+    notFound()
   }
 
-  const { venue, tickets } = event
+  const { venue, tickets, ticketPrice, eventCategory, ageRestriction, lineup, specialGuests, gallery, shortDescription, doorsOpen } = event
 
-  const plainTextDescription = event.details ? portableTextToPlainText(event.details) : ""
+  const plainTextDescription = shortDescription || (event.details ? portableTextToPlainText(event.details) : "")
 
   const venueObject = venue
     ? {
@@ -149,7 +183,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
         item: `https://kkrecords.se/event/${event.slug.current}`
       }
     ]
-  };
+  }
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -180,64 +214,333 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
       : undefined,
   }
 
+  // Format date for display
+  const formattedDate = event.date 
+    ? new Date(event.date).toLocaleDateString('sv-SE', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      })
+    : null
+
+  const formattedTime = event.date
+    ? new Date(event.date).toLocaleTimeString('sv-SE', {
+        hour: '2-digit',
+        minute: '2-digit',
+      })
+    : null
+
   return (
-    <div>
+    <article>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <div className="grid grid-cols-12 gap-px">
-        <div className="col-span-12 relative h-full grid-col-border">
-          <div className="grid grid-cols-12 gap-px items-start">
-            <div className="col-span-12 lg:col-span-6 grid-col-border">
-              <ul className="flex flex-col gap-px">
-                <li className="px-2 py-3 lg:px-5">
-                  <h1 className="text-sans-35 lg:text-sans-60 font-600">{event.name}</h1>
-                  {event.details && (
-                    <div className="mt-4 text-lg leading-relaxed prose overflow-hidden text-wrap">
-                      <PortableText value={event.details} />
+      
+      {/* Full-width Hero Image */}
+      <header className="relative w-full h-[50vh] md:h-[60vh] lg:h-[70vh] overflow-hidden">
+        {event.image ? (
+          <Image
+            src={urlFor(event.image).width(1920).height(1080).url()}
+            alt={event.name}
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+        ) : (
+          <div className="absolute inset-0 bg-neutral-200 flex items-center justify-center">
+            <span className="text-neutral-500 text-lg">No Image Available</span>
+          </div>
+        )}
+        {/* Gradient overlay for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+        
+        {/* Hero content overlay */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8 lg:p-12">
+          <div className="max-w-7xl mx-auto">
+            <nav aria-label="Breadcrumb" className="mb-4">
+              <ol className="flex items-center gap-2 text-white/80 text-sm">
+                <li>
+                  <Link href="/" className="hover:text-white transition-colors">Hem</Link>
+                </li>
+                <li aria-hidden="true">/</li>
+                <li>
+                  <Link href="/event" className="hover:text-white transition-colors">Event</Link>
+                </li>
+                <li aria-hidden="true">/</li>
+                <li aria-current="page" className="text-white">{event.name}</li>
+              </ol>
+            </nav>
+            <h1 className="text-sans-35 md:text-sans-60 lg:text-sans-120 font-600 text-white text-balance">
+              {event.name}
+            </h1>
+            {event.headline?.name && (
+              <p className="mt-2 text-lg md:text-xl text-white/90">
+                Med {event.headline.name}
+              </p>
+            )}
+          </div>
+        </div>
+      </header>
+
+      {/* Two-column content area */}
+      <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 py-8 md:py-12 lg:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+          
+          {/* Left column - Main content */}
+          <section className="lg:col-span-7 xl:col-span-8">
+            <h2 className="sr-only">Om eventet</h2>
+            
+            {/* Short description highlight */}
+            {shortDescription && (
+              <p className="text-xl md:text-2xl text-neutral-700 font-500 leading-relaxed mb-8 text-balance">
+                {shortDescription}
+              </p>
+            )}
+            
+            {event.details && (
+              <div className="prose prose-lg max-w-none leading-relaxed">
+                <PortableText value={event.details} />
+              </div>
+            )}
+            
+            {!event.details && !shortDescription && (
+              <p className="text-neutral-600 text-lg">
+                Mer information kommer snart.
+              </p>
+            )}
+
+            {/* Image Gallery */}
+            {gallery && gallery.length > 0 && (
+              <div className="mt-12">
+                <h3 className="text-sans-22 font-600 mb-6 uppercase tracking-wide">Galleri</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {gallery.map((img, index) => (
+                    <figure key={index} className="relative aspect-video overflow-hidden bg-neutral-100">
+                      <Image
+                        src={urlFor(img.asset).width(800).height(450).url()}
+                        alt={img.alt || `Bild ${index + 1} från ${event.name}`}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 640px) 100vw, 50vw"
+                      />
+                      {img.caption && (
+                        <figcaption className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-2">
+                          {img.caption}
+                        </figcaption>
+                      )}
+                    </figure>
+                  ))}
+                </div>
+              </div>
+            )}
+          </section>
+
+          {/* Right column - Event details sidebar */}
+          <aside className="lg:col-span-5 xl:col-span-4">
+            <div className="sticky top-24 space-y-6">
+              {/* Event info card */}
+              <div className="bg-neutral-100 p-6 md:p-8">
+                <h2 className="text-sans-22 font-600 mb-6 uppercase tracking-wide">Eventinfo</h2>
+                
+                <dl className="space-y-4">
+                  {/* Date */}
+                  {formattedDate && (
+                    <div className="flex flex-col">
+                      <dt className="text-sm text-neutral-500 uppercase tracking-wide mb-1">Datum</dt>
+                      <dd className="text-lg font-600 capitalize">
+                        <time dateTime={event.date}>{formattedDate}</time>
+                      </dd>
                     </div>
                   )}
-                </li>
-                <div className="mt-4 text-lg leading-relaxed border-t pt-2 border-solid border-black px-2 py-3 lg:px-5">
-                  Information för {event.name}:
-                  <div className="flex gap-4 mt-2">
-                    <span>{venue ? venue.name : "Ingen plats angiven"}</span>
-                    <span>
-                      Datum: {event.date ? new Date(event.date).toLocaleDateString('sv-SE', {
-                        day: '2-digit',
-                        month: '2-digit',
-                        year: 'numeric',
-                      }) : "Inget datum angivet"}
-                    </span>
-                    {tickets && (
-                      <Link href={tickets} target="_blank" rel="noopener noreferrer">
-                        <div className="hover:italic">Biljetter</div>
-                      </Link>
-                    )}
-                  </div>
-                </div>
-              </ul>
-            </div>
-            <div className="hidden lg:block col-span-6 grid-col-border sticky top-7 min-h-hero-minus-header overflow-hidden">
-              <div className="image overflow-hidden absolute inset-0">
-                {event.image ? (
-                  <Image
-                    src={urlFor(event.image).url() || "/placeholder.svg"}
-                    alt={event.name}
-                    className="w-full h-full object-cover noise"
-                    width={1000}
-                    height={1000}
-                    loading="lazy"
-                  />
-                ) : (
-                  <div className="flex items-center justify-center h-full w-full bg-gray-200 text-black">
-                    No Image Available
+
+                  {/* Time */}
+                  {formattedTime && (
+                    <div className="flex flex-col">
+                      <dt className="text-sm text-neutral-500 uppercase tracking-wide mb-1">Tid</dt>
+                      <dd className="text-lg font-600">{formattedTime}</dd>
+                      {doorsOpen && (
+                        <dd className="text-sm text-neutral-600 mt-1">Dörrar öppnar {doorsOpen} min innan</dd>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Venue */}
+                  {venue?.name && (
+                    <div className="flex flex-col">
+                      <dt className="text-sm text-neutral-500 uppercase tracking-wide mb-1">Plats</dt>
+                      <dd className="text-lg font-600">{venue.name}</dd>
+                      {venue.address && (
+                        <dd className="text-sm text-neutral-600 mt-1">{venue.address}</dd>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Event Category */}
+                  {eventCategory && (
+                    <div className="flex flex-col">
+                      <dt className="text-sm text-neutral-500 uppercase tracking-wide mb-1">Typ</dt>
+                      <dd className="text-lg font-600 capitalize">{eventCategory.replace('-', ' ')}</dd>
+                    </div>
+                  )}
+
+                  {/* Age Restriction */}
+                  {ageRestriction && (
+                    <div className="flex flex-col">
+                      <dt className="text-sm text-neutral-500 uppercase tracking-wide mb-1">Åldersgräns</dt>
+                      <dd className="text-lg font-600">{ageRestriction === 'all-ages' ? 'Alla åldrar' : ageRestriction === 'family' ? 'Familjevänligt' : ageRestriction}</dd>
+                    </div>
+                  )}
+
+                  {/* Headline artist */}
+                  {event.headline?.name && (
+                    <div className="flex flex-col">
+                      <dt className="text-sm text-neutral-500 uppercase tracking-wide mb-1">Huvudartist</dt>
+                      <dd className="text-lg font-600">
+                        {event.headline.slug?.current ? (
+                          <Link href={`/artists/${event.headline.slug.current}`} className="hover:underline">
+                            {event.headline.name}
+                          </Link>
+                        ) : (
+                          event.headline.name
+                        )}
+                      </dd>
+                    </div>
+                  )}
+
+                  {/* Additional lineup */}
+                  {lineup && lineup.length > 0 && (
+                    <div className="flex flex-col">
+                      <dt className="text-sm text-neutral-500 uppercase tracking-wide mb-1">Lineup</dt>
+                      <dd className="text-lg font-600">
+                        {lineup.map((artist, index) => (
+                          <span key={artist.slug?.current || index}>
+                            {artist.slug?.current ? (
+                              <Link href={`/artists/${artist.slug.current}`} className="hover:underline">
+                                {artist.name}
+                              </Link>
+                            ) : (
+                              artist.name
+                            )}
+                            {index < lineup.length - 1 && ', '}
+                          </span>
+                        ))}
+                      </dd>
+                    </div>
+                  )}
+
+                  {/* Special guests */}
+                  {specialGuests && (
+                    <div className="flex flex-col">
+                      <dt className="text-sm text-neutral-500 uppercase tracking-wide mb-1">Special guests</dt>
+                      <dd className="text-lg font-600">{specialGuests}</dd>
+                    </div>
+                  )}
+
+                  {/* Ticket Price */}
+                  {ticketPrice && (
+                    <div className="flex flex-col">
+                      <dt className="text-sm text-neutral-500 uppercase tracking-wide mb-1">Pris</dt>
+                      <dd className="text-lg font-600">{ticketPrice}</dd>
+                    </div>
+                  )}
+                </dl>
+
+                {/* Tickets button */}
+                {tickets && (
+                  <div className="mt-8">
+                    <Link 
+                      href={tickets} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="button button-secondary-vividGreen w-full flex items-center justify-center gap-2 py-4 px-6 text-center font-600 uppercase tracking-wide transition-all hover:scale-[1.02]"
+                    >
+                      <span>Biljetter</span>
+                      <svg 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        width="20" 
+                        height="20" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        strokeWidth="2" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                        <polyline points="15 3 21 3 21 9" />
+                        <line x1="10" y1="14" x2="21" y2="3" />
+                      </svg>
+                    </Link>
                   </div>
                 )}
               </div>
+
+              {/* Share section */}
+              <div className="bg-neutral-100 p-6 md:p-8">
+                <h2 className="text-sans-18 font-600 mb-4 uppercase tracking-wide">Dela event</h2>
+                <div className="flex gap-3">
+                  <Link
+                    href={`https://www.facebook.com/sharer/sharer.php?u=https://kkrecords.se/event/${event.slug.current}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center w-10 h-10 bg-black text-white hover:bg-neutral-800 transition-colors"
+                    aria-label="Dela på Facebook"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                  </Link>
+                  <Link
+                    href={`https://twitter.com/intent/tweet?url=https://kkrecords.se/event/${event.slug.current}&text=${encodeURIComponent(event.name)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center w-10 h-10 bg-black text-white hover:bg-neutral-800 transition-colors"
+                    aria-label="Dela på X (Twitter)"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                  </Link>
+                  <Link
+                    href={`mailto:?subject=${encodeURIComponent(event.name)}&body=${encodeURIComponent(`Kolla in detta event: https://kkrecords.se/event/${event.slug.current}`)}`}
+                    className="flex items-center justify-center w-10 h-10 bg-black text-white hover:bg-neutral-800 transition-colors"
+                    aria-label="Dela via e-post"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <rect width="20" height="16" x="2" y="4" rx="2"/>
+                      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Back to events link */}
+              <Link 
+                href="/event" 
+                className="inline-flex items-center gap-2 text-sm uppercase tracking-wide hover:underline"
+              >
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  width="16" 
+                  height="16" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m15 18-6-6 6-6"/>
+                </svg>
+                <span>Tillbaka till alla event</span>
+              </Link>
             </div>
-          </div>
+          </aside>
         </div>
       </div>
-    </div>
+    </article>
   )
 }
