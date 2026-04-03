@@ -178,31 +178,8 @@ const Header = () => {
                     </div>
                   </button>
                 </li>
-                    <div className="h-[70px] flex flex-col justify-center hidden lg:flex">
-                      <div className="relative">
-                        <svg width="36" height="37" viewBox="0 0 36 37" className="icon-fill">
-                          <path d="M22.1659 23.1292L34.3457 35.9806" stroke="currentColor" strokeWidth="2"></path>
-                          <path
-                            d="M26.1024 13.4297C26.1024 20.233 20.6487 25.7298 13.9436 25.7298C7.23852 25.7298 1.78479 20.233 1.78479 13.4297C1.78479 6.62649 7.23852 1.12964 13.9436 1.12964C20.6487 1.12964 26.1024 6.62649 26.1024 13.4297Z"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            className="icon-fill-fill"
-                          ></path>
-                        </svg>
-                      </div>
-                    </div>
-                    <svg className="lg:hidden" width="27" height="29" viewBox="0 0 27 29">
-                      <path d="M16.8905 18.0781L26.3168 28.0241" stroke="currentColor"></path>
-                      <path
-                        d="M20.2111 10.5715C20.2111 15.9852 15.8705 20.3648 10.5272 20.3648C5.18393 20.3648 0.843262 15.9852 0.843262 10.5715C0.843262 5.15775 5.18393 0.778198 10.5272 0.778198C15.8705 0.778198 20.2111 5.15775 20.2111 10.5715Z"
-                        stroke="currentColor"
-                        fill="none"
-                      ></path>
-                    </svg>
-                  </button>
-                </li>
                 <li>
-                  <Link className="block px-[7px] lg:pr-0" title="Backstage" href="/backstage">
+                  <button className="block px-[7px]" aria-label="Open Search" onClick={toggleSearch}>
                     <div className="h-[70px] flex flex-col justify-center hidden lg:flex">
                       <div className="relative">
                         <svg width="35" height="36" viewBox="0 0 35 36" className="icon-fill">
