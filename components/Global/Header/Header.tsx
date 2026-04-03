@@ -222,7 +222,7 @@ const Header = () => {
                         <rect x="2" y="34" height="2" width="32" fill="currentColor"></rect>
                       </svg>
                     </div>
-                  </Link>
+                  </button>
                 </li>
                 <li className="lg:hidden">
                   <button
