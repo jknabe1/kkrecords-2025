@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/Global/Header/Header";
 import Footer from "@/components/Global/Footer/Footer";
 import LenisScrollProvider from "@/providers/lenis-providers";
+import { ThemeProvider } from "@/providers/theme-provider";
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
@@ -83,13 +84,15 @@ export default function RootLayout({ children,}: Readonly<{children: React.React
         />
       </head>
       <body className="antialiased">
-        <Header/>  
+        <ThemeProvider>
+          <Header/>  
           <LenisScrollProvider>
             {children}
             <SpeedInsights/>
             <Analytics />
           </LenisScrollProvider>
-        <Footer />
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
