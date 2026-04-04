@@ -4,6 +4,7 @@ import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useTheme } from "@/providers/theme-provider"
 
 const Header = () => {
   const [isNavVisible, setIsNavVisible] = useState(false)
@@ -11,6 +12,7 @@ const Header = () => {
   const [searchQuery, setSearchQuery] = useState("")
   const searchRef = useRef<HTMLDivElement>(null)
   const navRef = useRef<HTMLDivElement>(null)
+  const { theme, toggleTheme } = useTheme()
 
   const router = useRouter()
 
@@ -73,7 +75,7 @@ const Header = () => {
     <>
       <header
         aria-label="Main Navigation"
-        className="sticky top-0 left-0 right-0 h-[60px] lg:h-[70px] bg-white border-b-black border-b border-solid flex flex-col justify-center z-50 overflow-hidden"
+        className="sticky top-0 left-0 right-0 h-[60px] lg:h-[70px] bg-white dark:bg-neutral-900 dark:border-neutral-700 border-b-black border-b border-solid flex flex-col justify-center z-50 overflow-hidden"
         role="navigation"
       >
         <div className="px-2 py-8 lg:px-5">
@@ -128,32 +130,56 @@ const Header = () => {
             <div className="col-span-8 lg:col-span-4">
               <ul className="flex justify-end items-center lg:items-end">
                 <li>
-                  <button className="block px-[7px]" aria-label="Open Search" onClick={toggleSearch}>
+                  <button
+                    className="block px-[7px]"
+                    aria-label="Toggle dark mode"
+                    onClick={toggleTheme}
+                    title={theme === 'light' ? 'Enable dark mode' : 'Enable light mode'}
+                  >
                     <div className="h-[70px] flex flex-col justify-center hidden lg:flex">
                       <div className="relative">
-                        <svg width="36" height="37" viewBox="0 0 36 37" className="icon-fill">
-                          <path d="M22.1659 23.1292L34.3457 35.9806" stroke="currentColor" strokeWidth="2"></path>
-                          <path
-                            d="M26.1024 13.4297C26.1024 20.233 20.6487 25.7298 13.9436 25.7298C7.23852 25.7298 1.78479 20.233 1.78479 13.4297C1.78479 6.62649 7.23852 1.12964 13.9436 1.12964C20.6487 1.12964 26.1024 6.62649 26.1024 13.4297Z"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            className="icon-fill-fill"
-                          ></path>
-                        </svg>
+                        {theme === 'light' ? (
+                          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="icon-fill">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                          </svg>
+                        ) : (
+                          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="icon-fill">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                          </svg>
+                        )}
                       </div>
                     </div>
-                    <svg className="lg:hidden" width="27" height="29" viewBox="0 0 27 29">
-                      <path d="M16.8905 18.0781L26.3168 28.0241" stroke="currentColor"></path>
-                      <path
-                        d="M20.2111 10.5715C20.2111 15.9852 15.8705 20.3648 10.5272 20.3648C5.18393 20.3648 0.843262 15.9852 0.843262 10.5715C0.843262 5.15775 5.18393 0.778198 10.5272 0.778198C15.8705 0.778198 20.2111 5.15775 20.2111 10.5715Z"
-                        stroke="currentColor"
-                        fill="none"
-                      ></path>
-                    </svg>
+                    <div className="lg:hidden">
+                      {theme === 'light' ? (
+                        <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                      ) : (
+                        <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <circle cx="12" cy="12" r="5"></circle>
+                          <line x1="12" y1="1" x2="12" y2="3"></line>
+                          <line x1="12" y1="21" x2="12" y2="23"></line>
+                          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                          <line x1="1" y1="12" x2="3" y2="12"></line>
+                          <line x1="21" y1="12" x2="23" y2="12"></line>
+                          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                      )}
+                    </div>
                   </button>
                 </li>
                 <li>
-                  <Link className="block px-[7px] lg:pr-0" title="Backstage" href="/backstage">
+                  <button className="block px-[7px]" aria-label="Open Search" onClick={toggleSearch}>
                     <div className="h-[70px] flex flex-col justify-center hidden lg:flex">
                       <div className="relative">
                         <svg width="35" height="36" viewBox="0 0 35 36" className="icon-fill">
@@ -196,7 +222,7 @@ const Header = () => {
                         <rect x="2" y="34" height="2" width="32" fill="currentColor"></rect>
                       </svg>
                     </div>
-                  </Link>
+                  </button>
                 </li>
                 <li className="lg:hidden">
                   <button
@@ -231,14 +257,14 @@ const Header = () => {
         }`}
         ref={searchRef}
       >
-        <div className="relative w-full bg-white border-b border-gray-200 transform transition-transform duration-300 ease-out">
-          <div className="flex items-center h-[160px] md:px-10 border-b border-black border-solid px-2 py-3 lg:px-5">
+        <div className="relative w-full bg-white dark:bg-neutral-900 dark:border-neutral-700 border-b border-gray-200 transform transition-transform duration-300 ease-out">
+          <div className="flex items-center h-[160px] md:px-10 dark:border-neutral-700 border-b border-black border-solid px-2 py-3 lg:px-5">
             <button
-              className="mr-4 text-black hover:text-gray-900 transition-colors"
+              className="mr-4 text-black dark:text-white hover:text-gray-900 dark:hover:text-gray-300 transition-colors"
               aria-label="Close search"
               onClick={toggleSearch}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256">
                 <path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path>
               </svg>
             </button>
@@ -251,16 +277,16 @@ const Header = () => {
               onKeyDown={(e) => {
                 if (e.key === "Enter") handleSearchSubmit()
               }}
-              className="flex-1 text-2xl md:text-3xl lg:text-4xl font-light text-black placeholder-gray-300 bg-transparent border-none outline-none uppercase"
+              className="flex-1 text-2xl md:text-3xl lg:text-4xl font-light text-black dark:text-white placeholder-gray-300 dark:placeholder-gray-600 bg-transparent border-none outline-none uppercase"
               autoFocus={isSearchVisible}
             />
 
             <button
-              className="ml-4 text-black hover:text-gray-900 transition-colors"
+              className="ml-4 text-black dark:text-white hover:text-gray-900 dark:hover:text-gray-300 transition-colors"
               aria-label="Submit search"
               onClick={handleSearchSubmit}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256">
                 <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path>
               </svg>
             </button>
