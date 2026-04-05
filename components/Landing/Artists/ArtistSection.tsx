@@ -1,31 +1,17 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { client } from "@/sanity/client"
-import imageUrlBuilder from "@sanity/image-url"
 import Link from "next/link"
 import Image from "next/image"
 import { useKeenSlider } from "keen-slider/react"
 import "keen-slider/keen-slider.min.css"
-
-// Define the Sanity image source type
-interface SanityImageSource {
-  asset: {
-    _ref: string
-  }
-}
-
-const builder = imageUrlBuilder(client)
-function urlFor(source: SanityImageSource) {
-  return builder.image(source).url()
-}
 
 // Define the Artist data structure
 interface Artist {
   _id: string
   name: string
   slug: { current: string }
-  image: SanityImageSource
+  imageUrl: string
 }
 
 export default function ArtistSection() {
@@ -59,10 +45,10 @@ export default function ArtistSection() {
   useEffect(() => {
     const fetchArtists = async () => {
       try {
-        // Fetch all artists
-        const allArtists = await client.fetch<Artist[]>(
-          `*[_type == "artist" && defined(slug.current)]{_id, name, slug, image}|order(name asc)`,
-        )
+        // Fetch all artists via API route
+        const response = await fetch("/api/artists")
+        if (!response.ok) throw new Error("Failed to fetch artists")
+        const allArtists = await response.json()
 
         setArtists(allArtists)
 
@@ -93,12 +79,12 @@ export default function ArtistSection() {
     <div className="keen-slider__slide">
       <Link
         href="/artists"
-        className="group block relative aspect-[4/5] lg:aspect-[6/5] overflow-hidden bg-black flex items-center justify-center"
+        className="group block relative aspect-[4/5] lg:aspect-[6/5] overflow-hidden bg-black dark:bg-neutral-900 flex items-center justify-center"
       >
         <div className="text-white text-center p-5">
           <h2 className="text-3xl font-bold mb-4">Se fler artister</h2>
           <p className="text-xl">Utforska fler artister i vår samling.</p>
-          <div className="mt-6 inline-block border border-white px-6 py-3 hover:bg-white hover:text-black transition-colors">
+          <div className="mt-6 inline-block border border-white px-6 py-3 hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white transition-colors">
             Utforska →
           </div>
         </div>
@@ -123,17 +109,17 @@ export default function ArtistSection() {
                   className="group block relative aspect-[4/5] overflow-hidden"
                 >
                   <Image
-                    src={urlFor(artist.image)}
+                    src={artist.imageUrl}
                     alt={artist.name}
                     fill
                     className="h-full w-full object-cover border border-solid border-black transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-transparent to-gray-950/50 p-5">
                     <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
-                      <div className="bg-white text-black text-xs px-2 py-1 inline-block">
+                      <div className="bg-white dark:bg-neutral-800 text-black dark:text-white text-xs px-2 py-1 inline-block">
                         <span className="text-[--vividGreen] mr-2">■</span> ARTIST
                       </div>
-                      <div className="bg-white text-black text-sm px-2 py-1 inline-block">{artist.name}</div>
+                      <div className="bg-white dark:bg-neutral-800 text-black dark:text-white text-sm px-2 py-1 inline-block">{artist.name}</div>
                     </div>
                   </div>
                 </Link>
@@ -158,17 +144,17 @@ export default function ArtistSection() {
                     className="group block relative aspect-[4/5] lg:aspect-[6/5] overflow-hidden"
                   >
                     <Image
-                      src={urlFor(artist.image)}
+                      src={artist.imageUrl}
                       alt={artist.name}
                       fill
                       className="h-full w-full object-cover border border-solid border-black transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-transparent to-gray-950/50 p-5">
                       <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
-                        <div className="bg-white text-black text-xs px-2 py-1 inline-block">
+                        <div className="bg-white dark:bg-neutral-800 text-black dark:text-white text-xs px-2 py-1 inline-block">
                           <span className="text-[--vividGreen] mr-2">■</span> ARTIST
                         </div>
-                        <div className="bg-white text-black text-sm px-2 py-1 inline-block">{artist.name}</div>
+                        <div className="bg-white dark:bg-neutral-800 text-black dark:text-white text-sm px-2 py-1 inline-block">{artist.name}</div>
                       </div>
                     </div>
                   </Link>
@@ -189,17 +175,17 @@ export default function ArtistSection() {
                     className="group block relative aspect-[4/5] lg:aspect-[6/5] overflow-hidden"
                   >
                     <Image
-                      src={urlFor(artist.image)}
+                      src={artist.imageUrl}
                       alt={artist.name}
                       fill
                       className="h-full w-full object-cover border border-solid border-black transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-transparent to-gray-950/50 p-5">
                       <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
-                        <div className="bg-white text-black text-xs px-2 py-1 inline-block">
+                        <div className="bg-white dark:bg-neutral-800 text-black dark:text-white text-xs px-2 py-1 inline-block">
                           <span className="text-[--vividGreen] mr-2">■</span> ARTIST
                         </div>
-                        <div className="bg-white text-black text-sm px-2 py-1 inline-block">{artist.name}</div>
+                        <div className="bg-white dark:bg-neutral-800 text-black dark:text-white text-sm px-2 py-1 inline-block">{artist.name}</div>
                       </div>
                     </div>
                   </Link>
@@ -208,12 +194,12 @@ export default function ArtistSection() {
                 {/* Static "See More" panel */}
                 <Link
                   href="/artists"
-                  className="group block relative aspect-[4/5] lg:aspect-[6/5] overflow-hidden bg-black flex items-center justify-center"
+                  className="group block relative aspect-[4/5] lg:aspect-[6/5] overflow-hidden bg-black dark:bg-neutral-900 flex items-center justify-center"
                 >
                   <div className="text-white text-center p-5">
                     <h2 className="text-2xl font-bold mb-4">Se fler artister</h2>
                     <p className="text-lg">Utforska fler artister i vår samling.</p>
-                    <div className="mt-6 inline-block border border-white px-6 py-3 hover:bg-white hover:text-black transition-colors">
+                    <div className="mt-6 inline-block border border-white px-6 py-3 hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white transition-colors">
                       Utforska →
                     </div>
                   </div>
