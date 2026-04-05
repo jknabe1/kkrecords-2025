@@ -62,7 +62,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const description = artist.Biography?.map(block => block.children?.map(child => child.text).join(' ')).join(' ').slice(0, 160) || `${artist.name} - Artist hos K&K Records`;
 
   return {
-    title: `${artist.name}`,
+    title: `${artist.name}| K&K RECORDS`,
     description,
     alternates: {
       canonical: `https://kkrecords.se/artists/${artist.currentSlug}`,

@@ -169,11 +169,11 @@ export default async function ArtistPage({ params }: { params: Promise<{ slug: s
             <nav aria-label="Breadcrumb" className="mb-4 bg-white px-2 py-1">
               <ol className="flex items-center gap-2 text-black text-sm">
                 <li>
-                  <Link href="/" className="hover:text-white transition-colors">Hem</Link>
+                  <Link href="/" className="hover:text-black transition-colors">Hem</Link>
                 </li>
                 <li aria-hidden="true">/</li>
                 <li>
-                  <Link href="/artists" className="hover:text-white transition-colors">Artists</Link>
+                  <Link href="/artists" className="hover:text-black transition-colors">Artists</Link>
                 </li>
                 <li aria-hidden="true">/</li>
                 <li aria-current="page" className="text-black">{artist.name}</li>
