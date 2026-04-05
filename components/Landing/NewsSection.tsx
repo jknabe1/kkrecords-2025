@@ -1,44 +1,28 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { client } from "@/sanity/client";
-import imageUrlBuilder from "@sanity/image-url";
 import Link from "next/link";
 import Image from "next/image";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 
-export const revalidate = 30; 
-
-// Define the Sanity image source type
-interface SanityImageSource {
-  asset: {
-    _ref: string;
-  };
-}
-
-const builder = imageUrlBuilder(client);
-function urlFor(source: SanityImageSource) {
-  return builder.image(source).url();
+interface NewsArticle {
+  _id: string;
+  name: string;
+  slug: { current: string };
+  imageUrl: string;
+  publishedAt: string;
 }
 
 export default function NewsSection() {
-  interface NewsArticle {
-    _id: string;
-    name: string;
-    slug: { current: string };
-    image: SanityImageSource; // Updated from string to SanityImageSource
-    publishedAt: string;
-  }
-
   const [news, setNews] = useState<NewsArticle[]>([]);
 
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const data = await client.fetch<NewsArticle[]>(
-          `*[_type == "news" && defined(slug.current)]{_id, name, slug, image, publishedAt} | order(publishedAt desc)`
-        );
+        const response = await fetch("/api/news");
+        if (!response.ok) throw new Error("Failed to fetch news");
+        const data = await response.json();
         setNews(data);
       } catch (error) {
         console.error("Error fetching news:", error);
@@ -73,7 +57,7 @@ export default function NewsSection() {
               <Link href={`/edits/${article.slug.current}`} className="group block">
                 <div className="noise relative aspect-[4/5] lg:aspect-[12/5]">
                   <Image
-                    src={urlFor(article.image)}
+                    src={article.imageUrl}
                     alt={article.name}
                     loading="lazy"
                     width={1536}
@@ -104,7 +88,7 @@ export default function NewsSection() {
                     height={1920}
                     className="h-full w-full object-cover border border-solid border-black transition-transform duration-500 group-hover:scale-105"
                     sizes="50vw"
-                    src={urlFor(article.image)}
+                    src={article.imageUrl}
                   />
                   <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-transparent to-gray-950/50 p-5">
                     <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1">
@@ -143,7 +127,7 @@ export default function NewsSection() {
                 <Link href={`/edits/${article.slug.current}`} className="group block">
                   <div className="noise relative aspect-[4/5]">
                     <Image
-                      src={urlFor(article.image)}
+                      src={article.imageUrl}
                       alt={article.name}
                       loading="lazy"
                       width={1536}

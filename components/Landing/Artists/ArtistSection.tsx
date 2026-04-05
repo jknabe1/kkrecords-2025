@@ -1,31 +1,17 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { client } from "@/sanity/client"
-import imageUrlBuilder from "@sanity/image-url"
 import Link from "next/link"
 import Image from "next/image"
 import { useKeenSlider } from "keen-slider/react"
 import "keen-slider/keen-slider.min.css"
-
-// Define the Sanity image source type
-interface SanityImageSource {
-  asset: {
-    _ref: string
-  }
-}
-
-const builder = imageUrlBuilder(client)
-function urlFor(source: SanityImageSource) {
-  return builder.image(source).url()
-}
 
 // Define the Artist data structure
 interface Artist {
   _id: string
   name: string
   slug: { current: string }
-  image: SanityImageSource
+  imageUrl: string
 }
 
 export default function ArtistSection() {
@@ -59,10 +45,10 @@ export default function ArtistSection() {
   useEffect(() => {
     const fetchArtists = async () => {
       try {
-        // Fetch all artists
-        const allArtists = await client.fetch<Artist[]>(
-          `*[_type == "artist" && defined(slug.current)]{_id, name, slug, image}|order(name asc)`,
-        )
+        // Fetch all artists via API route
+        const response = await fetch("/api/artists")
+        if (!response.ok) throw new Error("Failed to fetch artists")
+        const allArtists = await response.json()
 
         setArtists(allArtists)
 
@@ -123,7 +109,7 @@ export default function ArtistSection() {
                   className="group block relative aspect-[4/5] overflow-hidden"
                 >
                   <Image
-                    src={urlFor(artist.image)}
+                    src={artist.imageUrl}
                     alt={artist.name}
                     fill
                     className="h-full w-full object-cover border border-solid border-black transition-transform duration-500 group-hover:scale-105"
@@ -158,7 +144,7 @@ export default function ArtistSection() {
                     className="group block relative aspect-[4/5] lg:aspect-[6/5] overflow-hidden"
                   >
                     <Image
-                      src={urlFor(artist.image)}
+                      src={artist.imageUrl}
                       alt={artist.name}
                       fill
                       className="h-full w-full object-cover border border-solid border-black transition-transform duration-500 group-hover:scale-105"
@@ -189,7 +175,7 @@ export default function ArtistSection() {
                     className="group block relative aspect-[4/5] lg:aspect-[6/5] overflow-hidden"
                   >
                     <Image
-                      src={urlFor(artist.image)}
+                      src={artist.imageUrl}
                       alt={artist.name}
                       fill
                       className="h-full w-full object-cover border border-solid border-black transition-transform duration-500 group-hover:scale-105"
