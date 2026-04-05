@@ -297,7 +297,7 @@ const Header = () => {
       </div>
 
       <div
-        className={`fixed top-[60px] lg:top-[70px] left-0 right-0 bottom-0 bg-white text-black z-40 transform transition-all duration-300 ease-in-out overflow-hidden ${
+        className={`fixed top-[60px] lg:top-[70px] left-0 right-0 bottom-0 bg-white dark:bg-neutral-900 text-black dark:text-white z-40 transform transition-all duration-300 ease-in-out overflow-hidden ${
           isNavVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
         }`}
         ref={navRef}
@@ -307,35 +307,35 @@ const Header = () => {
           {/* Main Navigation Links */}
           <Link
             href="/"
-            className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
+            className="flex items-center justify-center text-sans-35 font-600 border-b border-black dark:border-neutral-700 border-solid hover:italic py-5"
             onClick={handleLinkClick}
           >
             START
           </Link>
           <Link
             href="/om-oss"
-            className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
+            className="flex items-center justify-center text-sans-35 font-600 border-b border-black dark:border-neutral-700 border-solid hover:italic py-5"
             onClick={handleLinkClick}
           >
             OM OSS
           </Link>
           <Link
             href="/artists"
-            className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
+            className="flex items-center justify-center text-sans-35 font-600 border-b border-black dark:border-neutral-700 border-solid hover:italic py-5"
             onClick={handleLinkClick}
           >
             ARTISTER
           </Link>
           <Link
             href="/edits"
-            className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
+            className="flex items-center justify-center text-sans-35 font-600 border-b border-black dark:border-neutral-700 border-solid hover:italic py-5"
             onClick={handleLinkClick}
           >
             EDITS
           </Link>
           <Link
             href="/event"
-            className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
+            className="flex items-center justify-center text-sans-35 font-600 border-b border-black dark:border-neutral-700 border-solid hover:italic py-5"
             onClick={handleLinkClick}
           >
             EVENTS
@@ -391,18 +391,18 @@ const Header = () => {
         </div>
 
         {/* Desktop: Keep the original grid layout */}
-        <div className="hidden lg:grid grid-cols-2 h-[calc(100vh-70px)] border-b border-black border-solid">
+        <div className="hidden lg:grid grid-cols-2 h-[calc(100vh-70px)] border-b border-black dark:border-neutral-700 border-solid">
           {/* Top row */}
           <Link
             href="/"
-            className="flex items-center justify-center text-sans-60 font-600 border-r border-b border-black border-solid hover:italic"
+            className="flex items-center justify-center text-sans-60 font-600 border-r border-b border-black dark:border-neutral-700 border-solid hover:italic"
             onClick={handleLinkClick}
           >
             START
           </Link>
           <Link
             href="/om-oss"
-            className="flex items-center justify-center text-sans-60 font-600 border-b border-black border-solid hover:italic"
+            className="flex items-center justify-center text-sans-60 font-600 border-b border-black dark:border-neutral-700 border-solid hover:italic"
             onClick={handleLinkClick}
           >
             OM OSS
@@ -411,21 +411,21 @@ const Header = () => {
           {/* Middle row */}
           <Link
             href="/artists"
-            className="flex items-center justify-center text-sans-60 font-600 border-r border-b border-black border-solid hover:italic"
+            className="flex items-center justify-center text-sans-60 font-600 border-r border-b border-black dark:border-neutral-700 border-solid hover:italic"
             onClick={handleLinkClick}
           >
             ARTISTER
           </Link>
           <Link
             href="/edits"
-            className="flex items-center justify-center text-sans-60 font-600 border-b border-black border-solid hover:italic"
+            className="flex items-center justify-center text-sans-60 font-600 border-b border-black dark:border-neutral-700 border-solid hover:italic"
             onClick={handleLinkClick}
           >
             EDITS
           </Link>
 
           {/* Bottom row with lucky button */}
-          <div className="relative flex items-center justify-center text-sans-60 font-600 border-r border-black border-solid hover:italic">
+          <div className="relative flex items-center justify-center text-sans-60 font-600 border-r border-black dark:border-neutral-700 border-solid hover:italic">
             <Link href="/event" className="w-full h-full flex items-center justify-center" onClick={handleLinkClick}>
               EVENTS
             </Link>
