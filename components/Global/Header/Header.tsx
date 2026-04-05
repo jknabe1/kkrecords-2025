@@ -4,7 +4,6 @@ import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useTheme } from "@/providers/theme-provider"
 
 const Header = () => {
   const [isNavVisible, setIsNavVisible] = useState(false)
@@ -12,7 +11,6 @@ const Header = () => {
   const [searchQuery, setSearchQuery] = useState("")
   const searchRef = useRef<HTMLDivElement>(null)
   const navRef = useRef<HTMLDivElement>(null)
-  const { theme, toggleTheme } = useTheme()
 
   const router = useRouter()
 
@@ -75,7 +73,7 @@ const Header = () => {
     <>
       <header
         aria-label="Main Navigation"
-        className="sticky top-0 left-0 right-0 h-[60px] lg:h-[70px] bg-white dark:bg-neutral-900 dark:border-neutral-700 border-b-black border-b border-solid flex flex-col justify-center z-50 overflow-hidden"
+        className="sticky top-0 left-0 right-0 h-[60px] lg:h-[70px] bg-white border-b-black border-b border-solid flex flex-col justify-center z-50 overflow-hidden"
         role="navigation"
       >
         <div className="px-2 py-8 lg:px-5">
@@ -129,55 +127,6 @@ const Header = () => {
             </div>
             <div className="col-span-8 lg:col-span-4">
               <ul className="flex justify-end items-center lg:items-end">
-                <li>
-                  <button
-                    className="block px-[7px]"
-                    aria-label="Toggle dark mode"
-                    onClick={toggleTheme}
-                    title={theme === 'light' ? 'Enable dark mode' : 'Enable light mode'}
-                  >
-                    <div className="h-[70px] flex flex-col justify-center hidden lg:flex">
-                      <div className="relative">
-                        {theme === 'light' ? (
-                          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="icon-fill">
-                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                          </svg>
-                        ) : (
-                          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="icon-fill">
-                            <circle cx="12" cy="12" r="5"></circle>
-                            <line x1="12" y1="1" x2="12" y2="3"></line>
-                            <line x1="12" y1="21" x2="12" y2="23"></line>
-                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                            <line x1="1" y1="12" x2="3" y2="12"></line>
-                            <line x1="21" y1="12" x2="23" y2="12"></line>
-                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                          </svg>
-                        )}
-                      </div>
-                    </div>
-                    <div className="lg:hidden">
-                      {theme === 'light' ? (
-                        <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                        </svg>
-                      ) : (
-                        <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <circle cx="12" cy="12" r="5"></circle>
-                          <line x1="12" y1="1" x2="12" y2="3"></line>
-                          <line x1="12" y1="21" x2="12" y2="23"></line>
-                          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                          <line x1="1" y1="12" x2="3" y2="12"></line>
-                          <line x1="21" y1="12" x2="23" y2="12"></line>
-                          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                        </svg>
-                      )}
-                    </div>
-                  </button>
-                </li>
                 <li>
                   <button className="block px-[7px]" aria-label="Open Search" onClick={toggleSearch}>
                     <div className="h-[70px] flex flex-col justify-center hidden lg:flex">
@@ -257,10 +206,10 @@ const Header = () => {
         }`}
         ref={searchRef}
       >
-        <div className="relative w-full bg-white dark:bg-neutral-900 dark:border-neutral-700 border-b border-gray-200 transform transition-transform duration-300 ease-out">
-          <div className="flex items-center h-[160px] md:px-10 dark:border-neutral-700 border-b border-black border-solid px-2 py-3 lg:px-5">
+        <div className="relative w-full bg-white border-b border-gray-200 transform transition-transform duration-300 ease-out">
+          <div className="flex items-center h-[160px] md:px-10 border-b border-black border-solid px-2 py-3 lg:px-5">
             <button
-              className="mr-4 text-black dark:text-white hover:text-gray-900 dark:hover:text-gray-300 transition-colors"
+              className="mr-4 text-black hover:text-gray-900 transition-colors"
               aria-label="Close search"
               onClick={toggleSearch}
             >
@@ -277,12 +226,12 @@ const Header = () => {
               onKeyDown={(e) => {
                 if (e.key === "Enter") handleSearchSubmit()
               }}
-              className="flex-1 text-2xl md:text-3xl lg:text-4xl font-light text-black dark:text-white placeholder-gray-300 dark:placeholder-gray-600 bg-transparent border-none outline-none uppercase"
+              className="flex-1 text-2xl md:text-3xl lg:text-4xl font-light text-black placeholder-gray-300 bg-transparent border-none outline-none uppercase"
               autoFocus={isSearchVisible}
             />
 
             <button
-              className="ml-4 text-black dark:text-white hover:text-gray-900 dark:hover:text-gray-300 transition-colors"
+              className="ml-4 text-black hover:text-gray-900 transition-colors"
               aria-label="Submit search"
               onClick={handleSearchSubmit}
             >
@@ -297,7 +246,7 @@ const Header = () => {
       </div>
 
       <div
-        className={`fixed top-[60px] lg:top-[70px] left-0 right-0 bottom-0 bg-white dark:bg-neutral-900 text-black dark:text-white z-40 transform transition-all duration-300 ease-in-out overflow-hidden ${
+        className={`fixed top-[60px] lg:top-[70px] left-0 right-0 bottom-0 bg-white text-black z-40 transform transition-all duration-300 ease-in-out overflow-hidden ${
           isNavVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
         }`}
         ref={navRef}
@@ -307,35 +256,35 @@ const Header = () => {
           {/* Main Navigation Links */}
           <Link
             href="/"
-            className="flex items-center justify-center text-sans-35 font-600 border-b border-black dark:border-neutral-700 border-solid hover:italic py-5"
+            className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
             onClick={handleLinkClick}
           >
             START
           </Link>
           <Link
             href="/om-oss"
-            className="flex items-center justify-center text-sans-35 font-600 border-b border-black dark:border-neutral-700 border-solid hover:italic py-5"
+            className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
             onClick={handleLinkClick}
           >
             OM OSS
           </Link>
           <Link
             href="/artists"
-            className="flex items-center justify-center text-sans-35 font-600 border-b border-black dark:border-neutral-700 border-solid hover:italic py-5"
+            className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
             onClick={handleLinkClick}
           >
             ARTISTER
           </Link>
           <Link
             href="/edits"
-            className="flex items-center justify-center text-sans-35 font-600 border-b border-black dark:border-neutral-700 border-solid hover:italic py-5"
+            className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
             onClick={handleLinkClick}
           >
             EDITS
           </Link>
           <Link
             href="/event"
-            className="flex items-center justify-center text-sans-35 font-600 border-b border-black dark:border-neutral-700 border-solid hover:italic py-5"
+            className="flex items-center justify-center text-sans-35 font-600 border-b border-black border-solid hover:italic py-5"
             onClick={handleLinkClick}
           >
             EVENTS
@@ -391,18 +340,18 @@ const Header = () => {
         </div>
 
         {/* Desktop: Keep the original grid layout */}
-        <div className="hidden lg:grid grid-cols-2 h-[calc(100vh-70px)] border-b border-black dark:border-neutral-700 border-solid">
+        <div className="hidden lg:grid grid-cols-2 h-[calc(100vh-70px)] border-b border-black border-solid">
           {/* Top row */}
           <Link
             href="/"
-            className="flex items-center justify-center text-sans-60 font-600 border-r border-b border-black dark:border-neutral-700 border-solid hover:italic"
+            className="flex items-center justify-center text-sans-60 font-600 border-r border-b border-black border-solid hover:italic"
             onClick={handleLinkClick}
           >
             START
           </Link>
           <Link
             href="/om-oss"
-            className="flex items-center justify-center text-sans-60 font-600 border-b border-black dark:border-neutral-700 border-solid hover:italic"
+            className="flex items-center justify-center text-sans-60 font-600 border-b border-black border-solid hover:italic"
             onClick={handleLinkClick}
           >
             OM OSS
@@ -411,21 +360,21 @@ const Header = () => {
           {/* Middle row */}
           <Link
             href="/artists"
-            className="flex items-center justify-center text-sans-60 font-600 border-r border-b border-black dark:border-neutral-700 border-solid hover:italic"
+            className="flex items-center justify-center text-sans-60 font-600 border-r border-b border-black border-solid hover:italic"
             onClick={handleLinkClick}
           >
             ARTISTER
           </Link>
           <Link
             href="/edits"
-            className="flex items-center justify-center text-sans-60 font-600 border-b border-black dark:border-neutral-700 border-solid hover:italic"
+            className="flex items-center justify-center text-sans-60 font-600 border-b border-black border-solid hover:italic"
             onClick={handleLinkClick}
           >
             EDITS
           </Link>
 
           {/* Bottom row with lucky button */}
-          <div className="relative flex items-center justify-center text-sans-60 font-600 border-r border-black dark:border-neutral-700 border-solid hover:italic">
+          <div className="relative flex items-center justify-center text-sans-60 font-600 border-r border-black border-solid hover:italic">
             <Link href="/event" className="w-full h-full flex items-center justify-center" onClick={handleLinkClick}>
               EVENTS
             </Link>
