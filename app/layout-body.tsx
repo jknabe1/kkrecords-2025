@@ -1,7 +1,6 @@
 'use client'
 
 import { ReactNode } from 'react'
-import { ThemeProvider } from '@/providers/theme-provider'
 import Header from '@/components/Global/Header/Header'
 import Footer from '@/components/Global/Footer/Footer'
 import LenisScrollProvider from '@/providers/lenis-providers'
@@ -10,7 +9,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 
 export function LayoutBody({ children }: { children: ReactNode }) {
   return (
-    <ThemeProvider>
+      <body>
       <Header />
       <LenisScrollProvider>
         {children}
@@ -18,6 +17,6 @@ export function LayoutBody({ children }: { children: ReactNode }) {
         <Analytics />
       </LenisScrollProvider>
       <Footer />
-    </ThemeProvider>
+      </body>
   )
 }

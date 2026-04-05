@@ -4,7 +4,6 @@ import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useTheme } from "@/providers/theme-provider"
 
 const Header = () => {
   const [isNavVisible, setIsNavVisible] = useState(false)
@@ -12,7 +11,6 @@ const Header = () => {
   const [searchQuery, setSearchQuery] = useState("")
   const searchRef = useRef<HTMLDivElement>(null)
   const navRef = useRef<HTMLDivElement>(null)
-  const { theme, toggleTheme } = useTheme()
 
   const router = useRouter()
 
@@ -126,125 +124,6 @@ const Header = () => {
                   />
                 </picture>
               </Link>
-            </div>
-            <div className="col-span-8 lg:col-span-4">
-              <ul className="flex justify-end items-center lg:items-end">
-                <li>
-                  <button
-                    className="block px-[7px]"
-                    aria-label="Toggle dark mode"
-                    onClick={toggleTheme}
-                    title={theme === 'light' ? 'Enable dark mode' : 'Enable light mode'}
-                  >
-                    <div className="h-[70px] flex flex-col justify-center hidden lg:flex">
-                      <div className="relative">
-                        {theme === 'light' ? (
-                          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="icon-fill">
-                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                          </svg>
-                        ) : (
-                          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="icon-fill">
-                            <circle cx="12" cy="12" r="5"></circle>
-                            <line x1="12" y1="1" x2="12" y2="3"></line>
-                            <line x1="12" y1="21" x2="12" y2="23"></line>
-                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                            <line x1="1" y1="12" x2="3" y2="12"></line>
-                            <line x1="21" y1="12" x2="23" y2="12"></line>
-                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                          </svg>
-                        )}
-                      </div>
-                    </div>
-                    <div className="lg:hidden">
-                      {theme === 'light' ? (
-                        <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                        </svg>
-                      ) : (
-                        <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <circle cx="12" cy="12" r="5"></circle>
-                          <line x1="12" y1="1" x2="12" y2="3"></line>
-                          <line x1="12" y1="21" x2="12" y2="23"></line>
-                          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                          <line x1="1" y1="12" x2="3" y2="12"></line>
-                          <line x1="21" y1="12" x2="23" y2="12"></line>
-                          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                        </svg>
-                      )}
-                    </div>
-                  </button>
-                </li>
-                <li>
-                  <button className="block px-[7px]" aria-label="Open Search" onClick={toggleSearch}>
-                    <div className="h-[70px] flex flex-col justify-center hidden lg:flex">
-                      <div className="relative">
-                        <svg width="35" height="36" viewBox="0 0 35 36" className="icon-fill">
-                          <circle
-                            cx="17.6423"
-                            cy="10.1467"
-                            r="8.73657"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            fill="none"
-                            className="icon-fill-fill"
-                          ></circle>
-                          <path
-                            fillRule="evenodd"
-                            clipRule="evenodd"
-                            d="M32.6461 35.7288C32.6659 35.414 32.676 35.0965 32.676 34.7767C32.676 26.5491 26.0062 19.8794 17.7787 19.8794C9.55111 19.8794 2.88135 26.5491 2.88135 34.7767C2.88135 35.0965 2.89143 35.414 2.91128 35.7288H0.907722C0.890217 35.4137 0.881348 35.0962 0.881348 34.7767C0.881348 25.4446 8.44654 17.8794 17.7787 17.8794C27.1108 17.8794 34.676 25.4446 34.676 34.7767C34.676 35.0962 34.6671 35.4137 34.6496 35.7288H32.6461Z"
-                          ></path>
-                          <circle cx="17.5" cy="35" r="16" fill="none" className="icon-fill-fill"></circle>
-                          <rect x="2" y="34" height="2" width="32" fill="currentColor"></rect>
-                        </svg>
-                      </div>
-                    </div>
-                    <div className="text-center lg:hidden relative bottom-[2px]">
-                      <svg width="23" height="29" viewBox="0 0 35 36" className="icon-fill">
-                        <circle
-                          cx="17.6423"
-                          cy="10.1467"
-                          r="8.73657"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          fill="none"
-                          className="icon-fill-fill"
-                        ></circle>
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M32.6461 35.7288C32.6659 35.414 32.676 35.0965 32.676 34.7767C32.676 26.5491 26.0062 19.8794 17.7787 19.8794C9.55111 19.8794 2.88135 26.5491 2.88135 34.7767C2.88135 35.0965 2.89143 35.414 2.91128 35.7288H0.907722C0.890217 35.4137 0.881348 35.0962 0.881348 34.7767C0.881348 25.4446 8.44654 17.8794 17.7787 17.8794C27.1108 17.8794 34.676 25.4446 34.676 34.7767C34.676 35.0962 34.6671 35.4137 34.6496 35.7288H32.6461Z"
-                        ></path>
-                        <circle cx="17.5" cy="35" r="16" fill="none" className="icon-fill-fill"></circle>
-                        <rect x="2" y="34" height="2" width="32" fill="currentColor"></rect>
-                      </svg>
-                    </div>
-                  </button>
-                </li>
-                <li className="lg:hidden">
-                  <button
-                    className="block pl-[7px]"
-                    aria-label={isNavVisible ? "Close Menu" : "Open Menu"}
-                    onClick={isNavVisible ? closeNav : openNav}
-                  >
-                    {isNavVisible ? (
-                      <svg width="23" height="23" viewBox="0 0 23 23">
-                        <path d="M1 1L22 22" stroke="currentColor" strokeWidth="1.5"></path>
-                        <path d="M22 1L1 22" stroke="currentColor" strokeWidth="1.5"></path>
-                      </svg>
-                    ) : (
-                      <svg width="23" height="23" viewBox="0 0 23 23">
-                        <rect width="23" height="1" fill="currentColor"></rect>
-                        <rect y="11" width="23" height="1" fill="currentColor"></rect>
-                        <rect y="22" width="23" height="1" fill="currentColor"></rect>
-                      </svg>
-                    )}
-                  </button>
-                </li>
-              </ul>
             </div>
           </div>
         </div>

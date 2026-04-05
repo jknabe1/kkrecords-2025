@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { LayoutBody } from "@/app/layout-body";
+import Footer from "@/components/Global/Footer/Footer";
+import LenisScrollProvider from "@/providers/lenis-providers";
+import Header from '@/components/Global/Header/Header'
+import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 export const dynamic = 'force-dynamic'; // Force revalidation on every request
 
@@ -79,9 +83,13 @@ export default function RootLayout({ children,}: Readonly<{children: React.React
         />
       </head>
       <body className="antialiased">
-        <LayoutBody>
-          {children}
-        </LayoutBody>
+        <Header />
+      <LenisScrollProvider>
+        {children}
+        <SpeedInsights />
+        <Analytics />
+      </LenisScrollProvider>
+      <Footer />
       </body>
     </html>
   );
