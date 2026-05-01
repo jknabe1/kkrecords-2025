@@ -5,6 +5,7 @@ import { BookIcon } from '@sanity/icons'
  * About Schema Type
  * Represents "About Us" and similar informational pages.
  * Similar to news but designed for company/organization information.
+ * Supports internationalized fields (EN/SV).
  */
 export const aboutType = defineType({
   name: 'about',
@@ -21,14 +22,14 @@ export const aboutType = defineType({
     // --- Basic Information ---
     defineField({
       name: 'name',
-      type: 'string',
+      type: 'internationalizedArrayString',
       title: 'Title',
       group: 'details',
     }),
 
     defineField({
       name: 'slug',
-      type: 'slug',
+      type: 'internationalizedArraySlug',
       title: 'Slug',
       options: { source: 'name' },
       group: 'details',
@@ -62,7 +63,7 @@ export const aboutType = defineType({
     // --- Editorial Content ---
     defineField({
       name: 'excerpt',
-      type: 'string',
+      type: 'internationalizedArrayString',
       title: 'Excerpt',
       description: 'Short summary of the page content',
       group: 'editorial',
@@ -111,9 +112,8 @@ export const aboutType = defineType({
 
     defineField({
       name: 'details',
-      type: 'array',
+      type: 'internationalizedArrayPortableText',
       title: 'Main Content',
-      of: [{ type: 'block' }],
       group: 'editorial',
     }),
 
@@ -130,14 +130,13 @@ export const aboutType = defineType({
           fields: [
             {
               name: 'sectionTitle',
-              type: 'string',
+              type: 'internationalizedArrayString',
               title: 'Section Title',
             },
             {
               name: 'sectionContent',
-              type: 'array',
+              type: 'internationalizedArrayPortableText',
               title: 'Section Content',
-              of: [{ type: 'block' }],
             },
           ],
         },

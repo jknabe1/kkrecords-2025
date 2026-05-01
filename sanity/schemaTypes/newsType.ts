@@ -5,6 +5,7 @@ import { BookIcon } from '@sanity/icons'
  * News Schema Type
  * Represents news articles, releases, and announcements.
  * Includes featured content, categories, and tagging system.
+ * Supports internationalized fields (EN/SV) using the internationalized-array plugin.
  */
 export const newsType = defineType({
   name: 'news',
@@ -21,14 +22,14 @@ export const newsType = defineType({
     // --- Basic Information ---
     defineField({
       name: 'name',
-      type: 'string',
+      type: 'internationalizedArrayString',
       title: 'Title',
       group: 'details',
     }),
 
     defineField({
       name: 'slug',
-      type: 'slug',
+      type: 'internationalizedArraySlug',
       title: 'Slug',
       options: { source: 'name' },
       group: 'details',
@@ -91,7 +92,7 @@ export const newsType = defineType({
     // --- Editorial Content ---
     defineField({
       name: 'excerpt',
-      type: 'string',
+      type: 'internationalizedArrayString',
       title: 'Excerpt',
       description: 'Short summary of the news item',
       group: 'editorial',
@@ -140,9 +141,8 @@ export const newsType = defineType({
 
     defineField({
       name: 'details',
-      type: 'array',
+      type: 'internationalizedArrayPortableText',
       title: 'Article Content',
-      of: [{ type: 'block' }],
       group: 'editorial',
     }),
   ],

@@ -6,6 +6,7 @@ import { DoorsOpenInput } from './components/DoorsOpenInput'
  * Event Schema Type
  * Represents events (concerts, festivals, workshops, etc.)
  * with support for in-person, virtual, and hybrid events.
+ * Supports internationalized fields (EN/SV) for name, descriptions, etc.
  */
 export const eventType = defineType({
   name: 'event',
@@ -22,14 +23,14 @@ export const eventType = defineType({
     // --- Basic Information ---
     defineField({
       name: 'name',
-      type: 'string',
+      type: 'internationalizedArrayString',
       title: 'Event Name',
       group: 'details',
     }),
 
     defineField({
       name: 'slug',
-      type: 'slug',
+      type: 'internationalizedArraySlug',
       title: 'Slug',
       options: { source: 'name' },
       group: 'details',
@@ -164,7 +165,7 @@ export const eventType = defineType({
 
     defineField({
       name: 'specialGuests',
-      type: 'string',
+      type: 'internationalizedArrayString',
       title: 'Special Guests',
       description: 'Additional guest performers or DJs (as text)',
       group: 'details',
@@ -181,7 +182,7 @@ export const eventType = defineType({
 
     defineField({
       name: 'ticketPrice',
-      type: 'string',
+      type: 'internationalizedArrayString',
       title: 'Ticket Price',
       description: 'Price range or specific price (e.g., "150 SEK" or "Free")',
       group: 'details',
@@ -229,23 +230,17 @@ export const eventType = defineType({
 
     defineField({
       name: 'shortDescription',
-      type: 'text',
+      type: 'internationalizedArrayText',
       title: 'Short Description',
       description: 'A brief overview of the event (used in listings and SEO)',
-      rows: 3,
-      validation: (rule) =>
-        rule
-          .max(300)
-          .warning('Keep short descriptions under 300 characters'),
       group: 'editorial',
     }),
 
     defineField({
       name: 'details',
-      type: 'array',
+      type: 'internationalizedArrayPortableText',
       title: 'Full Description',
       description: 'Detailed event information',
-      of: [{ type: 'block' }],
       group: 'editorial',
     }),
   ],

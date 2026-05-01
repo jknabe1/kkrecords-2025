@@ -1,6 +1,10 @@
 import {defineField, defineType} from 'sanity'
 import {OkHandIcon} from '@sanity/icons'
 
+/**
+ * Team Schema Type
+ * Represents team members with multilingual support.
+ */
 export const teamType = defineType({
   name: 'team',
   title: 'Medarbetare',
@@ -8,22 +12,25 @@ export const teamType = defineType({
   icon: OkHandIcon,
 
   fields: [
-    defineField(
-      {
+    defineField({
       name: 'name',
-      type: 'string',
+      type: 'internationalizedArrayString',
+      title: 'Name',
     }),
     defineField({
       name: 'image',
       type: 'image',
+      title: 'Image',
     }),
     defineField({
-        name: 'email',
-        type: 'string',
-      }),
+      name: 'email',
+      type: 'string',
+      title: 'Email',
+    }),
     defineField({
       name: 'roll',
-      type: 'string',
+      type: 'internationalizedArrayString',
+      title: 'Role',
     }),
   ],
 })
