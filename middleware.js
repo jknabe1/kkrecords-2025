@@ -1,15 +1,15 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { SUPPORTED_LANGUAGES, isValidLanguage, DEFAULT_LANGUAGE } from '@/lib/languages';
+import { NextResponse } from 'next/server';
 
-/**
- * Middleware to handle language routing
- * - Redirects root to /en or /sv
- * - Validates language in URL
- * - Handles language detection from Accept-Language header
- */
-export function middleware(request: NextRequest) {
+const SUPPORTED_LANGUAGES = ['en', 'sv'];
+const DEFAULT_LANGUAGE = 'en';
+
+function isValidLanguage(lang) {
+  return SUPPORTED_LANGUAGES.includes(lang);
+}
+
+export function middleware(request) {
   const pathname = request.nextUrl.pathname;
-
+  
   // Extract language from pathname
   const segments = pathname.split('/').filter(Boolean);
   const firstSegment = segments[0];
@@ -22,11 +22,10 @@ export function middleware(request: NextRequest) {
   // Check if first segment is a valid language
   if (!isValidLanguage(firstSegment)) {
     // If not a language, try to detect from Accept-Language header
-    const acceptLanguage = request.headers.get('accept-language');
+    const acceptLanguage = request.headers.get('accept-language') || '';
     let detectedLanguage = DEFAULT_LANGUAGE;
 
     if (acceptLanguage) {
-      // Parse accept-language header
       for (const lang of SUPPORTED_LANGUAGES) {
         if (acceptLanguage.includes(lang)) {
           detectedLanguage = lang;
@@ -41,20 +40,11 @@ export function middleware(request: NextRequest) {
     );
   }
 
-  // Language is valid, allow the request to proceed
   return NextResponse.next();
 }
 
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - studio (Sanity studio)
-     */
     '/((?!api|_next/static|_next/image|favicon.ico|studio).*)',
   ],
 };
