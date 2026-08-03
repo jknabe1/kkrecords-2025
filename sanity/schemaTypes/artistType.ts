@@ -47,6 +47,25 @@ export const artistType = defineType({
       of: [{ type: 'block' }],
     }),
 
+    // --- Social Links ---
+    defineField({
+      name: 'Facebook',
+      type: 'url',
+      title: 'Facebook',
+    }),
+
+    defineField({
+      name: 'Instagram',
+      type: 'url',
+      title: 'Instagram',
+    }),
+
+    defineField({
+      name: 'spotify',
+      type: 'url',
+      title: 'Spotify',
+    }),
+
     // --- Relations ---
     defineField({
       name: 'Events',
@@ -56,3 +75,5 @@ export const artistType = defineType({
     }),
   ],
 })
+
+

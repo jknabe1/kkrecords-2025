@@ -62,13 +62,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const description = artist.Biography?.map(block => block.children?.map(child => child.text).join(' ')).join(' ').slice(0, 160) || `${artist.name} - Artist hos K&K Records`;
 
   return {
-    title: `${artist.name}| K&K RECORDS`,
+    title: `${artist.name} | K&K RECORDS`,
     description,
     alternates: {
       canonical: `https://kkrecords.se/artists/${artist.currentSlug}`,
     },
     openGraph: {
-      title: `${artist.name} - K&K Records`,
+      title: `${artist.name} | K&K Records`,
       description,
       url: `https://kkrecords.se/artists/${artist.currentSlug}`,
       siteName: "K&K Records",
@@ -78,7 +78,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${artist.name} - K&K Records`,
+      title: `${artist.name} | K&K Records`,
       description,
       images: artist.image ? [{ url: urlFor(artist.image).url() }] : [],
     },
