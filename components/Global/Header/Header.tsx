@@ -4,6 +4,7 @@ import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { LanguageSwitcher } from "@/components/Global/LanguageSwitcher"
 
 const Header = () => {
   const [isNavVisible, setIsNavVisible] = useState(false)
@@ -126,7 +127,10 @@ const Header = () => {
               </Link>
             </div>
             <div className="col-span-8 lg:col-span-4">
-              <ul className="flex justify-end items-center lg:items-end">
+              <ul className="flex justify-end items-center lg:items-end gap-2">
+                <li className="hidden lg:block">
+                  <LanguageSwitcher />
+                </li>
                 <li>
                   <button className="block px-[7px]" aria-label="Open Search" onClick={toggleSearch}>
                     <div className="h-[70px] flex flex-col justify-center hidden lg:flex">

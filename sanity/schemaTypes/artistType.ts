@@ -4,6 +4,7 @@ import { defineField, defineType } from 'sanity'
  * Artist Schema Type
  * Represents artists, performers, and musicians.
  * Referenced by events and other content types.
+ * Supports internationalized bios (EN/SV).
  */
 export const artistType = defineType({
   name: 'artist',
@@ -14,13 +15,13 @@ export const artistType = defineType({
     // --- Basic Information ---
     defineField({
       name: 'name',
-      type: 'string',
+      type: 'internationalizedArrayString',
       title: 'Artist Name',
     }),
 
     defineField({
       name: 'slug',
-      type: 'slug',
+      type: 'internationalizedArraySlug',
       title: 'Slug',
       options: { source: 'name' },
       validation: (rule) =>
@@ -42,9 +43,8 @@ export const artistType = defineType({
     // --- Content ---
     defineField({
       name: 'Biography',
-      type: 'array',
+      type: 'internationalizedArrayPortableText',
       title: 'Biography',
-      of: [{ type: 'block' }],
     }),
 
     // --- Social Links ---
